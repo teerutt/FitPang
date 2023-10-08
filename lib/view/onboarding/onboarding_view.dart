@@ -1,5 +1,7 @@
 import 'package:fitpang/common_widget/onboarding_page.dart';
+import 'package:fitpang/view/login/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
+
 import '../../common/color_extension.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -15,7 +17,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     controller.addListener(() {
@@ -58,7 +59,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: TColor.black,
+      backgroundColor: TColor.white,
       body: Stack(
         alignment: Alignment.bottomRight,
         children: [
@@ -79,9 +80,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
                 SizedBox(
                   width: 70,
-                  height: 70,
+                  height: 70, 
                   child: CircularProgressIndicator(
-                    color: TColor.primaryColor1,
+                    color: const Color.fromARGB(255, 241, 179, 73),
                     value: (selectPage + 1) / 4 ,
                     strokeWidth: 2,
                   ),
@@ -91,14 +92,20 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   width: 60,
                   height: 60,
-                  decoration: BoxDecoration(color: TColor.primaryColor1, borderRadius: BorderRadius.circular(35)),
-                  child: IconButton(icon: Icon( Icons.navigate_next, color: TColor.black, ), onPressed: (){
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: TColor.primaryG,
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                  borderRadius: BorderRadius.circular(35),),
+                  child: IconButton(icon: Icon( Icons.navigate_next, color: TColor.white, ), onPressed: (){
           
                       if(selectPage < 3) {
           
                          selectPage = selectPage + 1;
 
-                        // controller.animateToPage(selectPage, duration: const Duration(milliseconds: 600), curve: Curves.bounceInOut);
+                        // controller.animateToPage(selectPage, duration: const Duration(milliseconds: 300), curve: Curves.bounceInOut);
                         
                         controller.jumpToPage(selectPage);
                         
@@ -106,10 +113,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                             
                           });
           
-                      }else{
+                      }
+                      else {
                         // Open Welcome Screen
-                        print("Open Welcome Screen");
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpView() ));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const WhatYourGoalView() ));
                       }
                       
                   },),

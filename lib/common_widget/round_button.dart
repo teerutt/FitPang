@@ -46,11 +46,11 @@ class RoundButton extends StatelessWidget {
         elevation: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient ? 0 : elevation,
         color: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient
             ? Colors.transparent
-            : TColor.black,
+            : TColor.white,
         child: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient 
             ? Text(title,
                 style: TextStyle(
-                    color: TColor.black,
+                    color: TColor.white,
                     fontSize: fontSize,
                     fontWeight: fontWeight))
             : ShaderMask(

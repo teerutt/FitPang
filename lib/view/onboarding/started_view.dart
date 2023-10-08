@@ -1,8 +1,8 @@
-import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/view/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widget/round_button.dart';
+import 'package:fitpang/common/color_extension.dart';
 
 class StartedView extends StatefulWidget {
   const StartedView({super.key});
@@ -16,11 +16,11 @@ class _StartedViewState extends State<StartedView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: TColor.black,
+      backgroundColor: TColor.white,
       body: Container(
           width: media.width,
           decoration: BoxDecoration(
-            color: TColor.black
+            color: TColor.white
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -28,11 +28,11 @@ class _StartedViewState extends State<StartedView> {
               const Spacer(),
               RichText(
                 text: TextSpan(
-                  children: <TextSpan>[
+                  children: [
                     TextSpan(
                       text: "Fitpan",
                       style: TextStyle(
-                        color: TColor.white,
+                        color: TColor.black,
                         fontSize: 36,
                         fontWeight: FontWeight.w700,
                       ),
@@ -40,8 +40,8 @@ class _StartedViewState extends State<StartedView> {
                     TextSpan(
                       text: "G",
                       style: TextStyle(
-                        color: TColor.primaryColor1,
-                        fontSize: 36,
+                        color: Color.fromARGB(255, 241, 135, 73),
+                        fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -51,14 +51,14 @@ class _StartedViewState extends State<StartedView> {
               Text(
                 "Everybody Can do it",
                 style: TextStyle(
-                  color: TColor.white,
+                  color: TColor.gray,
                   fontSize: 18,
                 ),
               ),
               const Spacer(),
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
                   child: RoundButton(
                     title: "Get Started",
                     onPressed: () {

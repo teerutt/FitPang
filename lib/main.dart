@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'common/color_extension.dart';
-import 'package:fitpang/view/onboarding/onboarding_view.dart';
 import 'package:fitpang/view/onboarding/started_view.dart';
+
+import 'common/color_extension.dart';
 
 void main() {
   runApp(const MyApp());
