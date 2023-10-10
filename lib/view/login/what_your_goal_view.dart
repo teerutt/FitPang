@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/color_extension.dart';
-import '../../common_widget/round_button.dart';
+import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/common_widget/round_button.dart';
 
 class WhatYourGoalView extends StatefulWidget {
   const WhatYourGoalView({super.key});

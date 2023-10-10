@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../common/color_extension.dart';
+import 'package:fitpang/common/color_extension.dart';
 
 class RoundTextField extends StatelessWidget {
   final TextEditingController? controller;

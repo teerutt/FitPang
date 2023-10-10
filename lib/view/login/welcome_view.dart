@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../common/color_extension.dart';
-import '../../common_widget/round_button.dart';
-import '../maintab/maintab_view.dart';
+import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/common_widget/round_button.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
@@ -54,10 +54,10 @@ class _WelcomeViewState extends State<WelcomeView> {
                RoundButton(
                   title: "Go To Home",
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const MainTabView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainTabView()));
                   }),
                
             ],

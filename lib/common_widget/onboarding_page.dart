@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../common/color_extension.dart';
+import 'package:fitpang/common/color_extension.dart';
 
 class OnBoardingPage extends StatelessWidget {
   final Map pObj;

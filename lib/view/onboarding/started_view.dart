@@ -1,7 +1,7 @@
 import 'package:fitpang/view/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common_widget/round_button.dart';
+import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 class StartedView extends StatefulWidget {
@@ -40,7 +40,14 @@ class _StartedViewState extends State<StartedView> {
                     TextSpan(
                       text: "G",
                       style: TextStyle(
-                        color: Color.fromARGB(255, 241, 135, 73),
+                         foreground: Paint()
+                          ..shader = LinearGradient(
+                              colors: TColor.primaryG, 
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                          ).createShader(
+                            Rect.fromLTWH(0.0, 0.0, 100.0, 48.0),
+                          ),
                         fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),

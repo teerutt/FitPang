@@ -2,7 +2,7 @@ import 'package:fitpang/common_widget/onboarding_page.dart';
 import 'package:fitpang/view/login/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/color_extension.dart';
+import 'package:fitpang/common/color_extension.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
