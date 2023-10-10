@@ -1,5 +1,6 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
+import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -78,6 +79,12 @@ class _MainTabViewState extends State<MainTabView> {
                   if (mounted) {
                     setState(() {});
                   }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GenderView()
+                    )
+                  );
                 }
               ),
             ],

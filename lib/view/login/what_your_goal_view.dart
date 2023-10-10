@@ -36,22 +36,24 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
-          child: Stack(
-        children: [
-          Center(
-            child: CarouselSlider(
-              items: goalArr
+        child: Stack(
+          children: [
+            Center(
+              child: CarouselSlider(
+                items: goalArr
                   .map(
                     (gObj) => Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                            colors: TColor.primaryG,
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight),
+                          colors: TColor.primaryG,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight
+                        ),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       padding: EdgeInsets.symmetric(
-                          vertical: media.width * 0.1, horizontal: 25),
+                        vertical: media.width * 0.1, horizontal: 25
+                      ),
                       alignment: Alignment.center,
                       child: FittedBox(
                         child: Column(
@@ -67,9 +69,10 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                             Text(
                               gObj["title"].toString(),
                               style: TextStyle(
-                                  color: TColor.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700),
+                                color: TColor.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700
+                              ),
                             ),
                             Container(
                               width: media.width * 0.1,
@@ -83,61 +86,66 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                               gObj["subtitle"].toString(),
                               textAlign: TextAlign.center,
                               style:
-                                  TextStyle(color: TColor.white, fontSize: 12),
+                                TextStyle(color: TColor.white, fontSize: 12),
                             ),
                           ],
                         ),
                       ),
                     ),
                   )
-                  .toList(),
-              carouselController: buttonCarouselController,
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: true,
-                viewportFraction: 0.7,
-                aspectRatio: 0.74,
-                initialPage: 0,
+                .toList(),
+                carouselController: buttonCarouselController,
+                options: CarouselOptions(
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.7,
+                  aspectRatio: 0.74,
+                  initialPage: 0,
+                ),
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            width: media.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: media.width * 0.05,
-                ),
-                Text(
-                  "What is your goal ?",
-                  style: TextStyle(
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              width: media.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: media.width * 0.05,
+                  ),
+                  Text(
+                    "What is your goal ?",
+                    style: TextStyle(
                       color: TColor.black,
                       fontSize: 20,
-                      fontWeight: FontWeight.w700),
-                ),
-                Text(
-                  "It will help us to choose a best\nprogram for you",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: TColor.gray, fontSize: 12),
-                ),
-                const Spacer(),
-                SizedBox(
-                  height: media.width * 0.05,
-                ),
-                RoundButton(
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  Text(
+                    "It will help us to choose a best\nprogram for you",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: TColor.gray, fontSize: 12),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    height: media.width * 0.05,
+                  ),
+                  RoundButton(
                     title: "Confirm",
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WelcomeView()));
-                    }),
-              ],
-            ),
-          )
-        ],
-      )),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomeView()
+                        )
+                      );
+                    }
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

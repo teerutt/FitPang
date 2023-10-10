@@ -46,7 +46,7 @@ class _StartedViewState extends State<StartedView> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                           ).createShader(
-                            Rect.fromLTWH(0.0, 0.0, 100.0, 48.0),
+                            const Rect.fromLTWH(0.0, 0.0, 100.0, 48.0),
                           ),
                         fontSize: 48,
                         fontWeight: FontWeight.w700,
