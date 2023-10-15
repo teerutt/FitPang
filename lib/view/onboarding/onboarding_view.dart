@@ -1,5 +1,5 @@
 import 'package:fitpang/common_widget/onboarding_page.dart';
-import 'package:fitpang/view/login/what_your_goal_view.dart';
+import 'package:fitpang/view/login/signup_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
@@ -103,20 +103,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           
                       if(selectPage < 3) {
           
-                         selectPage = selectPage + 1;
+                        selectPage = selectPage + 1;
 
-                        // controller.animateToPage(selectPage, duration: const Duration(milliseconds: 300), curve: Curves.bounceInOut);
                         
                         controller.jumpToPage(selectPage);
                         
-                          setState(() {
-                            
-                          });
+                        setState(() {
+                          
+                        });
           
                       }
                       else {
                         // Open Welcome Screen
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const WhatYourGoalView() ));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpView() ));
                       }
                       
                   },),

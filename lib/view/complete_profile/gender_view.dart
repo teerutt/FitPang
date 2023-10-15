@@ -34,7 +34,6 @@ class _GenderViewState extends State<GenderView> {
                     isActive: selectTab == 0,
                     onTap: () {
                       selectTab = 0;
-                      // currentTab = const HomeView();
                       if (mounted) {
                         setState(() {});
                       }
@@ -50,7 +49,6 @@ class _GenderViewState extends State<GenderView> {
                     isActive: selectTab == 1,
                     onTap: () {
                       selectTab = 1;
-                      // currentTab = const InsightView();
                       if (mounted) {
                         setState(() {});
                       }
