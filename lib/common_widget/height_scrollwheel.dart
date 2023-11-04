@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
-class AgeScrollWheel extends StatefulWidget {
-  const AgeScrollWheel({Key? key}) : super(key: key);
+class HeightScrollwhell extends StatefulWidget {
+  const HeightScrollwhell({Key? key}) : super(key: key);
 
   @override
-  State<AgeScrollWheel> createState() => _AgeScrollWheelState();
+  State<HeightScrollwhell> createState() => _HeightScrollwhellState();
 }
 
-class _AgeScrollWheelState extends State<AgeScrollWheel> {
+class _HeightScrollwhellState extends State<HeightScrollwhell> {
   late FixedExtentScrollController _controller;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 10);
+    // Set the initialItem to 100
+    _controller = FixedExtentScrollController(initialItem: 130);
     _controller.addListener(_handleScrollChange);
   }
 
@@ -49,7 +50,7 @@ class _AgeScrollWheelState extends State<AgeScrollWheel> {
               diameterRatio: 1.2,
               physics: const FixedExtentScrollPhysics(),
               childDelegate: ListWheelChildBuilderDelegate(
-                  childCount: 100,
+                  childCount: 199, // Adjust the count as needed
                   builder: (context, index) {
                     bool isSelected = index == _controller.selectedItem;
                     Color textColor =

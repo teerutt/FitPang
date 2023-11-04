@@ -1,18 +1,18 @@
-import 'package:fitpang/view/complete_profile/height_view.dart';
+import 'package:fitpang/common_widget/height_scrollwheel.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/common_widget/age_scrollwheel.dart';
+import 'package:fitpang/view/login/welcome_view.dart';
 
-class AgeView extends StatefulWidget {
-  const AgeView({super.key});
+class HeightView extends StatefulWidget {
+  const HeightView({super.key});
 
   @override
-  State<AgeView> createState() => _AgeViewState();
+  State<HeightView> createState() => _HeightViewState();
 }
 
-class _AgeViewState extends State<AgeView> {
+class _HeightViewState extends State<HeightView> {
   int selectTab = 0;
 
   @override
@@ -24,7 +24,7 @@ class _AgeViewState extends State<AgeView> {
         child: Stack(
           children: [
             const Center(
-              child: AgeScrollWheel(),
+              child: HeightScrollwhell(),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -35,7 +35,7 @@ class _AgeViewState extends State<AgeView> {
                     height: media.width * 0.05,
                   ),
                   Text(
-                    "How old are you ?",
+                    "What's your height ?",
                     style: TextStyle(
                         color: TColor.black,
                         fontSize: 20,
@@ -66,7 +66,7 @@ class _AgeViewState extends State<AgeView> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HeightView()),
+                              builder: (context) => const WelcomeView()),
                         );
                       }),
                 ],
