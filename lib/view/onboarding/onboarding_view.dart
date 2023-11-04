@@ -3,6 +3,7 @@ import 'package:fitpang/view/login/signup_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/common_widget/gradient_circular.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -77,17 +78,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-
                 SizedBox(
-                  width: 70,
-                  height: 70, 
-                  child: CircularProgressIndicator(
-                    color: const Color.fromARGB(255, 241, 179, 73),
-                    value: (selectPage + 1) / 4 ,
-                    strokeWidth: 2,
+                  child: GradientCircularProgressIndicator(
+                    radius: 36,
+                    gradient: LinearGradient(
+                      colors: TColor.primaryG,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    value: (selectPage + 1) / 4,
+                    strokeWidth: 2.2,
+                    backgroundColor: TColor.lightenGray,
                   ),
                 ),
-
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   width: 60,

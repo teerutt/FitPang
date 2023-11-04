@@ -17,4 +17,5 @@ class TColor {
   static Color get midGray => const Color(0xffADA4A5);
   static Color get lightGray => const Color(0xffDDDADA);
   static Color get lightenGray => const Color(0xffF7F8F8);
+  static Color get red => const Color(0xffFF3131);
 }
