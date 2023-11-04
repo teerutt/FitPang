@@ -175,6 +175,49 @@ class _ProfileViewState extends State<ProfileView> {
                       },
                       itemBuilder: (context, index) {
                         var iObj = accountArr[index] as Map? ?? {};
+                        // void navigateToSettingPage() {
+                        //   switch (iObj["tag"]) {
+                        //     case "1":
+                        //       // Navigate to the Edit Profile page
+                        //       Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //           builder: (context) => BlankView(),
+                        //         ),
+                        //       );
+                        //       break;
+                        //     // case "2":
+                        //     //   // Navigate to the Personal Plan page
+                        //     //   Navigator.push(
+                        //     //     context,
+                        //     //     MaterialPageRoute(
+                        //     //       builder: (context) => PersonalPlanPage(),
+                        //     //     ),
+                        //     //   );
+                        //     //   break;
+                        //     // case "3":
+                        //     //   // Navigate to the Privacy Policy page
+                        //     //   Navigator.push(
+                        //     //     context,
+                        //     //     MaterialPageRoute(
+                        //     //       builder: (context) => PrivacyPolicyPage(),
+                        //     //     ),
+                        //     //   );
+                        //     //   break;
+                        //     // case "4":
+                        //     //   // Navigate to the Settings page
+                        //     //   Navigator.push(
+                        //     //     context,
+                        //     //     MaterialPageRoute(
+                        //     //       builder: (context) => SettingsPage(),
+                        //     //     ),
+                        //     //   );
+                        //     //   break;
+                        //     // default:
+                        //     //   // Handle other cases or do nothing
+                        //     //   break;
+                        //   }
+                        // }
                         return SettingRow(
                           icon: iObj["image"].toString(),
                           title: iObj["name"].toString(),
@@ -186,6 +229,7 @@ class _ProfileViewState extends State<ProfileView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
+<<<<<<< HEAD
                     const SizedBox(
                       height: 5,
                     ),
@@ -313,6 +357,133 @@ class _ProfileViewState extends State<ProfileView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
+=======
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    // Container(
+                    //   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    //   decoration: BoxDecoration(
+                    //       color: TColor.gray,
+                    //       borderRadius: BorderRadius.circular(15),
+                    //       boxShadow: const [
+                    //         BoxShadow(color: Colors.black12, blurRadius: 2)
+                    //       ]),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       Expanded(
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             Container(
+                    //               padding:
+                    //                 const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    //               decoration: BoxDecoration(
+                    //                 color: TColor.red,
+                    //                 borderRadius: BorderRadius.circular(7),
+                    //                 boxShadow: const [
+                    //                   BoxShadow(color: Colors.black12, blurRadius: 2)
+                    //                 ]
+                    //               ),
+                    //               child: Text(
+                    //                 "PRO",
+                    //                 style: TextStyle(
+                    //                   color: TColor.white,
+                    //                   fontSize: 10,
+                    //                   fontWeight: FontWeight.w700,
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             Text(
+                    //               "Upgrade to Pro",
+                    //               style: TextStyle(
+                    //                 color: TColor.white,
+                    //                 fontSize: 16,
+                    //                 fontWeight: FontWeight.w700,
+                    //               ),
+                    //             ),
+                    //             Text(
+                    //               "This subscription is auto-renewable",
+                    //               style: TextStyle(
+                    //                 color: TColor.white,
+                    //                 fontSize: 12,
+                    //                 fontWeight: FontWeight.w400,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       CustomAnimatedToggleSwitch<bool>(
+                    //         current: positive,
+                    //         values: const [false, true],
+                    //         // dif: 0.0,
+                    //         indicatorSize: const Size.square(30.0),
+                    //         animationDuration:
+                    //             const Duration(milliseconds: 200),
+                    //         animationCurve: Curves.linear,
+                    //         onChanged: (b) => setState(() => positive = b),
+                    //         iconBuilder: (context, local, global) {
+                    //           return const SizedBox();
+                    //         },
+                    //         cursors: const ToggleCursors(defaultCursor: SystemMouseCursors.click),
+                    //         onTap: (_) => setState(() => positive = !positive),
+                    //         iconsTappable: false,
+                    //         wrapperBuilder: (context, global, child) {
+                    //           return Stack(
+                    //             alignment: Alignment.center,
+                    //             children: [
+                    //               Positioned(
+                    //                 left: 10.0,
+                    //                 right: 10.0,
+                    //                 height: 30.0,
+                    //                 child: DecoratedBox(
+                    //                   decoration: BoxDecoration(
+                    //                     gradient: positive
+                    //                     ? LinearGradient(colors: TColor.primaryG)
+                    //                     : null,
+                    //                     color: TColor.midGray,
+                    //                     borderRadius:
+                    //                         const BorderRadius.all(
+                    //                             Radius.circular(50.0)),
+                    //                   ),
+                    //                 )
+                    //               ),
+                    //               child,
+                    //             ],
+                    //           );
+                    //         },
+                    //         foregroundIndicatorBuilder: (context, global) {
+                    //           return SizedBox.fromSize(
+                    //             size: const Size(10, 10),
+                    //             child: DecoratedBox(
+                    //               decoration: BoxDecoration(
+                    //                 color: TColor.white,
+                    //                 borderRadius: const BorderRadius.all(
+                    //                   Radius.circular(50.0)),
+                    //                 boxShadow: const [
+                    //                   BoxShadow(
+                    //                     color: Colors.black38,
+                    //                     spreadRadius: 0.05,
+                    //                     blurRadius: 1.1,
+                    //                     offset: Offset(0.0, 0.8))
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           );
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    // Divider(
+                    //   color: TColor.black,
+                    //   thickness: 1.5,
+                    // ),
+>>>>>>> 64642b85a4c7940d09b3932513b19cfe0be48d08
                     const SizedBox(
                       height: 10,
                     ),
@@ -328,10 +499,12 @@ class _ProfileViewState extends State<ProfileView> {
                       },
                       itemBuilder: (context, index) {
                         var iObj = signoutArr[index] as Map? ?? {};
+                        bool showArrowRight = iObj["tag"] != "5";
                         return SettingRow(
                           icon: iObj["image"].toString(),
                           title: iObj["name"].toString(),
                           onPressed: () {},
+                          showArrowRight: showArrowRight,
                         );
                       },
                     ),

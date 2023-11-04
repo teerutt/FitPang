@@ -6,7 +6,8 @@ class SettingRow extends StatelessWidget {
   final String icon;
   final String title;
   final VoidCallback onPressed;
-  const SettingRow({super.key, required this.icon, required this.title, required this.onPressed });
+  final bool showArrowRight;
+  const SettingRow({super.key, required this.icon, required this.title, required this.onPressed, this.showArrowRight = true });
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +36,13 @@ class SettingRow extends StatelessWidget {
                 ),
               ),
             ),
-            Image.asset(
-              "assets/img/arrowright.png",
-              height: 15, 
-              width: 15, 
-              fit: BoxFit.contain,
-            ),
+            if (showArrowRight)
+              Image.asset(
+                "assets/img/arrowright.png",
+                height: 15, 
+                width: 15, 
+                fit: BoxFit.contain,
+              ),
           ],
         ),
       ),
