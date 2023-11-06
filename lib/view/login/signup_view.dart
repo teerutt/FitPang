@@ -5,6 +5,7 @@ import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -14,8 +15,22 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   bool isCheck = false;
   bool isPasswordObscured = true;
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +65,27 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Firstname",
                   icon: "assets/img/user.png",
+                  controller: firstNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Lastname",
                   icon: "assets/img/user.png",
+                  controller: lastNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Email",
                   icon: "assets/img/email.png",
                   keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -103,6 +121,7 @@ class _SignUpViewState extends State<SignUpView> {
                         )
                     ),
                   ),
+                  controller: passwordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -137,6 +156,15 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 RoundButton(
                   title: "Register", onPressed: () {
+                    final user = User(
+                      //user_id: 7,
+                      email: emailController.text, 
+                      password: passwordController.text,
+                      f_name: firstNameController.text, 
+                      l_name: lastNameController.text, 
+                      DOB: "2000-01-01");
+                    
+                    insertUser(user);
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const GenderView()  ));
                   }
                 ),

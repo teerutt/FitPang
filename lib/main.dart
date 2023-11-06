@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/onboarding/started_view.dart';
-
+import 'package:fitpang/dbhelper.dart';
 import 'common/color_extension.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure WidgetsBinding is initialized
+  final dbHelper = DBhelper(); // Create an instance of your DBhelper
+
+  await dbHelper.initDB(); // Initialize the database before running the app
   runApp(const MyApp());
 }
 
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FilmPang',
+      title: 'FitPang',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
