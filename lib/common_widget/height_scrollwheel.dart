@@ -15,8 +15,7 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
   void initState() {
     super.initState();
 
-    // Set the initialItem to 100
-    _controller = FixedExtentScrollController(initialItem: 130);
+    _controller = FixedExtentScrollController(initialItem: 129);
     _controller.addListener(_handleScrollChange);
   }
 
@@ -50,7 +49,7 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
               diameterRatio: 1.2,
               physics: const FixedExtentScrollPhysics(),
               childDelegate: ListWheelChildBuilderDelegate(
-                  childCount: 199, // Adjust the count as needed
+                  childCount: 199,
                   builder: (context, index) {
                     bool isSelected = index == _controller.selectedItem;
                     Color textColor =
