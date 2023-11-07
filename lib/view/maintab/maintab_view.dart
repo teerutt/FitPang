@@ -1,6 +1,5 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
-import 'package:fitpang/view/home/blank_view.dart';
 import 'package:fitpang/view/profile/profile_view.dart';
 import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';

@@ -24,51 +24,68 @@ class _WeightViewState extends State<WeightView> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 2.0),
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: const Center(
                 child: WeightScrollWhell(),
               ),
             ),
-            const Positioned(
+            Positioned(
               bottom: 85, // Adjust the position as needed
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Text(
-                    "Current BMI (Normal)",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              left: 15,
+              right: 15,
+              child: ClipRRect(
+                // Wrap the container with ClipRRect
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  color: Colors.grey[400], // Set your desired background color
+                  // padding: EdgeInsets.all(20),
+                  child: Column(
                     children: [
+                      SizedBox(
+                        height: media.width * 0.02,
+                      ),
                       Text(
-                        "19.8",
+                        "Current BMI(Normal)",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(width: 20),
-                      Text(
-                        "You've got a great figure! \nKeep it up!",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "19.8",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            Flexible(
+                                child: Text(
+                              "You've got a great figure! Keep it up!",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ))
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
               width: media.width,
               child: Column(
                 children: [

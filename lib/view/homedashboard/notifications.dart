@@ -52,7 +52,7 @@ class _NotificationsState extends State<Notifications> {
                       colors: TColor.primaryG,
                     ), // Background color
                     borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)), // Border radius
+                        Radius.circular(20.0)), // Border radius
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),

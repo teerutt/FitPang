@@ -1,6 +1,7 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:fitpang/view/homedashboard/events.dart';
 
 class HomeHavePlan extends StatefulWidget {
   const HomeHavePlan({Key? key}) : super(key: key);
@@ -55,9 +56,10 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                 ),
                 const SizedBox(height: 15),
                 Container(
-                  width: 300,
-                  height: 150,
-                  decoration: const BoxDecoration(
+                  width: 330,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
                     image: DecorationImage(
                       image: AssetImage(
                         "assets/img/workoutplan.png",
@@ -113,11 +115,25 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text("See All",
+                        InkWell(
+                          onTap: () {
+                            // Navigate to the page you want when "See All" is tapped
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EventsView()), // Replace YourTargetPage with the actual page you want to navigate to
+                            );
+                          },
+                          child: Text(
+                            "See All",
                             style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange[700])),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange[700],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -125,9 +141,10 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                 // Add your container here
                 const SizedBox(height: 15),
                 Container(
-                  width: 300,
-                  height: 150,
-                  decoration: const BoxDecoration(
+                  width: 330,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
                     image: DecorationImage(
                       image: AssetImage(
                         "assets/img/muscle.png",
