@@ -4,6 +4,7 @@ import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/homedashboard/home_noplan.dart';
+import 'package:fitpang/view/homedashboard/home_haveplan.dart';
 
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
@@ -48,7 +49,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 1,
                   onTap: () {
                     selectTab = 1;
-                    // currentTab = const InsightView();
+                    currentTab = const HomeHavePlan();
                     if (mounted) {
                       setState(() {});
                     }
