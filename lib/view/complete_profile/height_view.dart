@@ -1,9 +1,9 @@
 import 'package:fitpang/common_widget/height_scrollwheel.dart';
+import 'package:fitpang/view/complete_profile/weight_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/login/welcome_view.dart';
 
 class HeightView extends StatefulWidget {
   const HeightView({super.key});
@@ -66,7 +66,7 @@ class _HeightViewState extends State<HeightView> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const WelcomeView()),
+                              builder: (context) => const WeightView()),
                         );
                       }),
                 ],

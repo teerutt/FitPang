@@ -15,7 +15,7 @@ class _AgeScrollWheelState extends State<AgeScrollWheel> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 10);
+    _controller = FixedExtentScrollController(initialItem: 11);
     _controller.addListener(_handleScrollChange);
   }
 

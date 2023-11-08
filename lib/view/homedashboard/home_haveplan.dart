@@ -1,18 +1,16 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:fitpang/common_widget/round_button_create.dart';
-import 'package:fitpang/view/complete_profile/age_view.dart';
 import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
 
-class HomeNoPlan extends StatefulWidget {
-  const HomeNoPlan({Key? key}) : super(key: key);
+class HomeHavePlan extends StatefulWidget {
+  const HomeHavePlan({Key? key}) : super(key: key);
 
   @override
-  State<HomeNoPlan> createState() => _HomeNoPlanState();
+  State<HomeHavePlan> createState() => _HomeHavePlanState();
 }
 
-class _HomeNoPlanState extends State<HomeNoPlan> {
+class _HomeHavePlanState extends State<HomeHavePlan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +24,7 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Welcome Back, \nKlaeng",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -42,16 +40,68 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
             ),
             Column(
               children: [
-                RoundButtonCreate(
-                  title: "+ Create Plan",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AgeView()),
-                    );
-                  },
+                const Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Today Workout Plan",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 15),
+                Container(
+                  width: 330,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/img/workoutplan.png",
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Day 01 - Warm Up",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "| 07:00 - 08:00 AM",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.orange[300],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Container(

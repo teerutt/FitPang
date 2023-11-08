@@ -51,8 +51,8 @@ class _NotificationsState extends State<Notifications> {
                     gradient: LinearGradient(
                       colors: TColor.primaryG,
                     ), // Background color
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(10.0)), // Border radius
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(20.0)), // Border radius
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),

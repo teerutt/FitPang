@@ -1,9 +1,10 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
-import 'package:fitpang/view/complete_profile/gender_view.dart';
+import 'package:fitpang/view/profile/profile_view.dart';
 import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/homedashboard/home_noplan.dart';
+import 'package:fitpang/view/homedashboard/home_haveplan.dart';
 
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
@@ -48,7 +49,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 1,
                   onTap: () {
                     selectTab = 1;
-                    // currentTab = const InsightView();
+                    currentTab = const HomeHavePlan();
                     if (mounted) {
                       setState(() {});
                     }
@@ -63,10 +64,6 @@ class _MainTabViewState extends State<MainTabView> {
                     if (mounted) {
                       setState(() {});
                     }
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Notifications()));
                   }),
               TabButton(
                   icon: "assets/img/profile_tab.png",
@@ -74,14 +71,10 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 3,
                   onTap: () {
                     selectTab = 3;
-                    // currentTab = const ProfileView();
+                    currentTab = const ProfileView();
                     if (mounted) {
                       setState(() {});
                     }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const GenderView()));
                   }),
             ],
           ),
