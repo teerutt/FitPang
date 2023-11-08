@@ -1,6 +1,6 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fitpang/view/login/signup_view.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
@@ -30,7 +30,7 @@ class _LoginViewState extends State<LoginView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: media.width * 0.05,
+                  height: media.width * 0.05,
                 ),
                 Text(
                   "Hey there,",
@@ -68,25 +68,24 @@ class _LoginViewState extends State<LoginView> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: isPasswordObscured
-                        ? Image.asset(
-                          "assets/img/hide_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                        : Image.asset(
-                          "assets/img/show_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                    ),
+                        alignment: Alignment.center,
+                        width: 20,
+                        height: 20,
+                        child: isPasswordObscured
+                            ? Image.asset(
+                                "assets/img/hide_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )
+                            : Image.asset(
+                                "assets/img/show_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )),
                   ),
                 ),
                 SizedBox(
@@ -98,10 +97,9 @@ class _LoginViewState extends State<LoginView> {
                     Text(
                       "Forgot your password?",
                       style: TextStyle(
-                        color: TColor.gray,
-                        fontSize: 10,
-                        decoration: TextDecoration.underline
-                      ),
+                          color: TColor.gray,
+                          fontSize: 10,
+                          decoration: TextDecoration.underline),
                     ),
                   ],
                 ),
@@ -109,15 +107,13 @@ class _LoginViewState extends State<LoginView> {
                   height: media.width * 0.5,
                 ),
                 RoundButton(
-                  title: "Login",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          const GenderView()));
-                  }
-                ),
+                    title: "Login",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GenderView()));
+                    }),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
@@ -214,10 +210,9 @@ class _LoginViewState extends State<LoginView> {
                       Text(
                         "Register",
                         style: TextStyle(
-                          color: TColor.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700
-                        ),
+                            color: TColor.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),

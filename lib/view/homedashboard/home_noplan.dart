@@ -25,7 +25,7 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Welcome Back, \nKlaeng",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
@@ -40,7 +40,7 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
             Column(
               children: [
                 const Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: EdgeInsets.all(30.0),
                   child: Row(
                     children: [
                       Text(

@@ -5,6 +5,7 @@ import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -14,8 +15,25 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpasswordController =
+      TextEditingController();
+
   bool isCheck = false;
   bool isPasswordObscured = true;
+  bool isConfirmPasswordObscured = true;
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: media.width * 0.05,
+                  height: media.width * 0.05,
                 ),
                 Text(
                   "Hey there,",
@@ -39,10 +57,9 @@ class _SignUpViewState extends State<SignUpView> {
                 Text(
                   "Create an Account",
                   style: TextStyle(
-                    color: TColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700
-                  ),
+                      color: TColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: media.width * 0.05,
@@ -50,24 +67,27 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Firstname",
                   icon: "assets/img/user.png",
+                  controller: firstNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Lastname",
                   icon: "assets/img/user.png",
+                  controller: lastNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Email",
                   icon: "assets/img/email.png",
                   keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -83,26 +103,61 @@ class _SignUpViewState extends State<SignUpView> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: isPasswordObscured
-                        ? Image.asset(
-                          "assets/img/hide_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                        : Image.asset(
-                          "assets/img/show_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                    ),
+                        alignment: Alignment.center,
+                        width: 20,
+                        height: 20,
+                        child: isPasswordObscured
+                            ? Image.asset(
+                                "assets/img/hide_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )
+                            : Image.asset(
+                                "assets/img/show_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )),
                   ),
+                  controller: passwordController,
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
+                RoundTextField(
+                  hintText: "Confirm Password",
+                  icon: "assets/img/lock.png",
+                  obscureText: isConfirmPasswordObscured,
+                  rightIcon: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        isConfirmPasswordObscured = !isConfirmPasswordObscured;
+                      });
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: 20,
+                        height: 20,
+                        child: isConfirmPasswordObscured
+                            ? Image.asset(
+                                "assets/img/hide_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )
+                            : Image.asset(
+                                "assets/img/show_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )),
+                  ),
+                  controller: confirmpasswordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -117,15 +172,15 @@ class _SignUpViewState extends State<SignUpView> {
                       },
                       icon: Icon(
                         isCheck
-                          ? Icons.check_box_outlined
-                          : Icons.check_box_outline_blank_outlined,
+                            ? Icons.check_box_outlined
+                            : Icons.check_box_outline_blank_outlined,
                         color: TColor.gray,
                         size: 20,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child:  Text(
+                      child: Text(
                         "By continuing you accept our Privacy Policy and\nTerm of Use",
                         style: TextStyle(color: TColor.gray, fontSize: 10),
                       ),
@@ -136,10 +191,32 @@ class _SignUpViewState extends State<SignUpView> {
                   height: media.width * 0.2,
                 ),
                 RoundButton(
-                  title: "Register", onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const GenderView()  ));
-                  }
-                ),
+                    title: "Register",
+                    onPressed: () {
+                      final user = User(
+                          //user_id: 7,
+
+                          email: emailController.text,
+                          password: passwordController.text,
+                          f_name: firstNameController.text,
+                          l_name: lastNameController.text,
+                          DOB: "2000-01-01");
+                      if (passwordController.text !=
+                          confirmpasswordController.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Password and Confirm Password do not match'),
+                          ),
+                        );
+                      } else {
+                        insertUser(user);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const GenderView()));
+                      }
+                    }),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
@@ -190,11 +267,9 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       width: media.width * 0.04,
                     ),
-
                     GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -224,9 +299,9 @@ class _SignUpViewState extends State<SignUpView> {
                 TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginView()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginView()));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

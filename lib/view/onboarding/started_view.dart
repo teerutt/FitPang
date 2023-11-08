@@ -19,9 +19,7 @@ class _StartedViewState extends State<StartedView> {
       backgroundColor: TColor.white,
       body: Container(
           width: media.width,
-          decoration: BoxDecoration(
-            color: TColor.white
-          ),
+          decoration: BoxDecoration(color: TColor.white),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -40,11 +38,11 @@ class _StartedViewState extends State<StartedView> {
                     TextSpan(
                       text: "G",
                       style: TextStyle(
-                         foreground: Paint()
+                        foreground: Paint()
                           ..shader = LinearGradient(
-                              colors: TColor.primaryG, 
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                            colors: TColor.primaryG,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ).createShader(
                             const Rect.fromLTWH(0.0, 0.0, 100.0, 48.0),
                           ),
@@ -65,16 +63,15 @@ class _StartedViewState extends State<StartedView> {
               const Spacer(),
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
                   child: RoundButton(
                     title: "Get Started",
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OnBoardingView()
-                        )
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OnBoardingView()));
                     },
                   ),
                 ),
