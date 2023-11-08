@@ -192,6 +192,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 color: TColor.gray,
                               )),
                   ),
+                  controller: passwordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
