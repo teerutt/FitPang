@@ -204,7 +204,7 @@ class _SignUpViewState extends State<SignUpView> {
                       if (passwordController.text !=
                           confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text(
                                 'Password and Confirm Password do not match'),
                           ),
