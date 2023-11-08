@@ -70,6 +70,13 @@ class User {
   }
 }
 
+Future<Database> opendb() async{
+  final dbpath = await getDatabasesPath();
+  final path = join(dbpath, "fitpang_DB.db");
+  final db = await openDatabase(path);
+  return db;
+}
+
 Future<void> insertUser(User user) async {
   final dbpath = await getDatabasesPath();
   final path = join(dbpath, "fitpang_DB.db");

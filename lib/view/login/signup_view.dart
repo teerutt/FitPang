@@ -192,7 +192,7 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 RoundButton(
                     title: "Register",
-                    onPressed: () {
+                    onPressed: () async {
                       final user = User(
                           //user_id: 7,
 
@@ -201,7 +201,18 @@ class _SignUpViewState extends State<SignUpView> {
                           f_name: firstNameController.text,
                           l_name: lastNameController.text,
                           DOB: "2000-01-01");
-                      if (passwordController.text !=
+
+                      final db = await opendb();
+                      final existing_email = await db.query('user_account',
+                          where: 'email=?', whereArgs: [user.email]);
+                      if (existing_email.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Email already exists in the database'),
+                          ),
+                        );
+                      } else if (passwordController.text !=
                           confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
