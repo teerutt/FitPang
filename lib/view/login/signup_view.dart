@@ -162,41 +162,6 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                RoundTextField(
-                  hintText: "Confirm Password",
-                  icon: "assets/img/lock.png",
-                  obscureText: isConfirmPasswordObscured,
-                  rightIcon: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isConfirmPasswordObscured = !isConfirmPasswordObscured;
-                      });
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: 20,
-                        height: 20,
-                        child: isConfirmPasswordObscured
-                            ? Image.asset(
-                                "assets/img/hide_password.png",
-                                width: 20,
-                                height: 20,
-                                fit: BoxFit.contain,
-                                color: TColor.gray,
-                              )
-                            : Image.asset(
-                                "assets/img/show_password.png",
-                                width: 20,
-                                height: 20,
-                                fit: BoxFit.contain,
-                                color: TColor.gray,
-                              )),
-                  ),
-                  controller: passwordController,
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
                 Row(
                   children: [
                     IconButton(
@@ -227,7 +192,7 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 RoundButton(
                     title: "Register",
-                    onPressed: () {
+                    onPressed: () async {
                       final user = User(
                           //user_id: 7,
 
@@ -236,7 +201,18 @@ class _SignUpViewState extends State<SignUpView> {
                           f_name: firstNameController.text,
                           l_name: lastNameController.text,
                           DOB: "2000-01-01");
-                      if (passwordController.text !=
+                          
+                      final db = await opendb();
+                      final existing_email = await db.query('user_account', where: 'email=?', whereArgs: [user.email]);
+                      if (existing_email.isNotEmpty)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Email already exists in the database'),
+                          ),
+                        );
+                      }
+                      else if (passwordController.text !=
                           confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
