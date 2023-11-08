@@ -112,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GenderView()));
+                              builder: (context) => const SignUpView()));
                     }),
                 SizedBox(
                   height: media.width * 0.04,

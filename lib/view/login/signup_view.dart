@@ -159,44 +159,9 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                   controller: confirmpasswordController,
                 ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                RoundTextField(
-                  hintText: "Confirm Password",
-                  icon: "assets/img/lock.png",
-                  obscureText: isConfirmPasswordObscured,
-                  rightIcon: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isConfirmPasswordObscured = !isConfirmPasswordObscured;
-                      });
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: 20,
-                        height: 20,
-                        child: isConfirmPasswordObscured
-                            ? Image.asset(
-                                "assets/img/hide_password.png",
-                                width: 20,
-                                height: 20,
-                                fit: BoxFit.contain,
-                                color: TColor.gray,
-                              )
-                            : Image.asset(
-                                "assets/img/show_password.png",
-                                width: 20,
-                                height: 20,
-                                fit: BoxFit.contain,
-                                color: TColor.gray,
-                              )),
-                  ),
-                  controller: passwordController,
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
                 Row(
                   children: [
                     IconButton(
