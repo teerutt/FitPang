@@ -23,8 +23,11 @@ class _AgeViewState extends State<AgeView> {
       body: SafeArea(
         child: Stack(
           children: [
-            const Center(
-              child: AgeScrollWheel(),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: AgeScrollWheel(),
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),

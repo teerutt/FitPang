@@ -109,6 +109,12 @@ class _LoginViewState extends State<LoginView> {
                   height: media.width * 0.5,
                 ),
                 RoundButton(
+                  icon: Image.asset(
+                    "assets/img/login.png",
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.contain,
+                  ),
                   title: "Login",
                   onPressed: () {
                     Navigator.push(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
-import 'package:intl/intl.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
