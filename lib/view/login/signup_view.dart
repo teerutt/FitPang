@@ -200,27 +200,40 @@ class _SignUpViewState extends State<SignUpView> {
                           password: passwordController.text,
                           f_name: firstNameController.text,
                           l_name: lastNameController.text,
-                          DOB: "2000-01-01");
+                          DOB: "2000-01-01"); //รอเพิ่ม
                           
                       final db = await opendb();
                       final existing_email = await db.query('user_account', where: 'email=?', whereArgs: [user.email]);
-                      if (existing_email.isNotEmpty)
+                      if (emailController.text.isEmpty || passwordController.text.isEmpty || firstNameController.text.isEmpty || lastNameController.text.isEmpty)
                       {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Email already exists in the database'),
+                            content: Text('Please enter all the required information.'),
                           ),
                         );
                       }
-                      else if (passwordController.text !=
-                          confirmpasswordController.text) {
+                      else if (existing_email.isNotEmpty)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Email already exists in the database.'),
+                          ),
+                        );
+                      }else if (passwordController.text != confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                                'Password and Confirm Password do not match'),
+                                'Password and Confirm Password do not match.'),
                           ),
                         );
-                      } else {
+                      }else if(!isCheck){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'You must accept our policy and term of use first.'),
+                          ),
+                        );
+                      }else {
                         insertUser(user);
                         Navigator.push(
                             context,

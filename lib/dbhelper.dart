@@ -111,3 +111,27 @@ Future<void> insertUser(User user) async {
   print('done');
   await db.close();
 }
+
+Future<String> getFirstName(int userId) async {
+  final db = await opendb();
+  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  await db.close();
+
+return result.first['f_name'] as String; // Replace '' with a default value if f_name is nullable
+}
+
+Future<String> getLastName(int userId) async {
+  final db = await opendb();
+  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  await db.close();
+
+return result.first['l_name'] as String; // Replace '' with a default value if f_name is nullable
+}
+
+Future<Map<String,dynamic>> getUser(int userId) async {
+  final db = await opendb();
+  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  await db.close();
+
+return result.first; // Replace '' with a default value if f_name is nullable
+}

@@ -1,9 +1,12 @@
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/view/homedashboard/home_haveplan.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/login/signup_view.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -13,9 +16,18 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   bool isCheck = false;
   bool isPasswordObscured = true;
 
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -49,10 +61,11 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Email",
                   icon: "assets/img/email.png",
                   keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -87,6 +100,7 @@ class _LoginViewState extends State<LoginView> {
                                 color: TColor.gray,
                               )),
                   ),
+                  controller: passwordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -108,11 +122,27 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 RoundButton(
                     title: "Login",
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final db = await opendb();
+                      final loggedInUser = await db.query('user_account', where: 'email=? AND password=?', whereArgs: [emailController.text, passwordController.text]);
+                      print(loggedInUser);
+                      
+                      final users_plan = await db.query('plan', where: 'user_id=?', whereArgs: [loggedInUser.first['user_id']]);
+                      if(users_plan.isEmpty)
+                      {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GenderView()));
+                              builder: (context) => MainTabView(userId: loggedInUser.first['user_id'] as int)));
+                      }
+                      else
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeHavePlan()));
+                      }
                     }),
                 SizedBox(
                   height: media.width * 0.04,

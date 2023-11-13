@@ -1,4 +1,5 @@
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/dbhelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common_widget/round_button_create.dart';
 import 'package:fitpang/view/complete_profile/age_view.dart';
@@ -6,15 +7,43 @@ import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
 
 class HomeNoPlan extends StatefulWidget {
-  const HomeNoPlan({Key? key}) : super(key: key);
+  final int userId;
+  const HomeNoPlan({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<HomeNoPlan> createState() => _HomeNoPlanState();
 }
 
 class _HomeNoPlanState extends State<HomeNoPlan> {
+
+  late String firstName='';
+
+  @override
+  void initState() {
+    super.initState();
+    loadFirstName();
+  }
+
+  Future<void> loadFirstName() async {
+    final firstName = await getFirstName(widget.userId);
+    setState(() {
+      this.firstName = firstName;
+    });
+  }
+
+  Future<String> getFirstName(int userId) async {
+    final db = await opendb();
+    final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+    await db.close();
+
+    return result.first['f_name'] as String; // Replace '' with a default value if f_name is nullable
+  }
+
   @override
   Widget build(BuildContext context) {
+    // int userId = widget.userId;
+    
+
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
@@ -26,8 +55,8 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Welcome Back, \nKlaeng",
+                  Text(
+                    "Welcome Back, \n$firstName",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(

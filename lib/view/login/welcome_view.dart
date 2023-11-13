@@ -57,7 +57,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MainTabView()));
+                            builder: (context) => const MainTabView(userId: 1,))); //ใส่ไว้ก่อน */
                   }),
                
             ],

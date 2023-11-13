@@ -1,3 +1,4 @@
+import 'package:fitpang/dbhelper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
@@ -5,14 +6,49 @@ import 'package:fitpang/common_widget/setting_row.dart';
 import 'package:fitpang/common_widget/gradient_circular.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  final int userId;
+  const ProfileView({super.key,required this.userId});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  late String firstName='';
+  late User user = User(
+    f_name: '',
+    l_name: '',
+    email: '',
+    password: '',
+    DOB: '',
+  );
   bool positive = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUser();
+  }
+
+  Future<void> loadFirstName() async {
+    final firstName = await getFirstName(widget.userId);
+    setState(() {
+      this.firstName = firstName;
+    });
+  }
+  Future<void> loadUser() async {
+    final loadedUser = await getUser(widget.userId);
+    setState(() {
+      this.user = User(
+  user_id: loadedUser['user_id'],
+  f_name: loadedUser['f_name'],
+  l_name: loadedUser['l_name'],
+  email: loadedUser['email'],
+  password: loadedUser['password'],
+  DOB: loadedUser['DOB'],
+);
+    });
+  }
 
   List accountArr = [
     {
@@ -141,7 +177,7 @@ class _ProfileViewState extends State<ProfileView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Teerut",
+                      "${user.f_name}",
                       style: TextStyle(
                         color: TColor.black,
                         fontSize: 36,
@@ -149,7 +185,7 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                     ),
                     Text(
-                      "P",
+                      "${user.l_name}",
                       style: TextStyle(
                         color: TColor.black,
                         fontSize: 36,

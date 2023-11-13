@@ -7,7 +7,8 @@ import 'package:fitpang/view/homedashboard/home_noplan.dart';
 import 'package:fitpang/view/homedashboard/home_haveplan.dart';
 
 class MainTabView extends StatefulWidget {
-  const MainTabView({super.key});
+  final int userId;
+  const MainTabView({Key? key,required this.userId}) : super(key: key);
 
   @override
   State<MainTabView> createState() => _MainTabViewState();
@@ -16,7 +17,14 @@ class MainTabView extends StatefulWidget {
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
   final PageStorageBucket pageBucket = PageStorageBucket();
-  Widget currentTab = const HomeNoPlan();
+  late Widget currentTab;
+
+  @override
+  void initState() {
+    super.initState();
+    currentTab = HomeNoPlan(userId: widget.userId);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +46,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 0,
                   onTap: () {
                     selectTab = 0;
-                    currentTab = const HomeNoPlan();
+                    currentTab = HomeNoPlan(userId: widget.userId);
                     if (mounted) {
                       setState(() {});
                     }
@@ -71,7 +79,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 3,
                   onTap: () {
                     selectTab = 3;
-                    currentTab = const ProfileView();
+                    currentTab = ProfileView(userId: widget.userId);
                     if (mounted) {
                       setState(() {});
                     }
