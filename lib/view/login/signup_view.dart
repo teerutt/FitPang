@@ -159,9 +159,9 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                   controller: confirmpasswordController,
                 ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
                 Row(
                   children: [
                     IconButton(

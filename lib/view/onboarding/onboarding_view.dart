@@ -1,9 +1,8 @@
 import 'package:fitpang/common_widget/onboarding_page.dart';
-import 'package:fitpang/view/login/signup_view.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/gradient_circular.dart';
+import 'package:fitpang/view/login/login_view.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -21,11 +20,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     super.initState();
 
     controller.addListener(() {
-        selectPage = controller.page?.round() ?? 0;
+      selectPage = controller.page?.round() ?? 0;
 
-      setState(() {
-        
-      });
+      setState(() {});
     });
   }
 
@@ -58,7 +55,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: TColor.white,
       body: Stack(
@@ -69,9 +65,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               itemCount: pageArr.length,
               itemBuilder: (context, index) {
                 var pObj = pageArr[index] as Map? ?? {};
-                return OnBoardingPage(pObj: pObj) ;
+                return OnBoardingPage(pObj: pObj);
               }),
-
           SizedBox(
             width: 120,
             height: 120,
@@ -92,39 +87,40 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: TColor.primaryG,
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                  borderRadius: BorderRadius.circular(35),),
-                  child: IconButton(icon: Icon( Icons.navigate_next, color: TColor.white, ), onPressed: (){
-          
-                      if(selectPage < 3) {
-          
+                    gradient: LinearGradient(
+                      colors: TColor.primaryG,
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.navigate_next,
+                      color: TColor.white,
+                    ),
+                    onPressed: () {
+                      if (selectPage < 3) {
                         selectPage = selectPage + 1;
 
-                        
                         controller.jumpToPage(selectPage);
-                        
-                        setState(() {
-                          
-                        });
-          
-                      }
-                      else {
-                        // Open Welcome Screen
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpView() ));
-                      }
-                      
-                  },),
-                ),
 
-                
+                        setState(() {});
+                      } else {
+                        // Open Welcome Screen
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginView()));
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           )
