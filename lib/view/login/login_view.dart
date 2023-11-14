@@ -19,13 +19,21 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
+
+    double basePadding = 20;
+    double baseVerticalSpacing = 25;
+
+    // Adjust padding based on screen size
+    double horizontalPadding = media.width > 600 ? basePadding * 0.8 : basePadding;
+    double verticalPadding = media.height > 600 ? baseVerticalSpacing * 0.8 : baseVerticalSpacing;
+
     return Scaffold(
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             height: media.height * 0.9,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

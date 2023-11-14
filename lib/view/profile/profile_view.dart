@@ -73,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
       return MaterialPageRoute(builder: (context) => const ProfileEditView());
     } 
     else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const GenderView());
+      return MaterialPageRoute(builder: (context) => const BlankView());
     } 
     else if (tag == "3") {
       return MaterialPageRoute(builder: (context) => const BlankView());
