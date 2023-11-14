@@ -1,7 +1,7 @@
-import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
 import 'package:fitpang/view/profile/profile_edit_view.dart';
+import 'package:fitpang/view/profile/profile_setting_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
@@ -79,7 +79,7 @@ class _ProfileViewState extends State<ProfileView> {
       return MaterialPageRoute(builder: (context) => const BlankView());
     } 
     else if (tag == "4") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
+      return MaterialPageRoute(builder: (context) => const ProfileSettingView());
     } 
     else if (tag == "5") {
       return MaterialPageRoute(builder: (context) => const LoginView());
