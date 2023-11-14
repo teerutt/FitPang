@@ -24,11 +24,11 @@ class _WeightViewState extends State<WeightView> {
         child: Stack(
           children: [
             const Padding(
-              padding: EdgeInsets.only(bottom: 100.0),
+              padding: EdgeInsets.only(bottom: 2.0),
               child: WeightScrollWhell(),
             ),
             Positioned(
-              bottom: 85,
+              bottom: 105,
               left: 15,
               right: 15, 
               child: ClipRRect(
