@@ -194,8 +194,6 @@ class _SignUpViewState extends State<SignUpView> {
                     title: "Register",
                     onPressed: () async {
                       final user = User(
-                          //user_id: 7,
-
                           email: emailController.text,
                           password: passwordController.text,
                           f_name: firstNameController.text,
@@ -238,7 +236,7 @@ class _SignUpViewState extends State<SignUpView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const GenderView()));
+                                builder: (context) => const LoginView()));
                       }
                     }),
                 SizedBox(

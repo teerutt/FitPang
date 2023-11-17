@@ -6,14 +6,23 @@ import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
 
 class WeightView extends StatefulWidget {
-  const WeightView({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  final int height;
+  const WeightView({super.key, required this.userId, required this.gender, required this.age, required this.height});
 
   @override
   State<WeightView> createState() => _WeightViewState();
 }
 
 class _WeightViewState extends State<WeightView> {
-  int selectTab = 0;
+  int selectedWeight = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +34,16 @@ class _WeightViewState extends State<WeightView> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
-              child: const Center(
-                child: WeightScrollWhell(),
+              child: Center(
+                child: WeightScrollWhell(
+                  onWeightSelected: (weight){
+                  setState(() {
+                    selectedWeight = weight;
+                  });
+                },
               ),
             ),
+          ),
             Positioned(
               bottom: 85, // Adjust the position as needed
               left: 15,
@@ -118,6 +133,8 @@ class _WeightViewState extends State<WeightView> {
                   RoundButton(
                     title: "Next >",
                     onPressed: () {
+                      
+                      print('userId: ${widget.userId}\n${widget.gender}\n${widget.age}\n${widget.height}\nSelected weight: $selectedWeight');
                       Navigator.push(
                         context,
                         MaterialPageRoute(

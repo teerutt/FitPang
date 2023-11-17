@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 class AgeScrollWheel extends StatefulWidget {
-  const AgeScrollWheel({Key? key}) : super(key: key);
+  final Function(int) onAgeSelected;
+  const AgeScrollWheel({Key? key, required this.onAgeSelected}) : super(key: key);
 
   @override
   State<AgeScrollWheel> createState() => _AgeScrollWheelState();
@@ -15,13 +16,14 @@ class _AgeScrollWheelState extends State<AgeScrollWheel> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 11);
+    _controller = FixedExtentScrollController(initialItem: 0);
     _controller.addListener(_handleScrollChange);
   }
 
   void _handleScrollChange() {
     setState(() {
-      // Trigger a rebuild when the selected item changes.
+      int selectedAge = _controller.selectedItem+1;
+      widget.onAgeSelected(selectedAge);
     });
   }
 

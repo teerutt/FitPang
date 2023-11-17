@@ -1,5 +1,6 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/dbhelper.dart';
+import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common_widget/round_button_create.dart';
 import 'package:fitpang/view/complete_profile/age_view.dart';
@@ -15,7 +16,6 @@ class HomeNoPlan extends StatefulWidget {
 }
 
 class _HomeNoPlanState extends State<HomeNoPlan> {
-
   late String firstName='';
 
   @override
@@ -74,9 +74,10 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
                 RoundButtonCreate(
                   title: "+ Create Plan",
                   onPressed: () {
+                    print('userId: ${widget.userId}');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AgeView()),
+                      MaterialPageRoute(builder: (context) => GenderView(userId: widget.userId)),
                     );
                   },
                 ),

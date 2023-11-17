@@ -14,7 +14,6 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  late String firstName='';
   late User user = User(
     f_name: '',
     l_name: '',
@@ -30,12 +29,6 @@ class _ProfileViewState extends State<ProfileView> {
     loadUser();
   }
 
-  Future<void> loadFirstName() async {
-    final firstName = await getFirstName(widget.userId);
-    setState(() {
-      this.firstName = firstName;
-    });
-  }
   Future<void> loadUser() async {
     final loadedUser = await getUser(widget.userId);
     setState(() {

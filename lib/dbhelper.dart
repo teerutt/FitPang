@@ -77,6 +77,12 @@ Future<Database> opendb() async{
   return db;
 }
 
+Future<void> printAllUser() async{
+  final db = await opendb();
+  List<Map> list = await db.rawQuery('SELECT * FROM user_account');
+  print('Available user: $list');
+}
+
 Future<void> insertUser(User user) async {
   final dbpath = await getDatabasesPath();
   final path = join(dbpath, "fitpang_DB.db");

@@ -124,13 +124,27 @@ class _LoginViewState extends State<LoginView> {
                     title: "Login",
                     onPressed: () async {
                       final db = await opendb();
+                      if (emailController.text.isEmpty || passwordController.text.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter email and password.'),
+                          ),
+                        );
+                      }else{
                       final loggedInUser = await db.query('user_account', where: 'email=? AND password=?', whereArgs: [emailController.text, passwordController.text]);
+                      if (loggedInUser.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Incorrect email and password.'),
+                          ),
+                        );
+                      }else{
                       print(loggedInUser);
                       
                       final users_plan = await db.query('plan', where: 'user_id=?', whereArgs: [loggedInUser.first['user_id']]);
                       if(users_plan.isEmpty)
                       {
-                        // ignore: use_build_context_synchronously
+                        print('userId: ${loggedInUser.first['user_id']}');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -142,6 +156,8 @@ class _LoginViewState extends State<LoginView> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const HomeHavePlan()));
+                      }
+                      }
                       }
                     }),
                 SizedBox(

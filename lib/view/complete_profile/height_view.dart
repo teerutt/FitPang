@@ -6,14 +6,22 @@ import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 class HeightView extends StatefulWidget {
-  const HeightView({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  const HeightView({super.key, required this.userId, required this.gender, required this.age});
 
   @override
   State<HeightView> createState() => _HeightViewState();
 }
 
 class _HeightViewState extends State<HeightView> {
-  int selectTab = 0;
+  int selectedHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +31,14 @@ class _HeightViewState extends State<HeightView> {
       body: SafeArea(
         child: Stack(
           children: [
-            const Center(
-              child: HeightScrollwhell(),
+            Center(
+              child: HeightScrollwhell(
+                onHeightSelected: (height){
+                  setState(() {
+                    selectedHeight = height;
+                  });
+                },
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -63,10 +77,11 @@ class _HeightViewState extends State<HeightView> {
                   RoundButton(
                       title: "Next >",
                       onPressed: () {
+                        print('Selected Height: $selectedHeight');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const WeightView()),
+                              builder: (context) => WeightView(userId: widget.userId, gender: widget.gender, age: widget.age, height: selectedHeight,)),
                         );
                       }),
                 ],

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 class HeightScrollwhell extends StatefulWidget {
-  const HeightScrollwhell({Key? key}) : super(key: key);
+  final Function(int) onHeightSelected;
+  const HeightScrollwhell({Key? key,required this.onHeightSelected}) : super(key: key);
 
   @override
   State<HeightScrollwhell> createState() => _HeightScrollwhellState();
@@ -15,13 +16,14 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 129);
+    _controller = FixedExtentScrollController(initialItem: 119);
     _controller.addListener(_handleScrollChange);
   }
 
-  void _handleScrollChange() {
+  void _handleScrollChange() {// Trigger a rebuild when the selected item changes.
     setState(() {
-      // Trigger a rebuild when the selected item changes.
+      int selectedHeight = _controller.selectedItem+1;
+      widget.onHeightSelected(selectedHeight);
     });
   }
 

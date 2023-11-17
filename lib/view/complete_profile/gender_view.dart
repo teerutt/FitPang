@@ -6,7 +6,8 @@ import 'package:fitpang/common_widget/gender_button.dart';
 import 'package:fitpang/view/complete_profile/age_view.dart';
 
 class GenderView extends StatefulWidget {
-  const GenderView({super.key});
+  final int userId;
+  const GenderView({super.key, required this.userId});
 
   @override
   State<GenderView> createState() => _GenderViewState();
@@ -14,6 +15,11 @@ class GenderView extends StatefulWidget {
 
 class _GenderViewState extends State<GenderView> {
   int selectTab = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +90,17 @@ class _GenderViewState extends State<GenderView> {
                   RoundButton(
                     title: "Next >",
                     onPressed: () {
+                      String gender = "Male";
+                      if (selectTab == 1)
+                      {
+                        gender = "Female";
+                      }
+                      print('Selected gender: $gender');
+                      print('userId: ${widget.userId}');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AgeView()
+                          builder: (context) => AgeView(userId: widget.userId, gender: gender,)
                         ),
                       );
                     }

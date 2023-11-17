@@ -6,15 +6,21 @@ import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/age_scrollwheel.dart';
 
 class AgeView extends StatefulWidget {
-  const AgeView({super.key});
+  final int userId;
+  final String gender;
+  const AgeView({super.key,required this.userId,required this.gender});
 
   @override
   State<AgeView> createState() => _AgeViewState();
 }
 
 class _AgeViewState extends State<AgeView> {
-  int selectTab = 0;
+  int selectedAge = 0;
 
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -23,8 +29,14 @@ class _AgeViewState extends State<AgeView> {
       body: SafeArea(
         child: Stack(
           children: [
-            const Center(
-              child: AgeScrollWheel(),
+            Center(
+              child: AgeScrollWheel(
+                onAgeSelected: (age){
+                  setState(() {
+                    selectedAge = age;
+                  });
+                },
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -63,10 +75,11 @@ class _AgeViewState extends State<AgeView> {
                   RoundButton(
                       title: "Next >",
                       onPressed: () {
+                        print('Selected Age: $selectedAge');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HeightView()),
+                              builder: (context) => HeightView(userId: widget.userId, gender: widget.gender, age: selectedAge,))
                         );
                       }),
                 ],

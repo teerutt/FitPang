@@ -1,4 +1,6 @@
 import 'package:fitpang/common_widget/onboarding_page.dart';
+import 'package:fitpang/dbhelper.dart';
+import 'package:fitpang/view/login/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/gradient_circular.dart';
@@ -113,10 +115,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                         setState(() {});
                       } else {
                         // Open Welcome Screen
+                        printAllUser();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginView()));
+                                builder: (context) => const SignUpView()));
                       }
                     },
                   ),
