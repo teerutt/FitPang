@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/view/maintab/maintab_view.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
