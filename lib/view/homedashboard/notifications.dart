@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
-import 'package:intl/intl.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -10,83 +9,51 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  bool isBarVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // To make the bar visible, you can use a Timer or some other trigger.
-    // For demonstration, we will toggle it after a delay.
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        isBarVisible = true;
-      });
-    });
-  }
+  List<int> items = List<int>.generate(100, (int index) => index);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  "Notifications",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  color: Colors.black, // Color of the SizedBox
-                  height: 3, // Adjust the height as needed
-                ),
-                const SizedBox(height: 15), // Add some spacing
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: TColor.primaryG,
-                    ), // Background color
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(20.0)), // Border radius
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Column(
-                          children: [
-                            Text(
-                              "Congratulations",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black, // Text color
-                              ),
-                            ),
-                            // Text("35% your daily challenge completed")
-                          ],
-                        ),
-                        Text(
-                          DateFormat('jm').format(DateTime.now()),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black, // Text color
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Center the content vertically
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 25.0, horizontal: 25.0),
+              child: Text(
+                "Notifications",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: items.length,
+                // padding: const EdgeInsets.symmetric(vertical: 10.0),
+                itemBuilder: (BuildContext context, int index) {
+                  return Dismissible(
+                    background: Container(
+                      color: Colors.red,
+                      child: const Icon(Icons.delete),
+                    ),
+                    key: ValueKey<int>(items[index]),
+                    onDismissed: (DismissDirection direction) {
+                      setState(() {
+                        items.removeAt(index);
+                      });
+                    },
+                    child: ListTile(
+                      title: Text(
+                        'Item ${items[index]}',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -43,7 +43,7 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 70,
+            width: 100,
             child: ListWheelScrollView.useDelegate(
               controller: _controller,
               itemExtent: 50,
@@ -51,7 +51,7 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
               diameterRatio: 1.2,
               physics: const FixedExtentScrollPhysics(),
               childDelegate: ListWheelChildBuilderDelegate(
-                  childCount: 199,
+                  childCount: 200,
                   builder: (context, index) {
                     bool isSelected = index == _controller.selectedItem;
                     Color textColor =

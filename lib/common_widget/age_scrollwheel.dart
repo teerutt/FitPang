@@ -43,7 +43,7 @@ class _AgeScrollWheelState extends State<AgeScrollWheel> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 70,
+            width: 100,
             child: ListWheelScrollView.useDelegate(
               controller: _controller,
               itemExtent: 50,

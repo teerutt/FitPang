@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
 
-class SettingRow extends StatelessWidget {
-  final String icon;
+class SettingSettingRow extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
-  final bool showArrowRight;
-  const SettingRow({super.key, required this.icon, required this.title, required this.onPressed, this.showArrowRight = true });
+  const SettingSettingRow({super.key, required this.title, required this.onPressed });
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +16,6 @@ class SettingRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              icon,
-              height: 30, 
-              width: 30, 
-              fit: BoxFit.contain,
-            ),
             const SizedBox(
               width: 10,
             ),
@@ -36,13 +28,12 @@ class SettingRow extends StatelessWidget {
                 ),
               ),
             ),
-            if (showArrowRight)
-              Image.asset(
-                "assets/img/arrowright.png",
-                height: 15, 
-                width: 15, 
-                fit: BoxFit.contain,
-              ),
+            Image.asset(
+              "assets/img/arrowright.png",
+              height: 15, 
+              width: 15, 
+              fit: BoxFit.contain,
+            ),
           ],
         ),
       ),

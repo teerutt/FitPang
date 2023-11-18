@@ -31,13 +31,26 @@ class _HeightViewState extends State<HeightView> {
       body: SafeArea(
         child: Stack(
           children: [
-            Center(
-              child: HeightScrollwhell(
+            Padding(
+              padding: EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: HeightScrollwhell(
                 onHeightSelected: (height){
                   setState(() {
                     selectedHeight = height;
                   });
-                },
+                },),
+              ),
+            ),
+            Positioned(
+              left: 240,
+              top: 420,
+              child: Text(
+                "cm",
+                style: TextStyle(
+                  color: TColor.midGray,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
               ),
             ),
             Container(

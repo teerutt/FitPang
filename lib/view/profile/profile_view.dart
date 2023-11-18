@@ -1,4 +1,8 @@
 import 'package:fitpang/dbhelper.dart';
+import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/login/login_view.dart';
+import 'package:fitpang/view/profile/profile_edit_view.dart';
+import 'package:fitpang/view/profile/profile_setting_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
@@ -47,7 +51,7 @@ class _ProfileViewState extends State<ProfileView> {
     {
       "image": "assets/img/profile_personal.png",
       "name": "Edit Profile",
-      "tag": "1"
+      "tag": "1",
     },
     {
       "image": "assets/img/profile_achievement.png",
@@ -59,12 +63,63 @@ class _ProfileViewState extends State<ProfileView> {
       "name": "Privacy Policy",
       "tag": "3"
     },
-    {"image": "assets/img/profile_setting.png", "name": "Settings", "tag": "4"}
+    {"image": "assets/img/profile_setting.png", 
+    "name": "Settings", 
+    "tag": "4"
+    }
   ];
 
   List signoutArr = [
-    {"image": "assets/img/profile_logout.png", "name": "Sign Out", "tag": "5"}
+    {"image": "assets/img/profile_logout.png", 
+    "name": "Sign Out", 
+    "tag": "5"
+    }
   ];
+
+  void navigateToPage(String tag) {
+    MaterialPageRoute<dynamic>? pageRoute;
+
+    for (int i = 0; i < accountArr.length + signoutArr.length; i++) {
+      var item;
+      if (i < accountArr.length) {
+        item = accountArr[i];
+      }
+      else {
+        item = signoutArr[i-accountArr.length];
+      }
+
+      if (item["tag"] == tag) {
+        pageRoute = generatePageRoute(tag);
+        break;
+      }
+    }
+
+    if (pageRoute != null) {
+      Navigator.of(context).push(pageRoute);
+    }
+  }
+
+  MaterialPageRoute<dynamic> generatePageRoute(String tag) {
+    if (tag == "1") {
+      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
+    } 
+    else if (tag == "2") {
+      return MaterialPageRoute(builder: (context) => const BlankView());
+    } 
+    else if (tag == "3") {
+      return MaterialPageRoute(builder: (context) => const BlankView());
+    } 
+    else if (tag == "4") {
+      return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId));
+    } 
+    else if (tag == "5") {
+      return MaterialPageRoute(builder: (context) => const LoginView());
+    } 
+    else {
+      // Handle other cases or return a default route
+      return MaterialPageRoute(builder: (context) => ProfileView(userId: widget.userId,));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +154,7 @@ class _ProfileViewState extends State<ProfileView> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
@@ -250,7 +306,9 @@ class _ProfileViewState extends State<ProfileView> {
                         return SettingRow(
                           icon: iObj["image"].toString(),
                           title: iObj["name"].toString(),
-                          onPressed: () {},
+                          onPressed: () {
+                            navigateToPage(iObj["tag"]);
+                          },
                         );
                       },
                     ),
@@ -261,6 +319,7 @@ class _ProfileViewState extends State<ProfileView> {
                     // const SizedBox(
                     //   height: 5,
                     // ),
+                    // Upgrade to Pro
                     // Container(
                     //   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     //   decoration: BoxDecoration(
@@ -402,8 +461,9 @@ class _ProfileViewState extends State<ProfileView> {
                         return SettingRow(
                           icon: iObj["image"].toString(),
                           title: iObj["name"].toString(),
-                          onPressed: () {},
-                          showArrowRight: showArrowRight,
+                          onPressed: () {
+                            navigateToPage(iObj["tag"]);
+                          },
                         );
                       },
                     ),

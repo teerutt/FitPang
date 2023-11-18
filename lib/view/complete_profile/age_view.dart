@@ -29,13 +29,15 @@ class _AgeViewState extends State<AgeView> {
       body: SafeArea(
         child: Stack(
           children: [
-            Center(
-              child: AgeScrollWheel(
+            Padding(
+              padding: EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: AgeScrollWheel(
                 onAgeSelected: (age){
                   setState(() {
                     selectedAge = age;
                   });
-                },
+                },),
               ),
             ),
             Container(

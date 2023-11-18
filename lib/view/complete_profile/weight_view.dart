@@ -1,9 +1,9 @@
 import 'package:fitpang/common_widget/weight_scrollwhell.dart';
+import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/login/welcome_view.dart';
 
 class WeightView extends StatefulWidget {
   final int userId;
@@ -45,24 +45,25 @@ class _WeightViewState extends State<WeightView> {
             ),
           ),
             Positioned(
-              bottom: 85, // Adjust the position as needed
+              bottom: 105,
               left: 15,
-              right: 15,
+              right: 15, 
               child: ClipRRect(
                 // Wrap the container with ClipRRect
                 borderRadius: BorderRadius.circular(20.0),
                 child: Container(
-                  color: Colors.grey[400], // Set your desired background color
+                  color: TColor.lightenGray, // Set your desired background color
                   // padding: EdgeInsets.all(20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: media.width * 0.02,
                       ),
                       Text(
-                        "Current BMI(Normal)",
+                        "Current BMI (Normal)",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: TColor.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
@@ -76,7 +77,7 @@ class _WeightViewState extends State<WeightView> {
                             Text(
                               "19.8",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.greenAccent[400],
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -86,9 +87,9 @@ class _WeightViewState extends State<WeightView> {
                                 child: Text(
                               "You've got a great figure! Keep it up!",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: TColor.black,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w400,
                               ),
                             ))
                           ],
@@ -97,6 +98,21 @@ class _WeightViewState extends State<WeightView> {
                     ],
                   ),
                 ),
+              ),
+            ),
+            const Spacer(),
+            SizedBox(
+              height: media.width * 0.05,
+            ),
+            Positioned(
+              left: 240,
+              top: 420,
+              child: Text(
+                "kg",
+                style: TextStyle(
+                  color: TColor.midGray,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -138,7 +154,7 @@ class _WeightViewState extends State<WeightView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WelcomeView(),
+                          builder: (context) => const WhatYourGoalView(),
                         ),
                       );
                     },
