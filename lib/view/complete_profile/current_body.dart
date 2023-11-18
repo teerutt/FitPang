@@ -2,7 +2,6 @@ import 'package:fitpang/view/complete_profile/desired_body.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class CurrentBody extends StatefulWidget {
   const CurrentBody({super.key});

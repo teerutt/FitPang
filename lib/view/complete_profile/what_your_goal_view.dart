@@ -102,7 +102,7 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
               width: media.width,
               child: Column(
                 children: [
