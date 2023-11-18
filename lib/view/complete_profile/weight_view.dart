@@ -30,12 +30,13 @@ class _WeightViewState extends State<WeightView> {
             Positioned(
               bottom: 105,
               left: 15,
-              right: 15, 
+              right: 15,
               child: ClipRRect(
                 // Wrap the container with ClipRRect
                 borderRadius: BorderRadius.circular(20.0),
                 child: Container(
-                  color: TColor.lightenGray, // Set your desired background color
+                  color:
+                      TColor.lightenGray, // Set your desired background color
                   // padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,9 +94,9 @@ class _WeightViewState extends State<WeightView> {
               child: Text(
                 "kg",
                 style: TextStyle(
-                  color: TColor.midGray,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
+                    color: TColor.midGray,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -115,7 +116,7 @@ class _WeightViewState extends State<WeightView> {
                     ),
                   ),
                   Text(
-                    "You can always change later",
+                    "You have to update weekly",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: TColor.gray, fontSize: 12),
                   ),
