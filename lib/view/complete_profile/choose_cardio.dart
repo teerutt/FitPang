@@ -1,32 +1,44 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitpang/view/login/welcome_view.dart';
+import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
-class WhatYourGoalView extends StatefulWidget {
-  const WhatYourGoalView({super.key});
+class ChooseCardio extends StatefulWidget {
+  const ChooseCardio({super.key});
 
   @override
-  State<WhatYourGoalView> createState() => _WhatYourGoalViewState();
+  State<ChooseCardio> createState() => _ChooseCardioState();
 }
 
-class _WhatYourGoalViewState extends State<WhatYourGoalView> {
+class _ChooseCardioState extends State<ChooseCardio> {
   CarouselController buttonCarouselController = CarouselController();
 
   List goalArr = [
     {
-      "image": "assets/img/goal1.png",
-      "title": "Improve Shape",
-      "subtitle":
-          "I have a low amount of body fat\nand need / want to build more\nmuscle"
+      "image": "assets/img/aerobicmen.png",
+      "title": "Aerobic",
+      // "subtitle":
+      //     "I have a low amount of body fat\nand need / want to build more\nmuscle"
     },
     {
-      "image": "assets/img/goal2.png",
-      "title": "Lean & Tone",
-      "subtitle":
-          "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+      "image": "assets/img/ridemen.png",
+      "title": "Ride a bike",
+      // "subtitle":
+      //     "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+    },
+    {
+      "image": "assets/img/runmen.png",
+      "title": "Run",
+      // "subtitle":
+      //     "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+    },
+    {
+      "image": "assets/img/swimmen.png",
+      "title": "Swim",
+      // "subtitle":
+      //     "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
     },
   ];
 
@@ -68,23 +80,23 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                                 gObj["title"].toString(),
                                 style: TextStyle(
                                     color: TColor.white,
-                                    fontSize: 14,
+                                    fontSize: 35,
                                     fontWeight: FontWeight.w700),
                               ),
                               Container(
-                                width: media.width * 0.1,
+                                width: media.width * 0.5,
                                 height: 1,
                                 color: TColor.white,
                               ),
                               SizedBox(
                                 height: media.width * 0.02,
                               ),
-                              Text(
-                                gObj["subtitle"].toString(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: TColor.white, fontSize: 12),
-                              ),
+                              // Text(
+                              //   gObj["subtitle"].toString(),
+                              //   textAlign: TextAlign.center,
+                              //   style: TextStyle(
+                              //       color: TColor.white, fontSize: 12),
+                              // ),
                             ],
                           ),
                         ),
@@ -107,20 +119,20 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: media.width * 0.05,
+                    height: media.width * 0.075,
                   ),
                   Text(
-                    "What is your goal ?",
+                    "Choose cardio for you ?",
                     style: TextStyle(
                         color: TColor.black,
                         fontSize: 20,
                         fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    "It will help us to choose a best\nprogram for you",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: TColor.gray, fontSize: 12),
-                  ),
+                  // Text(
+                  //   "It will help us to choose a best\nprogram for you",
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(color: TColor.gray, fontSize: 12),
+                  // ),
                   const Spacer(),
                   SizedBox(
                     height: media.width * 0.05,
@@ -131,7 +143,8 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomeView()));
+                                builder: (context) =>
+                                    const WhatYourGoalView()));
                       }),
                 ],
               ),

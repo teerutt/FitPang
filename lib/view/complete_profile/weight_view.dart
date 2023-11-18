@@ -1,5 +1,5 @@
 import 'package:fitpang/common_widget/weight_scrollwhell.dart';
-import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
+import 'package:fitpang/view/complete_profile/choose_cardio.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -136,7 +136,7 @@ class _WeightViewState extends State<WeightView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WhatYourGoalView(),
+                          builder: (context) => const ChooseCardio(),
                         ),
                       );
                     },
