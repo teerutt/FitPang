@@ -1,4 +1,4 @@
-import 'package:fitpang/view/complete_profile/desired_body.dart';
+import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -208,14 +208,14 @@ class _CurrentBodyState extends State<CurrentBody> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
+                  padding: const EdgeInsets.all(25.0),
                   child: RoundButton(
                     title: "Confirm",
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DesiredBody(),
+                          builder: (context) => const WhatYourGoalView(),
                         ),
                       );
                     },
