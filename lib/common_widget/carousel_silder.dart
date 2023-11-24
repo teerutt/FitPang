@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyCarouselSlider extends StatefulWidget {
-  const MyCarouselSlider({super.key});
+  final Function(int) onIndexChanged;
+  const MyCarouselSlider({super.key, required this.onIndexChanged});
 
   @override
   State<MyCarouselSlider> createState() => _MyCarouselSliderState();
@@ -18,6 +19,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider>
     Colors.blue,
   ];
   int currentindex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +47,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider>
                     PageController(initialPage: 0, viewportFraction: 0.7),
                 onPageChanged: (value) {
                   currentindex = value;
+                  widget.onIndexChanged(currentindex);
                   setState(() {});
                 },
                 itemBuilder: (context, index) {

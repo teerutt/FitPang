@@ -1,5 +1,5 @@
 import 'package:fitpang/common_widget/weight_scrollwhell.dart';
-import 'package:fitpang/view/complete_profile/choose_cardio.dart';
+import 'package:fitpang/view/login/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -148,7 +148,7 @@ class _UpdateWeightState extends State<UpdateWeight> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ChooseCardio(),
+                          builder: (context) => const SignUpView(),
                         ),
                       );
                     },

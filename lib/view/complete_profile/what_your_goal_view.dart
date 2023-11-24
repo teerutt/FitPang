@@ -6,7 +6,12 @@ import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 class WhatYourGoalView extends StatefulWidget {
-  const WhatYourGoalView({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  final int height;
+  final int weight;
+  const WhatYourGoalView({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight});
 
   @override
   State<WhatYourGoalView> createState() => _WhatYourGoalViewState();
@@ -14,6 +19,12 @@ class WhatYourGoalView extends StatefulWidget {
 
 class _WhatYourGoalViewState extends State<WhatYourGoalView> {
   CarouselController buttonCarouselController = CarouselController();
+  int selectedgoal = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   List goalArr = [
     {
@@ -98,6 +109,10 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   viewportFraction: 0.7,
                   aspectRatio: 0.74,
                   initialPage: 0,
+                  onPageChanged: (index, reason) {
+                    selectedgoal = index;
+                    setState((){});
+                  },
                 ),
               ),
             ),
@@ -128,6 +143,7 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   RoundButton(
                       title: "Confirm",
                       onPressed: () {
+                        print(selectedgoal);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
