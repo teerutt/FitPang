@@ -9,13 +9,7 @@ class MyCarouselSlider extends StatefulWidget {
 
 class _MyCarouselSliderState extends State<MyCarouselSlider>
     with TickerProviderStateMixin {
-  List<String> assets = [
-    'assets/img1.png',
-    'assets/img2.png',
-    'assets/img3.png',
-    'assets/img4.png',
-    'assets/img5.png'
-  ];
+  List<String> assets = ['', '', '', '', ''];
   final color = [
     Colors.red,
     Colors.amber,

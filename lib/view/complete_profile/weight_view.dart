@@ -1,5 +1,5 @@
 import 'package:fitpang/common_widget/weight_scrollwhell.dart';
-import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
+import 'package:fitpang/view/complete_profile/choose_cardio.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -106,13 +106,13 @@ class _WeightViewState extends State<WeightView> {
             ),
             Positioned(
               left: 240,
-              top: 420,
+              top: 350,
               child: Text(
                 "kg",
                 style: TextStyle(
-                  color: TColor.midGray,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
+                    color: TColor.midGray,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -132,7 +132,7 @@ class _WeightViewState extends State<WeightView> {
                     ),
                   ),
                   Text(
-                    "You can always change later",
+                    "You have to update weekly",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: TColor.gray, fontSize: 12),
                   ),
@@ -154,7 +154,7 @@ class _WeightViewState extends State<WeightView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WhatYourGoalView(),
+                          builder: (context) => const ChooseCardio(),
                         ),
                       );
                     },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
-import 'package:fitpang/common_widget/carousel_silder.dart';
 
 class DesiredBody extends StatefulWidget {
   const DesiredBody({super.key});

@@ -2,7 +2,6 @@ import 'package:fitpang/view/complete_profile/desired_body.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/common_widget/carousel_silder.dart';
 
 class CurrentBody extends StatefulWidget {
   const CurrentBody({super.key});
@@ -12,48 +11,139 @@ class CurrentBody extends StatefulWidget {
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
+  final List<String> imgList = [
+    '/assets/img/muscle.png',
+    '/assets/img/weight.png',
+    '/assets/img/height.png',
+    '/assets/img/height.png',
+    '/assets/img/height.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "What's your current body",
+                    "What's your current\nbody shape",
                     style: TextStyle(
                         fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         color: TColor.black),
                   ),
-                  Text(
-                    "shape?",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: TColor.black),
-                  ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
+                  // Builder(
+                  //   builder: (context) {
+                  //     final double height = MediaQuery.of(context).size.height;
+                  //     Center(
+                  //       child: CarouselSlider(
+                  //         items: goalArr
+                  //             .map(
+                  //               (gObj) => Container(
+                  //                 decoration: BoxDecoration(
+                  //                   gradient: LinearGradient(
+                  //                       colors: TColor.primaryG,
+                  //                       begin: Alignment.topLeft,
+                  //                       end: Alignment.bottomRight),
+                  //                   borderRadius: BorderRadius.circular(25),
+                  //                 ),
+                  //                 padding: EdgeInsets.symmetric(
+                  //                     vertical: media.width * 0.1,
+                  //                     horizontal: 25),
+                  //                 alignment: Alignment.center,
+                  //                 child: FittedBox(
+                  //                   child: Column(
+                  //                     children: [
+                  //                       Image.asset(
+                  //                         gObj["image"].toString(),
+                  //                         width: media.width * 0.5,
+                  //                         fit: BoxFit.fitWidth,
+                  //                       ),
+                  //                       SizedBox(
+                  //                         height: media.width * 0.1,
+                  //                       ),
+                  //                       Text(
+                  //                         gObj["title"].toString(),
+                  //                         style: TextStyle(
+                  //                             color: TColor.white,
+                  //                             fontSize: 14,
+                  //                             fontWeight: FontWeight.w700),
+                  //                       ),
+                  //                       Container(
+                  //                         width: media.width * 0.1,
+                  //                         height: 1,
+                  //                         color: TColor.white,
+                  //                       ),
+                  //                       SizedBox(
+                  //                         height: media.width * 0.02,
+                  //                       ),
+                  //                       Text(
+                  //                         gObj["subtitle"].toString(),
+                  //                         textAlign: TextAlign.center,
+                  //                         style: TextStyle(
+                  //                             color: TColor.white,
+                  //                             fontSize: 12),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             )
+                  //             .toList(),
+                  //         carouselController: buttonCarouselController,
+                  //         options: CarouselOptions(
+                  //           autoPlay: false,
+                  //           enlargeCenterPage: true,
+                  //           viewportFraction: 0.7,
+                  //           aspectRatio: 0.74,
+                  //           initialPage: 0,
+                  //         ),
+                  //       ),
+                  //     ),
+
+                  // CarouselSlider(
+                  //   options: CarouselOptions(
+                  //     height: height,
+                  //     viewportFraction: 1.0,
+                  //     enlargeCenterPage: false,
+                  //     // autoPlay: false,
+                  //   ),
+                  //   items: imgList
+                  //       .map(
+                  //         (item) => Center(
+                  //             child: Image.network(
+                  //           item,
+                  //           fit: BoxFit.cover,
+                  //           height: height,
+                  //         )),
+                  //       )
+                  //       .toList(),
+                  // );
+                  //   },
+                  // ),
+                  // !!! Your Estimated Body Fat (grey box) !!!
                   Container(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     width: 330,
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.grey[400],
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -62,20 +152,21 @@ class _CurrentBodyState extends State<CurrentBody> {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+                  // !!! Percentage (white box) !!!
                   Container(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     width: 330,
                     height: 120,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
                       ),
@@ -89,19 +180,19 @@ class _CurrentBodyState extends State<CurrentBody> {
                             style: TextStyle(
                               color: Colors.green[600],
                               fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
-                          Flexible(
+                          const Flexible(
                             child: Text(
                               "Your figure is almost perfect! Keep it up!",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -112,12 +203,12 @@ class _CurrentBodyState extends State<CurrentBody> {
                 ],
               ),
             ),
-            // Use Expanded to make sure the Confirm button takes the remaining space
+            // !!! Confirm Button !!!
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.only(top: 25.0),
                   child: RoundButton(
                     title: "Confirm",
                     onPressed: () {
