@@ -1,7 +1,8 @@
+import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/complete_profile/current_body.dart';
+import 'package:fitpang/view/homedashboard/day_todo.dart';
 
 class BMIScore extends StatefulWidget {
   const BMIScore({Key? key}) : super(key: key);
@@ -174,7 +175,7 @@ class _BMIScoreState extends State<BMIScore> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CurrentBody(),
+                            builder: (context) => const WhatYourGoalView(),
                           ),
                         );
                       },

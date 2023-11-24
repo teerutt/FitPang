@@ -141,9 +141,9 @@ class _CurrentBodyState extends State<CurrentBody> {
             ),
             Positioned(
               top: 30,
-              left: media.width * 0.25,
+              left: media.width * 0.19,
               child: Text(
-                "What's your current \nbody shape",
+                "What's your current body \nshape?",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
