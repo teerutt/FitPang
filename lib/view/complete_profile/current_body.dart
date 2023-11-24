@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+
 class CurrentBody extends StatefulWidget {
   const CurrentBody({super.key});
 
@@ -11,16 +13,40 @@ class CurrentBody extends StatefulWidget {
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
-  final List<String> imgList = [
-    '/assets/img/muscle.png',
-    '/assets/img/weight.png',
-    '/assets/img/height.png',
-    '/assets/img/height.png',
-    '/assets/img/height.png',
+  // final List<String> imgList = [
+  //   '/assets/img/muscle.png',
+  //   '/assets/img/weight.png',
+  //   '/assets/img/height.png',
+  //   '/assets/img/height.png',
+  //   '/assets/img/height.png',
+  // ];
+  CarouselController buttonCarouselController = CarouselController();
+
+  List bodyArr = [
+    {
+      "image": "assets/img/current_body1.png",
+      "title": "10%-15%",
+      "subtitle":
+          "I have a low amount of body fat\nand need / want to build more\nmuscle",
+    },
+    {
+      "image": "assets/img/current_body2.png",
+      "title": "Lean & Tone",
+      "subtitle":
+          "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+    },
+    {
+      "image": "assets/img/current_body3.png",
+      "title": "Lean & Tone",
+      "subtitle":
+          "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+    },
+
   ];
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
@@ -32,106 +58,96 @@ class _CurrentBodyState extends State<CurrentBody> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: media.width * 0.05,
+                  ),
                   Text(
                     "What's your current\nbody shape",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: TColor.black),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  // Builder(
-                  //   builder: (context) {
-                  //     final double height = MediaQuery.of(context).size.height;
-                  //     Center(
-                  //       child: CarouselSlider(
-                  //         items: goalArr
-                  //             .map(
-                  //               (gObj) => Container(
-                  //                 decoration: BoxDecoration(
-                  //                   gradient: LinearGradient(
-                  //                       colors: TColor.primaryG,
-                  //                       begin: Alignment.topLeft,
-                  //                       end: Alignment.bottomRight),
-                  //                   borderRadius: BorderRadius.circular(25),
-                  //                 ),
-                  //                 padding: EdgeInsets.symmetric(
-                  //                     vertical: media.width * 0.1,
-                  //                     horizontal: 25),
-                  //                 alignment: Alignment.center,
-                  //                 child: FittedBox(
-                  //                   child: Column(
-                  //                     children: [
-                  //                       Image.asset(
-                  //                         gObj["image"].toString(),
-                  //                         width: media.width * 0.5,
-                  //                         fit: BoxFit.fitWidth,
-                  //                       ),
-                  //                       SizedBox(
-                  //                         height: media.width * 0.1,
-                  //                       ),
-                  //                       Text(
-                  //                         gObj["title"].toString(),
-                  //                         style: TextStyle(
-                  //                             color: TColor.white,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w700),
-                  //                       ),
-                  //                       Container(
-                  //                         width: media.width * 0.1,
-                  //                         height: 1,
-                  //                         color: TColor.white,
-                  //                       ),
-                  //                       SizedBox(
-                  //                         height: media.width * 0.02,
-                  //                       ),
-                  //                       Text(
-                  //                         gObj["subtitle"].toString(),
-                  //                         textAlign: TextAlign.center,
-                  //                         style: TextStyle(
-                  //                             color: TColor.white,
-                  //                             fontSize: 12),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             )
-                  //             .toList(),
-                  //         carouselController: buttonCarouselController,
-                  //         options: CarouselOptions(
-                  //           autoPlay: false,
-                  //           enlargeCenterPage: true,
-                  //           viewportFraction: 0.7,
-                  //           aspectRatio: 0.74,
-                  //           initialPage: 0,
-                  //         ),
-                  //       ),
-                  //     ),
-
-                  // CarouselSlider(
-                  //   options: CarouselOptions(
-                  //     height: height,
-                  //     viewportFraction: 1.0,
-                  //     enlargeCenterPage: false,
-                  //     // autoPlay: false,
-                  //   ),
-                  //   items: imgList
-                  //       .map(
-                  //         (item) => Center(
-                  //             child: Image.network(
-                  //           item,
-                  //           fit: BoxFit.cover,
-                  //           height: height,
-                  //         )),
-                  //       )
-                  //       .toList(),
-                  // );
-                  //   },
-                  // ),
-                  // !!! Your Estimated Body Fat (grey box) !!!
+                  // !!! Carousel Slider !!!
+                  Center(
+                    child: CarouselSlider(
+                      options: CarouselOptions(height: 150.0),
+                      items: bodyArr.map((bObj) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              margin: EdgeInsets.symmetric(horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                color: TColor.white,
+                                border: Border.all(
+                                  color: TColor.primaryColor1,
+                                  width: 5.0,
+                                ),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: FittedBox(
+                                child: Image.asset(
+                                  bObj["image"].toString(),
+                                  // width: media.width * 0.5,
+                                  // height: media.width * 0.5,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    )
+                    // child: CarouselSlider(
+                    //   items: bodyArr
+                    //       .map(
+                    //         (gObj) => Container(
+                    //           // decoration: BoxDecoration(
+                    //           //   gradient: LinearGradient(
+                    //           //       colors: TColor.primaryG,
+                    //           //       begin: Alignment.topLeft,
+                    //           //       end: Alignment.bottomRight),
+                    //           //   borderRadius: BorderRadius.circular(25),
+                    //           // ),
+                    //           // padding: EdgeInsets.symmetric(
+                    //           //     vertical: media.width * 0.1, horizontal: 25),
+                    //           alignment: Alignment.center,
+                    //           child: FittedBox(
+                    //             child: Column(
+                    //               children: [
+                    //                 Image.asset(
+                    //                   gObj["image"].toString(),
+                    //                   width: media.width * 0.5,
+                    //                   fit: BoxFit.fitWidth,
+                    //                 ),
+                    //                 // SizedBox(
+                    //                 //   height: media.width * 0.1,
+                    //                 // ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )
+                    //       .toList(),
+                    //   carouselController: buttonCarouselController,
+                    //   options: CarouselOptions(
+                    //     autoPlay: false,
+                    //     enlargeCenterPage: true,
+                    //     viewportFraction: 0.2,
+                    //     aspectRatio: 0.3,
+                    //     initialPage: 0,
+                    //   ),
+                    // ),
+                  ),
+                  SizedBox(
+                    height: media.width * 0.1,
+                  ),
+                  // !!! Estimated Body Fat (grey box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -210,7 +226,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: RoundButton(
-                    title: "Confirm",
+                    title: "Next >",
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -219,6 +235,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                         ),
                       );
                     },
+                    
                   ),
                 ),
               ),
