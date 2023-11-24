@@ -28,33 +28,50 @@ class _GenderViewState extends State<GenderView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GenderButton(
-                    label: "Male",
-                    icon: "assets/img/male.png",
-                    selectedIcon: "assets/img/male_selected.png",
-                    isActive: selectTab == 0,
-                    onTap: () {
-                      selectTab = 0;
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    }
-                  ),
+                      label: "Male",
+                      icon: "assets/img/male.png",
+                      selectedIcon: "assets/img/male_selected.png",
+                      isActive: selectTab == 0,
+                      onTap: () {
+                        selectTab = 0;
+                        if (mounted) {
+                          setState(() {});
+                        }
+                      }),
                   SizedBox(
                     height: media.width * 0.1,
                   ),
                   GenderButton(
-                    label: "Female",
-                    icon: "assets/img/female.png",
-                    selectedIcon: "assets/img/female_selected.png",
-                    isActive: selectTab == 1,
-                    onTap: () {
-                      selectTab = 1;
-                      if (mounted) {
-                        setState(() {});
-                      }
-                    }
-                  ),
+                      label: "Female",
+                      icon: "assets/img/female.png",
+                      selectedIcon: "assets/img/female_selected.png",
+                      isActive: selectTab == 1,
+                      onTap: () {
+                        selectTab = 1;
+                        if (mounted) {
+                          setState(() {});
+                        }
+                      }),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
               ),
             ),
             Container(
@@ -68,9 +85,9 @@ class _GenderViewState extends State<GenderView> {
                   Text(
                     "Tell us about yourself!",
                     style: TextStyle(
-                      color: TColor.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
+                        color: TColor.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
                   Text(
                     "To give you a better experience\nwe need to know your gender",
@@ -82,21 +99,19 @@ class _GenderViewState extends State<GenderView> {
                     height: media.width * 0.05,
                   ),
                   RoundButton(
-                    title: "Next >",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AgeView()
-                        ),
-                      );
-                    }
-                  ),
+                      title: "Next >",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AgeView()),
+                        );
+                      }),
                 ],
               ),
             ),
           ],
-        ), 
+        ),
       ),
     );
   }

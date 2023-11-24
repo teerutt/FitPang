@@ -13,33 +13,20 @@ class CurrentBody extends StatefulWidget {
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
-  // final List<String> imgList = [
-  //   '/assets/img/muscle.png',
-  //   '/assets/img/weight.png',
-  //   '/assets/img/height.png',
-  //   '/assets/img/height.png',
-  //   '/assets/img/height.png',
-  // ];
   CarouselController buttonCarouselController = CarouselController();
 
   List bodyArr = [
     {
       "image": "assets/img/current_body1.png",
-      "title": "10%-15%",
-      "subtitle":
-          "I have a low amount of body fat\nand need / want to build more\nmuscle",
+      "title": "10-15%",
     },
     {
       "image": "assets/img/current_body2.png",
-      "title": "Lean & Tone",
-      "subtitle":
-          "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+      "title": "16-25%",
     },
     {
       "image": "assets/img/current_body3.png",
-      "title": "Lean & Tone",
-      "subtitle":
-          "I’m “skinny fat”. look thin but have\nno shape. I want to add learn\nmuscle in the right way"
+      "title": "26-35%",
     },
 
   ];
@@ -50,16 +37,34 @@ class _CurrentBodyState extends State<CurrentBody> {
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
+            Positioned(
+              top: 20,
+              left: 15,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: media.width * 0.05,
+                    height: media.width * 0.1,
                   ),
                   Text(
                     "What's your current\nbody shape",
@@ -69,19 +74,27 @@ class _CurrentBodyState extends State<CurrentBody> {
                         fontWeight: FontWeight.w700,
                         color: TColor.black),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: media.width * 0.1,
                   ),
                   // !!! Carousel Slider !!!
                   Center(
                     child: CarouselSlider(
-                      options: CarouselOptions(height: 150.0),
+                      carouselController: buttonCarouselController,
+                      options: CarouselOptions(
+                        height: media.height * 0.4,
+                        autoPlay: false,
+                        enlargeCenterPage: true,
+                        viewportFraction: 0.7,
+                        aspectRatio: 0.74,
+                        initialPage: 0,
+                      ),
                       items: bodyArr.map((bObj) {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              margin: EdgeInsets.symmetric(horizontal: 2.0),
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              margin: const EdgeInsets.symmetric(horizontal: 10.0),
                               decoration: BoxDecoration(
                                 color: TColor.white,
                                 border: Border.all(
@@ -95,7 +108,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                                   bObj["image"].toString(),
                                   // width: media.width * 0.5,
                                   // height: media.width * 0.5,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             );
@@ -103,50 +116,12 @@ class _CurrentBodyState extends State<CurrentBody> {
                         );
                       }).toList(),
                     )
-                    // child: CarouselSlider(
-                    //   items: bodyArr
-                    //       .map(
-                    //         (gObj) => Container(
-                    //           // decoration: BoxDecoration(
-                    //           //   gradient: LinearGradient(
-                    //           //       colors: TColor.primaryG,
-                    //           //       begin: Alignment.topLeft,
-                    //           //       end: Alignment.bottomRight),
-                    //           //   borderRadius: BorderRadius.circular(25),
-                    //           // ),
-                    //           // padding: EdgeInsets.symmetric(
-                    //           //     vertical: media.width * 0.1, horizontal: 25),
-                    //           alignment: Alignment.center,
-                    //           child: FittedBox(
-                    //             child: Column(
-                    //               children: [
-                    //                 Image.asset(
-                    //                   gObj["image"].toString(),
-                    //                   width: media.width * 0.5,
-                    //                   fit: BoxFit.fitWidth,
-                    //                 ),
-                    //                 // SizedBox(
-                    //                 //   height: media.width * 0.1,
-                    //                 // ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       )
-                    //       .toList(),
-                    //   carouselController: buttonCarouselController,
-                    //   options: CarouselOptions(
-                    //     autoPlay: false,
-                    //     enlargeCenterPage: true,
-                    //     viewportFraction: 0.2,
-                    //     aspectRatio: 0.3,
-                    //     initialPage: 0,
-                    //   ),
-                    // ),
                   ),
                   SizedBox(
                     height: media.width * 0.1,
                   ),
+
+
                   // !!! Estimated Body Fat (grey box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
@@ -160,22 +135,16 @@ class _CurrentBodyState extends State<CurrentBody> {
                       ),
                     ),
                     child: const Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "You Estimated Body Fat(Approx.)",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        "You Estimated Body Fat(Approx.)",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
-                  // !!! Percentage (white box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -187,33 +156,28 @@ class _CurrentBodyState extends State<CurrentBody> {
                         bottomRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "10% - 15% (Ideal)",
-                            style: TextStyle(
-                              color: Colors.green[600],
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w700,
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          // *** query bodyArr["title"] ***
+                          "10% - 15% (Ideal)",
+                          style: TextStyle(
+                            color: Colors.green[600],
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          const SizedBox(
-                            height: 10.0,
+                        ),
+                        const SizedBox(height: 10.0),
+                        const Text(
+                          "Your figure is almost perfect! Keep it up!",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          const Flexible(
-                            child: Text(
-                              "Your figure is almost perfect! Keep it up!",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -235,7 +199,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                         ),
                       );
                     },
-                    
                   ),
                 ),
               ),
