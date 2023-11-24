@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+
 class CurrentBody extends StatefulWidget {
   const CurrentBody({super.key});
 
@@ -11,55 +13,114 @@ class CurrentBody extends StatefulWidget {
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
-  final List<String> imgList = [
-    '/assets/img/muscle.png',
-    '/assets/img/weight.png',
-    '/assets/img/height.png',
-    '/assets/img/height.png',
-    '/assets/img/height.png',
+  CarouselController buttonCarouselController = CarouselController();
+
+  List bodyArr = [
+    {
+      "image": "assets/img/current_body1.png",
+      "title": "10-15%",
+    },
+    {
+      "image": "assets/img/current_body2.png",
+      "title": "16-25%",
+    },
+    {
+      "image": "assets/img/current_body3.png",
+      "title": "26-35%",
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
         child: Stack(
           children: [
             Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
+              top: 20,
+              left: 15,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(0.25),
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_back),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: media.width * 0.1,
                   ),
-                  const SizedBox(height: 40),
+                  Text(
+                    "What's your current\nbody shape",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: TColor.black),
+                  ),
+                  SizedBox(
+                    height: media.width * 0.1,
+                  ),
+                  // !!! Carousel Slider !!!
+                  Center(
+                      child: CarouselSlider(
+                    carouselController: buttonCarouselController,
+                    options: CarouselOptions(
+                      height: media.height * 0.4,
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.7,
+                      aspectRatio: 0.74,
+                      initialPage: 0,
+                    ),
+                    items: bodyArr.map((bObj) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              color: TColor.white,
+                              border: Border.all(
+                                color: TColor.primaryColor1,
+                                width: 5.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: FittedBox(
+                              child: Image.asset(
+                                bObj["image"].toString(),
+                                // width: media.width * 0.5,
+                                // height: media.width * 0.5,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  )),
+                  SizedBox(
+                    height: media.width * 0.1,
+                  ),
+
+                  // !!! Estimated Body Fat (grey box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -71,7 +132,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                         topRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "You Estimated Body Fat(Approx.)",
                         style: TextStyle(
@@ -97,6 +158,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          // *** query bodyArr["title"] ***
                           "10% - 15% (Ideal)",
                           style: TextStyle(
                             color: Colors.green[600],
@@ -105,7 +167,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                           ),
                         ),
                         const SizedBox(height: 10.0),
-                        Text(
+                        const Text(
                           "Your figure is almost perfect! Keep it up!",
                           style: TextStyle(
                             color: Colors.black,
@@ -116,38 +178,26 @@ class _CurrentBodyState extends State<CurrentBody> {
                       ],
                     ),
                   ),
-                  // !!! Confirm Button !!!
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: RoundButton(
-                          title: "Confirm",
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const WhatYourGoalView(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
-            Positioned(
-              top: 30,
-              left: media.width * 0.19,
-              child: Text(
-                "What's your current body \nshape?",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  color: TColor.black,
+            // !!! Confirm Button !!!
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: RoundButton(
+                    title: "Next >",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WhatYourGoalView(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
