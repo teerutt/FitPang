@@ -1,10 +1,16 @@
 import 'package:fitpang/view/complete_profile/desired_body.dart';
+import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 class CurrentBody extends StatefulWidget {
-  const CurrentBody({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  final int height;
+  final int weight;
+  const CurrentBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight});
 
   @override
   State<CurrentBody> createState() => _CurrentBodyState();
@@ -21,117 +27,45 @@ class _CurrentBodyState extends State<CurrentBody> {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "What's your current\nbody shape",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: TColor.black),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey,
+                          ),
+                          padding: const EdgeInsets.all(0.25),
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Builder(
-                  //   builder: (context) {
-                  //     final double height = MediaQuery.of(context).size.height;
-                  //     Center(
-                  //       child: CarouselSlider(
-                  //         items: goalArr
-                  //             .map(
-                  //               (gObj) => Container(
-                  //                 decoration: BoxDecoration(
-                  //                   gradient: LinearGradient(
-                  //                       colors: TColor.primaryG,
-                  //                       begin: Alignment.topLeft,
-                  //                       end: Alignment.bottomRight),
-                  //                   borderRadius: BorderRadius.circular(25),
-                  //                 ),
-                  //                 padding: EdgeInsets.symmetric(
-                  //                     vertical: media.width * 0.1,
-                  //                     horizontal: 25),
-                  //                 alignment: Alignment.center,
-                  //                 child: FittedBox(
-                  //                   child: Column(
-                  //                     children: [
-                  //                       Image.asset(
-                  //                         gObj["image"].toString(),
-                  //                         width: media.width * 0.5,
-                  //                         fit: BoxFit.fitWidth,
-                  //                       ),
-                  //                       SizedBox(
-                  //                         height: media.width * 0.1,
-                  //                       ),
-                  //                       Text(
-                  //                         gObj["title"].toString(),
-                  //                         style: TextStyle(
-                  //                             color: TColor.white,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w700),
-                  //                       ),
-                  //                       Container(
-                  //                         width: media.width * 0.1,
-                  //                         height: 1,
-                  //                         color: TColor.white,
-                  //                       ),
-                  //                       SizedBox(
-                  //                         height: media.width * 0.02,
-                  //                       ),
-                  //                       Text(
-                  //                         gObj["subtitle"].toString(),
-                  //                         textAlign: TextAlign.center,
-                  //                         style: TextStyle(
-                  //                             color: TColor.white,
-                  //                             fontSize: 12),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             )
-                  //             .toList(),
-                  //         carouselController: buttonCarouselController,
-                  //         options: CarouselOptions(
-                  //           autoPlay: false,
-                  //           enlargeCenterPage: true,
-                  //           viewportFraction: 0.7,
-                  //           aspectRatio: 0.74,
-                  //           initialPage: 0,
-                  //         ),
-                  //       ),
-                  //     ),
-
-                  // CarouselSlider(
-                  //   options: CarouselOptions(
-                  //     height: height,
-                  //     viewportFraction: 1.0,
-                  //     enlargeCenterPage: false,
-                  //     // autoPlay: false,
-                  //   ),
-                  //   items: imgList
-                  //       .map(
-                  //         (item) => Center(
-                  //             child: Image.network(
-                  //           item,
-                  //           fit: BoxFit.cover,
-                  //           height: height,
-                  //         )),
-                  //       )
-                  //       .toList(),
-                  // );
-                  //   },
-                  // ),
-                  // !!! Your Estimated Body Fat (grey box) !!!
+                  const SizedBox(height: 40),
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -143,23 +77,17 @@ class _CurrentBodyState extends State<CurrentBody> {
                         topRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: const Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "You Estimated Body Fat(Approx.)",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                    child: Center(
+                      child: Text(
+                        "You Estimated Body Fat(Approx.)",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
-                  // !!! Percentage (white box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -171,55 +99,61 @@ class _CurrentBodyState extends State<CurrentBody> {
                         bottomRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "10% - 15% (Ideal)",
-                            style: TextStyle(
-                              color: Colors.green[600],
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w700,
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "10% - 15% (Ideal)",
+                          style: TextStyle(
+                            color: Colors.green[600],
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          const SizedBox(
-                            height: 10.0,
+                        ),
+                        const SizedBox(height: 10.0),
+                        Text(
+                          "Your figure is almost perfect! Keep it up!",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          const Flexible(
-                            child: Text(
-                              "Your figure is almost perfect! Keep it up!",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
+                        ),
+                      ],
+                    ),
+                  ),
+                  // !!! Confirm Button !!!
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: RoundButton(
+                          title: "Confirm",
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DesiredBody(),
                               ),
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            // !!! Confirm Button !!!
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: RoundButton(
-                    title: "Confirm",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DesiredBody(),
-                        ),
-                      );
-                    },
-                  ),
+            Positioned(
+              top: 30,
+              left: media.width * 0.25,
+              child: Text(
+                "What's your current \nbody shape",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: TColor.black,
                 ),
               ),
             ),
