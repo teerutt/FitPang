@@ -23,7 +23,9 @@ class _BMIScoreState extends State<BMIScore> {
 
   @override
   Widget build(BuildContext context) {
-    Float bmi_score = (widget.weight / (widget.height*widget.height)) as Float ;
+    double bmi_score = (widget.weight / ((widget.height/100)*(widget.height/100)));
+    bmi_score = double.parse(bmi_score.toStringAsFixed(2));
+    
     var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: TColor.white,

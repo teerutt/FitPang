@@ -4,7 +4,13 @@ import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
 
 class DesiredBody extends StatefulWidget {
-  const DesiredBody({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  final int height;
+  final int weight;
+  final int current_body;
+  const DesiredBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight, required this.current_body});
 
   @override
   State<DesiredBody> createState() => _DesiredBodyState();
@@ -13,6 +19,8 @@ class DesiredBody extends StatefulWidget {
 class _DesiredBodyState extends State<DesiredBody> {
   @override
   Widget build(BuildContext context) {
+    int selectedDesbody = 0;
+
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
