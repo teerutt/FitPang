@@ -1,5 +1,5 @@
 import 'package:fitpang/common_widget/weight_scrollwhell.dart';
-import 'package:fitpang/view/complete_profile/current_body.dart';
+import 'package:fitpang/view/complete_profile/bmi_score.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -99,8 +99,27 @@ class _WeightViewState extends State<WeightView> {
                     fontWeight: FontWeight.w700),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
               width: media.width,
               child: Column(
                 children: [
@@ -136,7 +155,7 @@ class _WeightViewState extends State<WeightView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const CurrentBody(),
+                          builder: (context) => const BMIScore(),
                         ),
                       );
                     },

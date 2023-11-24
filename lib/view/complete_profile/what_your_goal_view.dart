@@ -101,6 +101,25 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
             Container(
               padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
               width: media.width,
