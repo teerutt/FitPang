@@ -29,6 +29,25 @@ class _AgeViewState extends State<AgeView> {
                 child: AgeScrollWheel(),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
               width: media.width,

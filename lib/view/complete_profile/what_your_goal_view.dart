@@ -20,7 +20,7 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
       "image": "assets/img/goal1.png",
       "title": "Improve Shape",
       "subtitle":
-          "I have a low amount of body fat\nand need / want to build more\nmuscle"
+          "I have a low amount of body fat\nand need / want to build more\nmuscle",
     },
     {
       "image": "assets/img/goal2.png",
@@ -98,6 +98,25 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   viewportFraction: 0.7,
                   aspectRatio: 0.74,
                   initialPage: 0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
                 ),
               ),
             ),

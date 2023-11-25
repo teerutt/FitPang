@@ -1,5 +1,6 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
+import 'package:fitpang/view/homedashboard/insight2.dart';
 import 'package:fitpang/view/homedashboard/update_plan.dart';
 import 'package:fitpang/view/homedashboard/update_weight.dart';
 import 'package:fitpang/view/profile/profile_view.dart';
@@ -51,7 +52,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 1,
                   onTap: () {
                     selectTab = 1;
-                    currentTab = const UpdatePlan();
+                    currentTab = Insight2(title: "YourTitleHere");
                     if (mounted) {
                       setState(() {});
                     }
