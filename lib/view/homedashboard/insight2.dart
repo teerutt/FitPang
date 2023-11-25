@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common/color_utils.dart';
 import 'package:fitpang/common_widget/date_utils.dart' as date_util;
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class Insight2 extends StatefulWidget {
   final String title;
@@ -19,6 +22,7 @@ class _Insight2State extends State<Insight2> {
   DateTime currentDateTime = DateTime.now();
   List<String> todos = <String>[];
   TextEditingController controller = TextEditingController();
+  bool click = true;
 
   @override
   void initState() {
@@ -46,7 +50,7 @@ class _Insight2State extends State<Insight2> {
   Widget hrizontalCapsuleListView() {
     return Container(
       width: width,
-      height: 140,
+      height: 100,
       child: ListView.builder(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
@@ -70,8 +74,8 @@ class _Insight2State extends State<Insight2> {
             });
           },
           child: Container(
-            width: 80,
-            height: 140,
+            width: 70,
+            height: 100,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: (currentMonthList[index].day != currentDateTime.day)
@@ -105,7 +109,7 @@ class _Insight2State extends State<Insight2> {
                   Text(
                     currentMonthList[index].day.toString(),
                     style: TextStyle(
-                        fontSize: 48,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color:
                             (currentMonthList[index].day != currentDateTime.day)
@@ -132,7 +136,7 @@ class _Insight2State extends State<Insight2> {
 
   Widget topView() {
     return Container(
-      height: height * 0.35,
+      height: height * 0.30,
       width: width,
       // decoration: BoxDecoration(
       //   gradient: LinearGradient(
@@ -295,12 +299,108 @@ class _Insight2State extends State<Insight2> {
     height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      // backgroundColor: TColor.white,
       body: SafeArea(
-        child: Stack(
-          children: <Widget>[topView(), todoList()],
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Center(
+            child: Column(
+              children: [
+                Stack(
+                  children: <Widget>[
+                    topView(),
+                    todoList(),
+                    Positioned(
+                      bottom: MediaQuery.of(context).size.height * 0.45,
+                      left: 0,
+                      right: 0,
+                      child: CircularPercentIndicator(
+                        // animation: true,
+                        // animationDuration: 10000,
+                        radius: 100,
+                        lineWidth: 20,
+                        percent: 0.5,
+                        progressColor: TColor.primaryColor1,
+                        backgroundColor: Colors.grey,
+                        circularStrokeCap: CircularStrokeCap.round,
+                        center:
+                            const Text("50%", style: TextStyle(fontSize: 45)),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: MediaQuery.of(context).size.height * 0.23,
+                      left: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("Finished Workout",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                            SizedBox(height: 10.0),
+                            Container(
+                              alignment: Alignment.center,
+                              width: 325,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Colors.grey[400],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(
+                                      "Weight Training",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          click = !click;
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Icon(
+                                          (click == false)
+                                              ? Icons.add_task
+                                              : Icons.cancel,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      // floatingActionButton: floatingActionBtn(),
     );
   }
 }
