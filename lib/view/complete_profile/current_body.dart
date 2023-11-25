@@ -114,8 +114,8 @@ class _CurrentBodyState extends State<CurrentBody> {
                               decoration: BoxDecoration(
                                 color: TColor.white,
                                 border: Border.all(
-                                  color: TColor.primaryColor1,
-                                  width: 5.0,
+                                  color: TColor.gray,
+                                  width: 3.0,
                                 ),
                                 borderRadius: BorderRadius.circular(25),
                               ),
@@ -145,7 +145,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                           onTap: () =>
                               buttonCarouselController.animateToPage(entry.key),
                           child: Container(
-                            width: 12.0,
+                            width: 24.0,
                             height: 12.0,
                             margin:
                                 EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
@@ -163,7 +163,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                   ),
 
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: media.width * 0.05,
                   ),
 
                   // !!! Estimated Body Fat (grey box) !!!

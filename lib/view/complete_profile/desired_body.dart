@@ -1,3 +1,4 @@
+import 'package:fitpang/view/complete_profile/goal_period.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -128,8 +129,8 @@ class _DesiredBodyState extends State<DesiredBody> {
                               decoration: BoxDecoration(
                                 color: TColor.white,
                                 border: Border.all(
-                                  color: TColor.primaryColor1,
-                                  width: 5.0,
+                                  color: TColor.gray,
+                                  width: 3.0,
                                 ),
                                 borderRadius: BorderRadius.circular(25),
                               ),
@@ -159,7 +160,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                           onTap: () =>
                               buttonCarouselController.animateToPage(entry.key),
                           child: Container(
-                            width: 12.0,
+                            width: 22.0,
                             height: 12.0,
                             margin:
                                 EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
@@ -177,7 +178,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                   ),
 
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: media.width * 0.05,
                   ),
 
                   // !!! Estimated Body Fat (grey box) !!!
@@ -256,7 +257,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WelcomeView(),
+                          builder: (context) => const GoalPeriod(),
                         ),
                       );
                     },
