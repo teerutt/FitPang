@@ -27,7 +27,7 @@ class _BlankViewState extends State<BlankView> {
     final db = await opendb();
 
     // Replace this with your actual database query
-    List<Map<String, dynamic>> result = await db.rawQuery('SELECT picture FROM plan LIMIT 1');
+    List<Map<String, dynamic>> result = await db.rawQuery('SELECT picture FROM exercise LIMIT 1');
 
     if (result.isNotEmpty) {
       // Extract the BLOB data from the query result
@@ -50,8 +50,8 @@ class _BlankViewState extends State<BlankView> {
         child: imageBytes != null
             ? Image.memory(
                 imageBytes!,
-                width: 200, // Set width as needed
-                height: 200, // Set height as needed
+                width: 300, // Set width as needed
+                height: null, // Set height as needed
                 fit: BoxFit.cover, // Adjust the fit based on your requirements
               )
             : CircularProgressIndicator(), // Show a loading indicator while fetching the image
