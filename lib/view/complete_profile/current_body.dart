@@ -6,6 +6,7 @@ import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitpang/view/complete_profile/desired_body.dart';
 
 class CurrentBody extends StatefulWidget {
   final int userId;
@@ -13,29 +14,40 @@ class CurrentBody extends StatefulWidget {
   final int age;
   final int height;
   final int weight;
-  const CurrentBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight});
+  final String goal;
+  const CurrentBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight, required this.goal});
 
   @override
   State<CurrentBody> createState() => _CurrentBodyState();
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
+
+  int _current = 0;
   CarouselController buttonCarouselController = CarouselController();
 
-  List bodyArr = [
+  List currentBodyArr = [
     {
       "image": "assets/img/current_body1.png",
       "title": "10-15%",
+      "level": "Ideal",
+      "suggestion": "Your figure is almost perfect! Keep it up!",
+      "tag": "0"
     },
     {
       "image": "assets/img/current_body2.png",
       "title": "16-25%",
+      "level": "Good",
+      "suggestion": "You are at normal body fit level! Try the personalized plan for you to get fitter and healthier.",
+      "tag": "1"
     },
     {
       "image": "assets/img/current_body3.png",
       "title": "26-35%",
+      "level": "A bit high",
+      "suggestion": "You may have a slow metabolism, and face some potential health problems.",
+      "tag": "2"
     },
-
   ];
 
   @override
@@ -98,21 +110,25 @@ class _CurrentBodyState extends State<CurrentBody> {
                         aspectRatio: 0.74,
                         initialPage: 0,
                         onPageChanged: (index, reason) {
-                          selectedCurrbody = index;
-                          setState((){});
+                          // selectedCurrbody = index;
+                          // setState((){});
+                          setState(() {
+                            _current = index;
+                          });
                         },
                       ),
-                      items: bodyArr.map((bObj) {
+                      items: currentBodyArr.map((bObj) {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
                               width: MediaQuery.of(context).size.width * 0.6,
-                              margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
                               decoration: BoxDecoration(
                                 color: TColor.white,
                                 border: Border.all(
-                                  color: TColor.primaryColor1,
-                                  width: 5.0,
+                                  color: TColor.gray,
+                                  width: 3.0,
                                 ),
                                 borderRadius: BorderRadius.circular(25),
                               ),
@@ -131,9 +147,37 @@ class _CurrentBodyState extends State<CurrentBody> {
                     )
                   ),
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: media.width * 0.03,
+                  ),
+                  // Carousel Indicators
+                  Positioned(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: currentBodyArr.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () =>
+                              buttonCarouselController.animateToPage(entry.key),
+                          child: Container(
+                            width: 24.0,
+                            height: 12.0,
+                            margin:
+                                EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: (Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
 
+                  SizedBox(
+                    height: media.width * 0.05,
+                  ),
 
                   // !!! Estimated Body Fat (grey box) !!!
                   Container(
@@ -141,17 +185,17 @@ class _CurrentBodyState extends State<CurrentBody> {
                     width: 330,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.grey[400],
+                      color: TColor.lightGray,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
                       ),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "You Estimated Body Fat(Approx.)",
+                        "Your estimated Body Fat",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: TColor.black,
                           fontSize: 17.0,
                           fontWeight: FontWeight.w700,
                         ),
@@ -163,7 +207,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                     width: 330,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: TColor.lightenGray,
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
@@ -173,19 +217,20 @@ class _CurrentBodyState extends State<CurrentBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          // *** query bodyArr["title"] ***
-                          "10% - 15% (Ideal)",
+                          "${currentBodyArr[_current]["title"]} (${currentBodyArr[_current]["level"]})",
                           style: TextStyle(
-                            color: Colors.green[600],
+                            color: "${currentBodyArr[_current]["tag"]}" == "2" 
+                            ?Colors.orange[600]
+                            : Colors.green[400],
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: 10.0),
-                        const Text(
-                          "Your figure is almost perfect! Keep it up!",
+                        Text(
+                          "${currentBodyArr[_current]["suggestion"]}",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: TColor.black,
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700,
                           ),
@@ -205,10 +250,11 @@ class _CurrentBodyState extends State<CurrentBody> {
                   child: RoundButton(
                     title: "Next >",
                     onPressed: () {
+                      print("${widget.userId} ${widget.gender} ${widget.age} ${widget.weight} ${widget.height} $_current");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BlankView(),
+                          builder: (context) => DesiredBody(userId: widget.userId, gender: widget.gender, weight: widget.weight, height: widget.height, age: widget.age, goal: widget.goal, current_body: _current,),
                         ),
                       );
                     },

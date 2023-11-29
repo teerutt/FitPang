@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitpang/view/complete_profile/current_body.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
 import 'package:flutter/material.dart';
 
@@ -168,7 +169,9 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomeView()));
+                                builder: (context) => CurrentBody(userId: widget.userId, gender: widget.gender, age: widget.age, height: widget.height, weight: widget.weight, goal: program,)
+                                )
+                              );
                       }),
                 ],
               ),

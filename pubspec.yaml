@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
   animated_toggle_switch: ^0.8.0
+  percent_indicator: ^4.2.3
+
   flutter_launcher_icons: ^0.13.1
   sqflite: ^2.3.0
   path: ^1.8.3
