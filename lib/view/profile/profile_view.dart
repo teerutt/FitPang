@@ -1,4 +1,5 @@
 import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/homedashboard/calories_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
 import 'package:fitpang/view/profile/profile_edit_view.dart';
 import 'package:fitpang/view/profile/profile_setting_view.dart';
@@ -73,7 +74,7 @@ class _ProfileViewState extends State<ProfileView> {
       return MaterialPageRoute(builder: (context) => const ProfileEditView());
     } 
     else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
+      return MaterialPageRoute(builder: (context) => const CaloriesView());
     } 
     else if (tag == "3") {
       return MaterialPageRoute(builder: (context) => const BlankView());
