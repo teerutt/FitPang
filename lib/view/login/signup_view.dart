@@ -18,6 +18,23 @@ class _SignUpViewState extends State<SignUpView> {
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
 
+  TextEditingController _dateController = TextEditingController();
+
+  Future<void> _selectDate() async {
+    DateTime? _picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (_picked != null) {
+      setState(() {
+        _dateController.text = _picked.toString().split(" ")[0];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -31,7 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: media.width * 0.05,
+                  height: media.width * 0.05,
                 ),
                 Text(
                   "Hey there,",
@@ -40,10 +57,9 @@ class _SignUpViewState extends State<SignUpView> {
                 Text(
                   "Create an Account",
                   style: TextStyle(
-                    color: TColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700
-                  ),
+                      color: TColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: media.width * 0.05,
@@ -84,25 +100,24 @@ class _SignUpViewState extends State<SignUpView> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: isPasswordObscured
-                        ? Image.asset(
-                          "assets/img/hide_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                        : Image.asset(
-                          "assets/img/show_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                    ),
+                        alignment: Alignment.center,
+                        width: 20,
+                        height: 20,
+                        child: isPasswordObscured
+                            ? Image.asset(
+                                "assets/img/hide_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )
+                            : Image.asset(
+                                "assets/img/show_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )),
                   ),
                 ),
                 SizedBox(
@@ -119,25 +134,48 @@ class _SignUpViewState extends State<SignUpView> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: isConfirmPasswordObscured
-                        ? Image.asset(
-                          "assets/img/hide_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
-                        : Image.asset(
-                          "assets/img/show_password.png",
-                          width: 20,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          color: TColor.gray,
-                        )
+                        alignment: Alignment.center,
+                        width: 20,
+                        height: 20,
+                        child: isConfirmPasswordObscured
+                            ? Image.asset(
+                                "assets/img/hide_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )
+                            : Image.asset(
+                                "assets/img/show_password.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: TColor.gray,
+                              )),
+                  ),
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: null,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextField(
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      labelText: 'DATE OF BIRTH',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                      filled: true,
+                      prefixIcon: Icon(Icons.calendar_today),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
                     ),
+                    readOnly: true,
+                    onTap: () {
+                      _selectDate();
+                    },
                   ),
                 ),
                 SizedBox(
@@ -153,15 +191,15 @@ class _SignUpViewState extends State<SignUpView> {
                       },
                       icon: Icon(
                         isCheck
-                          ? Icons.check_box_outlined
-                          : Icons.check_box_outline_blank_outlined,
+                            ? Icons.check_box_outlined
+                            : Icons.check_box_outline_blank_outlined,
                         color: TColor.gray,
                         size: 20,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child:  Text(
+                      child: Text(
                         "By continuing you accept our Privacy Policy and\nTerm of Use",
                         style: TextStyle(color: TColor.gray, fontSize: 10),
                       ),
@@ -172,10 +210,13 @@ class _SignUpViewState extends State<SignUpView> {
                   height: media.width * 0.1,
                 ),
                 RoundButton(
-                  title: "Register", onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const GenderView()  ));
-                  }
-                ),
+                    title: "Register",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GenderView()));
+                    }),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
@@ -226,11 +267,9 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       width: media.width * 0.04,
                     ),
-
                     GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -260,9 +299,9 @@ class _SignUpViewState extends State<SignUpView> {
                 TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginView()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginView()));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

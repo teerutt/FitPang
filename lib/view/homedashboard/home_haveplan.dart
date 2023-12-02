@@ -1,4 +1,6 @@
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/view/homedashboard/calories_view.dart';
+import 'package:fitpang/view/homedashboard/day_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
@@ -147,50 +149,132 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                    width: 330,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/img/workoutplan.png",
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to WeightTrainingPage when the container is tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DayTodo()),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/workoutplan.png"),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Day 01 - Warm Up",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 10.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Day 01 - Weight Training",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "| 07:00 - 08:00 AM",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.orange[300],
-                                    fontWeight: FontWeight.bold,
+                                  Text(
+                                    "| Week1",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  const Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Today Calories Plan",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to WeightTrainingPage when the container is tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CaloriesView()),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/today_calories.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 10.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Day 01 - Weight Training",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "| Week1",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
