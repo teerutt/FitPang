@@ -1,26 +1,28 @@
 import 'package:fitpang/view/homedashboard/blank_view.dart';
-import 'package:fitpang/view/profile/setting_notification_view.dart';
+import 'package:fitpang/view/profile/profile_edit_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/common_widget/setting_setting_row.dart';
+import 'package:fitpang/common_widget/setting_notification_row.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ProfileSettingView extends StatefulWidget {
+class SettingNotificationView extends StatefulWidget {
   final int userId;
-  const ProfileSettingView({super.key, required this.userId});
+  const SettingNotificationView({super.key, required this.userId});
 
   @override
-  State<ProfileSettingView> createState() => _ProfileSettingViewState();
+  State<SettingNotificationView> createState() => _SettingNotificationViewState();
 }
 
-class _ProfileSettingViewState extends State<ProfileSettingView> {
+class _SettingNotificationViewState extends State<SettingNotificationView> {
+  
   List settingArr = [
     {
-      "name": "Notifications",
+      "name": "Plan Reminders",
       "tag": "1",
     },
     {
-      "name": "Contact Us",
+      "name": "Events Notifications",
       "tag": "2"
     },
   ];
@@ -47,19 +49,31 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
+      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
     } 
     else if (tag == "2") {
       return MaterialPageRoute(builder: (context) => const BlankView());
     } 
     else {
       // Handle other cases or return a default route
-      return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId,));
+      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     }
   }
 
+  Future<void> _launchPhoneSettings() async {
+    const url = 'app-settings:';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // Could not launch the URL
+      print('Could not launch $url');
+    }
+  }
+
+  bool positive = false;
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.white,
@@ -71,7 +85,7 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
           child: Container(
             margin: const EdgeInsets.only(top: 40),
             child: Text(
-              "Settings",
+              "Notifications",
               style: TextStyle(
                 color: TColor.black,
                 fontSize: 20,
@@ -115,11 +129,8 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
                       },
                       itemBuilder: (context, index) {
                         var iObj = settingArr[index] as Map? ?? {};
-                        return SettingSettingRow(
+                        return SettingNotificationRow(
                           title: iObj["name"].toString(),
-                          onPressed: () {
-                            navigateToPage(iObj["tag"]);
-                          },
                         );
                       },
                     ),
@@ -127,9 +138,18 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
+                    SizedBox(
+                      height: media.width
+                    ),
+                    InkWell(
+                      onTap: () {
+                        _launchPhoneSettings();
+                      },
+                      child: const Text(
+                        "You can manage your app notification permission in your Phone Settings",
+                        textAlign: TextAlign.center,
+                      ),
+                    )
                   ],
                 ),
               ),

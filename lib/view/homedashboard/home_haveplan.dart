@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/homedashboard/calories_view.dart';
 import 'package:fitpang/view/homedashboard/day_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -239,6 +239,77 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                                   ),
                                   Text(
                                     "| $program2",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  const Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Today Calories Plan",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CaloriesView()),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/today_calories.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 10.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Day 01 - Weight Training",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "| Week1",
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.orange[300],

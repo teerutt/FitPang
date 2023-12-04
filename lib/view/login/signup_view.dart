@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
-import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
 import 'package:fitpang/dbhelper.dart';
 
@@ -25,6 +24,23 @@ class _SignUpViewState extends State<SignUpView> {
   bool isCheck = false;
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
+
+  TextEditingController _dateController = TextEditingController();
+
+  Future<void> _selectDate() async {
+    DateTime? _picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (_picked != null) {
+      setState(() {
+        _dateController.text = _picked.toString().split(" ")[0];
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -158,6 +174,54 @@ class _SignUpViewState extends State<SignUpView> {
                               )),
                   ),
                   controller: confirmpasswordController,
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: null,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextField(
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      labelText: 'DATE OF BIRTH',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                      filled: true,
+                      prefixIcon: Icon(Icons.calendar_today),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                    readOnly: true,
+                    onTap: () {
+                      _selectDate();
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: null,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextField(
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      labelText: 'DATE OF BIRTH',
+                      labelStyle: TextStyle(fontSize: 12.0),
+                      filled: true,
+                      prefixIcon: Icon(Icons.calendar_today),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                    readOnly: true,
+                    onTap: () {
+                      _selectDate();
+                    },
+                  ),
                 ),
                 // SizedBox(
                 //   height: media.width * 0.04,
