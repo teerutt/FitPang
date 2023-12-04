@@ -13,7 +13,6 @@ class DesiredBody extends StatefulWidget {
 }
 
 class _DesiredBodyState extends State<DesiredBody> {
-
   int _current = 0;
   CarouselController buttonCarouselController = CarouselController();
 
@@ -22,35 +21,40 @@ class _DesiredBodyState extends State<DesiredBody> {
       "image": "assets/img/desired_body1.png",
       "title": "<6%",
       "level": "Sweaty choice!",
-      "suggestion": "Get ready to break a sweat! This target is not easy but we’re sure you are ready!",
+      "suggestion":
+          "Get ready to break a sweat! This target is not easy but we’re sure you are ready!",
       "tag": "0"
     },
     {
       "image": "assets/img/desired_body2.png",
       "title": "6-9%",
       "level": "Reasonable target!",
-      "suggestion": "Step by step! This goal is practical and friendly for beginners.",
+      "suggestion":
+          "Step by step! This goal is practical and friendly for beginners.",
       "tag": "1"
     },
     {
       "image": "assets/img/desired_body3.png",
       "title": "10-15%",
       "level": "Reasonable target!",
-      "suggestion": "Step by step! This goal is practical and friendly for beginners.",
+      "suggestion":
+          "Step by step! This goal is practical and friendly for beginners.",
       "tag": "2"
     },
     {
       "image": "assets/img/desired_body4.png",
       "title": "16-25%",
       "level": "Not a good idea",
-      "suggestion": "This body fat level seems too high for you, which might cause some health issues...",
+      "suggestion":
+          "This body fat level seems too high for you, which might cause some health issues...",
       "tag": "3"
     },
     {
       "image": "assets/img/desired_body5.png",
       "title": "26-40%",
       "level": "Not a good idea",
-      "suggestion": "This body fat level seems too high for you, which might cause some health issues...",
+      "suggestion":
+          "This body fat level seems too high for you, which might cause some health issues...",
       "tag": "4"
     },
   ];
@@ -103,50 +107,49 @@ class _DesiredBodyState extends State<DesiredBody> {
                   ),
                   // !!! Carousel Slider !!!
                   Center(
-                    child: CarouselSlider(
-                      carouselController: buttonCarouselController,
-                      options: CarouselOptions(
-                        height: media.height * 0.4,
-                        autoPlay: false,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.7,
-                        aspectRatio: 0.74,
-                        initialPage: 0,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
+                      child: CarouselSlider(
+                    carouselController: buttonCarouselController,
+                    options: CarouselOptions(
+                      height: media.height * 0.4,
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.7,
+                      aspectRatio: 0.74,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                    items: desiredBodyArr.map((bObj) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              color: TColor.white,
+                              border: Border.all(
+                                color: TColor.gray,
+                                width: 3.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: FittedBox(
+                              child: Image.asset(
+                                bObj["image"].toString(),
+                                // width: media.width * 0.5,
+                                // height: media.width * 0.5,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
                         },
-                      ),
-                      items: desiredBodyArr.map((bObj) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                color: TColor.white,
-                                border: Border.all(
-                                  color: TColor.gray,
-                                  width: 3.0,
-                                ),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: FittedBox(
-                                child: Image.asset(
-                                  bObj["image"].toString(),
-                                  // width: media.width * 0.5,
-                                  // height: media.width * 0.5,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    )
-                  ),
+                      );
+                    }).toList(),
+                  )),
                   SizedBox(
                     height: media.width * 0.03,
                   ),
@@ -161,14 +164,16 @@ class _DesiredBodyState extends State<DesiredBody> {
                           child: Container(
                             width: 22.0,
                             height: 12.0,
-                            margin:
-                                EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 4.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness == Brightness.dark
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? Colors.white
                                       : Colors.black)
-                                  .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4),
                             ),
                           ),
                         );
@@ -177,7 +182,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                   ),
 
                   SizedBox(
-                    height: media.width * 0.05,
+                    height: media.width * 0.03,
                   ),
 
                   // !!! Estimated Body Fat (grey box) !!!
@@ -204,7 +209,8 @@ class _DesiredBodyState extends State<DesiredBody> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 10.0, right: 10.0),
                     width: 330,
                     height: 120,
                     decoration: BoxDecoration(
@@ -220,11 +226,13 @@ class _DesiredBodyState extends State<DesiredBody> {
                         Text(
                           "${desiredBodyArr[_current]["title"]} (${desiredBodyArr[_current]["level"]})",
                           style: TextStyle(
-                            color: "${desiredBodyArr[_current]["tag"]}" == "0" 
-                            ?Colors.orange[600]
-                            :"${desiredBodyArr[_current]["tag"]}" == "1" || "${desiredBodyArr[_current]["tag"]}" == "2"
-                            ?Colors.green[400]
-                            : Colors.red[600],
+                            color: "${desiredBodyArr[_current]["tag"]}" == "0"
+                                ? Colors.orange[600]
+                                : "${desiredBodyArr[_current]["tag"]}" == "1" ||
+                                        "${desiredBodyArr[_current]["tag"]}" ==
+                                            "2"
+                                    ? Colors.green[400]
+                                    : Colors.red[600],
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
                           ),

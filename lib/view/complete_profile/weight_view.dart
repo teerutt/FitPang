@@ -89,8 +89,8 @@ class _WeightViewState extends State<WeightView> {
               height: media.width * 0.05,
             ),
             Positioned(
-              left: 240,
-              top: 350,
+              left: media.width * 0.6, // 30% from the left
+              top: media.height * 0.45,
               child: Text(
                 "kg",
                 style: TextStyle(
