@@ -3,7 +3,6 @@ import 'package:fitpang/dbhelper.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common_widget/round_button_create.dart';
-import 'package:fitpang/view/complete_profile/age_view.dart';
 import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
 
@@ -16,7 +15,7 @@ class HomeNoPlan extends StatefulWidget {
 }
 
 class _HomeNoPlanState extends State<HomeNoPlan> {
-  late String firstName='';
+  late String firstName = '';
 
   @override
   void initState() {
@@ -26,24 +25,15 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
 
   Future<void> loadFirstName() async {
     final firstName = await getFirstName(widget.userId);
-    setState(() {
-      this.firstName = firstName;
-    });
-  }
-
-  Future<String> getFirstName(int userId) async {
-    final db = await opendb();
-    final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
-    await db.close();
-
-    return result.first['f_name'] as String; // Replace '' with a default value if f_name is nullable
+    if (mounted) {
+      setState(() {
+        this.firstName = firstName;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // int userId = widget.userId;
-    
-
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
@@ -77,7 +67,9 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
                     print('userId: ${widget.userId}');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GenderView(userId: widget.userId)),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              GenderView(userId: widget.userId)),
                     );
                   },
                 ),

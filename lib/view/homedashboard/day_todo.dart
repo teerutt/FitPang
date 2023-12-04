@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class DayTodo extends StatefulWidget {
-  const DayTodo({super.key});
+  final int userId;
+  const DayTodo({super.key, required this.userId});
 
   @override
   State<DayTodo> createState() => _DayTodoState();
 }
 
 class _DayTodoState extends State<DayTodo> {
+  late DateTime planDate = DateTime(2001,1,1);
+  late String program1 = '';
+  late String program2 = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadplanDate();
+    loadProgram();
+  }
+
+  Future<void> loadplanDate() async {
+    final DateTime dateCreated = await getPlanDate(widget.userId);
+    setState(() {
+      this.planDate = dateCreated;
+    });
+  }
+
+  Future<void> loadProgram() async {
+    final program1 = await getProgram(widget.userId, 1);
+    final program2 = await getProgram(widget.userId, 2);
+    setState(() {
+      this.program1 = program1;
+      this.program2 = program2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    int days = DateTime.now().difference(planDate).inDays + 1;
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
@@ -36,7 +66,7 @@ class _DayTodoState extends State<DayTodo> {
                         ),
                       ),
                       child: Text(
-                        "Day 1",
+                        "Day $days",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
@@ -48,7 +78,7 @@ class _DayTodoState extends State<DayTodo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Weight Training",
+                    program2 != '' ? "$program1 + $program2" : program1,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

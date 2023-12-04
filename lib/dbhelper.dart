@@ -72,14 +72,107 @@ class User {
   }
 }
 
-Future<Database> opendb() async{
+class Plan {
+  int? plan_id;
+  int user_id;
+  String program;
+  int height;
+  String sex;
+  int age;
+  int body_now;
+  int body_goal;
+  int plan_period;
+  DateTime date_created;
+
+  Plan({
+    this.plan_id,
+    required this.user_id,
+    required this.program,
+    required this.height,
+    required this.sex,
+    required this.age,
+    required this.body_now,
+    required this.body_goal,
+    required this.plan_period,
+    required this.date_created,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'plan_id': plan_id,
+      'user_id': user_id,
+      'program': program,
+      'height': height,
+      'sex': sex,
+      'age': age,
+      'body_now': body_now,
+      'body_goal': body_goal,
+      'plan_period': plan_period,
+      'date_created': date_created.toIso8601String(),
+    };
+  }
+}
+
+class Week {
+  int? week_id;
+  int plan_id;
+  int week;
+  int weight;
+  String pattern_id;
+
+  Week({
+    this.week_id,
+    required this.plan_id,
+    required this.week,
+    required this.weight,
+    required this.pattern_id,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'week_id': week_id,
+      'plan_id': plan_id,
+      'week': week,
+      'weight': weight,
+      'pattern_id': pattern_id,
+    };
+  }
+}
+
+class Nutrition {
+  int week_id;
+  int calories;
+  int protein;
+  int carb;
+  int fats;
+
+  Nutrition({
+    required this.week_id,
+    required this.calories,
+    required this.protein,
+    required this.carb,
+    required this.fats,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'week_id': week_id,
+      'calories': calories,
+      'protein': protein,
+      'carb': carb,
+      'fats': fats,
+    };
+  }
+}
+
+Future<Database> opendb() async {
   final dbpath = await getDatabasesPath();
   final path = join(dbpath, "fitpang_DB.db");
   final db = await openDatabase(path);
   return db;
 }
 
-Future<void> printAllUser() async{
+Future<void> printAllUser() async {
   final db = await opendb();
   List<Map> list = await db.rawQuery('SELECT * FROM user_account');
   print('Available user: $list');
@@ -123,23 +216,70 @@ Future<void> insertUser(User user) async {
 Future<String> getFirstName(int userId) async {
   final db = await opendb();
   final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
-  await db.close();
+  //await db.close();
 
-return result.first['f_name'] as String; // Replace '' with a default value if f_name is nullable
+  return result.first['f_name']
+      as String; // Replace '' with a default value if f_name is nullable
 }
 
 Future<String> getLastName(int userId) async {
   final db = await opendb();
-  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  final result =
+      await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
   await db.close();
 
-return result.first['l_name'] as String; // Replace '' with a default value if f_name is nullable
+  return result.first['l_name']
+      as String; // Replace '' with a default value if f_name is nullable
 }
 
-Future<Map<String,dynamic>> getUser(int userId) async {
+Future<Map<String, dynamic>> getUser(int userId) async {
   final db = await opendb();
-  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  final result =
+      await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
   await db.close();
 
-return result.first; // Replace '' with a default value if f_name is nullable
+  return result.first; // Replace '' with a default value if f_name is nullable
+}
+
+Future<double> calculateBMI(int userId) async{
+  final db = await opendb();
+  final plan = await db.query('plan', columns: ['plan_id','height'], where: 'user_id = ?', whereArgs: [userId]);
+  final int planId = plan.last['plan_id'] as int;
+  final int height = plan.last['height'] as int;
+  final int weight = (await db.query('week', columns: ['weight'], where: 'plan_id = ?', whereArgs: [planId])).last['weight'] as int;
+
+  double bmi = (weight / ((height/100)*(height/100)));
+  bmi = double.parse(bmi.toStringAsFixed(2));
+  return bmi;
+}
+
+Future<DateTime> getPlanDate(int userId) async{
+  final db = await opendb();
+  final planDate = (await db.query('plan', columns: ['date_created'], where: 'user_id = ?', whereArgs: [userId])).first['date_created'] as String;
+  return DateTime.parse(planDate);
+}
+
+Future<int> getPlanId(int userId) async{
+  final db = await opendb();
+  final plan = await db.query('plan', columns: ['plan_id'], where: 'user_id = ?', whereArgs: [userId]);
+  return plan.last['plan_id'] as int;
+}
+
+Future<int> getDay(int userId) async{
+  final planDate = await getPlanDate(userId);
+  return DateTime.now().difference(planDate).inDays+1;
+}
+
+Future<String> getProgram(int userId,int programNo) async{
+  final db = await opendb();
+  int planId = await getPlanId(userId);
+  int day = await getDay(userId);
+  final pattern = (await db.query('week', columns: ['pattern_id'], where: 'plan_id = ?', whereArgs: [planId])).last['pattern_id'] as String;
+  final program = await db.query('pattern_detail', columns: ['program$programNo'], where: 'pattern_id = ? AND day = ?', whereArgs: [pattern,day%7]);
+  if(program.first['program$programNo'] != null){
+    return program.first['program$programNo'] as String;
+  }else{
+    return '';
+  }
+  
 }

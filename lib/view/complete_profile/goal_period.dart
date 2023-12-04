@@ -1,3 +1,4 @@
+import 'package:fitpang/view/complete_profile/complete_create.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -349,10 +350,11 @@ class _GoalPeriodState extends State<GoalPeriod> {
                       child: RoundButton(
                         title: "Next >",
                         onPressed: () {
+                          int period = (_current+1)*2;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const WelcomeView(),
+                              builder: (context) => CompleteCreate(userId: widget.userId, gender: widget.gender, weight: widget.weight, height: widget.height, age: widget.age, goal: widget.goal, current_body: widget.current_body, desired_body: widget.desired_body, period: period,),
                             ),
                           );
                         },

@@ -8,6 +8,7 @@ import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/homedashboard/home_noplan.dart';
 import 'package:fitpang/view/homedashboard/home_haveplan.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class MainTabView extends StatefulWidget {
   final int userId;
@@ -20,16 +21,30 @@ class MainTabView extends StatefulWidget {
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
   final PageStorageBucket pageBucket = PageStorageBucket();
-  late Widget currentTab;
+  late Widget currentTab = HomeNoPlan(userId: widget.userId);
 
   @override
   void initState() {
     super.initState();
-    currentTab = HomeNoPlan(userId: widget.userId);
+    initTab();
+  }
+
+  Future<void> initTab() async {
+  final hasPlan = await checkPlan(widget.userId);
+  setState(() {
+    currentTab = hasPlan ? HomeHavePlan(userId: widget.userId) : HomeNoPlan(userId: widget.userId);
+  });
+  }
+
+  Future <bool> checkPlan (int userId) async {
+    final db = await opendb();
+    final plan = await db.query('plan', where: 'user_id=?',whereArgs: [userId]);
+    return plan.isNotEmpty;
   }
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: TColor.white,
       body: PageStorage(bucket: pageBucket, child: currentTab),
@@ -47,9 +62,9 @@ class _MainTabViewState extends State<MainTabView> {
                   icon: "assets/img/home_tab.png",
                   selectedIcon: "assets/img/home_tab_selected.png",
                   isActive: selectTab == 0,
-                  onTap: () {
+                  onTap: () async {
                     selectTab = 0;
-                    currentTab = HomeNoPlan(userId: widget.userId);
+                    await checkPlan(widget.userId) ? currentTab = HomeHavePlan(userId: widget.userId) : currentTab = HomeNoPlan(userId: widget.userId) ;
                     if (mounted) {
                       setState(() {});
                     }

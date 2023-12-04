@@ -1,20 +1,70 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/homedashboard/day_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class HomeHavePlan extends StatefulWidget {
-  const HomeHavePlan({Key? key}) : super(key: key);
+  final int userId;
+  const HomeHavePlan({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<HomeHavePlan> createState() => _HomeHavePlanState();
 }
 
 class _HomeHavePlanState extends State<HomeHavePlan> {
+  late String firstName = '';
+  late double bmi = 1.0;
+  late DateTime planDate = DateTime(2001,1,1);
+  late String program1 = '';
+  late String program2 = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadFirstName();
+    loadBMI();
+    loadplanDate();
+    loadProgram();
+  }
+
+  Future<void> loadFirstName() async {
+    final firstName = await getFirstName(widget.userId);
+    setState(() {
+      this.firstName = firstName;
+    });
+  }
+
+  Future<void> loadBMI() async {
+    final BMI = await calculateBMI(widget.userId);
+    setState(() {
+      this.bmi = BMI;
+    });
+  }
+
+  Future<void> loadplanDate() async {
+    final dateCreated = await getPlanDate(widget.userId);
+    setState(() {
+      this.planDate = dateCreated;
+    });
+  }
+
+  Future<void> loadProgram() async {
+    final program1 = await getProgram(widget.userId, 1);
+    final program2 = await getProgram(widget.userId, 2);
+    setState(() {
+      this.program1 = program1;
+      this.program2 = program2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    int days = DateTime.now().difference(planDate).inDays + 1;
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
@@ -29,7 +79,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Welcome Back, \nKlaeng",
+                      "Welcome Back, \n$firstName",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -119,7 +169,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                                   ),
                                 ),
                                 Text(
-                                  "23.6",
+                                  "$bmi",
                                   style: TextStyle(
                                     fontSize: 28,
                                     color: Colors.black,
@@ -149,50 +199,58 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                    width: 330,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/img/workoutplan.png",
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTodo(userId: widget.userId,)),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/img/workoutplan.png",
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Day 01 - Warm Up",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Day ""$days"" - ""$program1",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "| 07:00 - 08:00 AM",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.orange[300],
-                                    fontWeight: FontWeight.bold,
+                                  Text(
+                                    "| $program2",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),

@@ -199,6 +199,7 @@ class _SignUpViewState extends State<SignUpView> {
                           f_name: firstNameController.text,
                           l_name: lastNameController.text,
                           DOB: "2000-01-01"); //รอเพิ่ม
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                           
                       final db = await opendb();
                       final existing_email = await db.query('user_account', where: 'email=?', whereArgs: [user.email]);
@@ -214,7 +215,13 @@ class _SignUpViewState extends State<SignUpView> {
                       {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Email already exists in the database.'),
+                            content: Text('The following email is already exists.'),
+                          ),
+                        );
+                      }else if(!emailRegex.hasMatch(user.email)){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter a valid email.'),
                           ),
                         );
                       }else if (passwordController.text != confirmpasswordController.text) {

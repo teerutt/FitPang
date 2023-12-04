@@ -28,6 +28,7 @@ class _LoginViewState extends State<LoginView> {
     passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -36,8 +37,10 @@ class _LoginViewState extends State<LoginView> {
     double baseVerticalSpacing = 25;
 
     // Adjust padding based on screen size
-    double horizontalPadding = media.width > 600 ? basePadding * 0.8 : basePadding;
-    double verticalPadding = media.height > 600 ? baseVerticalSpacing * 0.8 : baseVerticalSpacing;
+    double horizontalPadding =
+        media.width > 600 ? basePadding * 0.8 : basePadding;
+    double verticalPadding =
+        media.height > 600 ? baseVerticalSpacing * 0.8 : baseVerticalSpacing;
 
     return Scaffold(
       backgroundColor: TColor.white,
@@ -45,7 +48,8 @@ class _LoginViewState extends State<LoginView> {
         child: SafeArea(
           child: Container(
             height: media.height * 0.9,
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+            padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding, vertical: verticalPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -132,40 +136,33 @@ class _LoginViewState extends State<LoginView> {
                     title: "Login",
                     onPressed: () async {
                       final db = await opendb();
-                      if (emailController.text.isEmpty || passwordController.text.isEmpty){
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Please enter email and password.'),
                           ),
                         );
-                      }else{
-                      final loggedInUser = await db.query('user_account', where: 'email=? AND password=?', whereArgs: [emailController.text, passwordController.text]);
-                      if (loggedInUser.isEmpty){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Incorrect email and password.'),
-                          ),
-                        );
-                      }else{
-                      print(loggedInUser);
-                      
-                      final users_plan = await db.query('plan', where: 'user_id=?', whereArgs: [loggedInUser.first['user_id']]);
-                      if(users_plan.isEmpty)
-                      {
-                        print('userId: ${loggedInUser.first['user_id']}');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainTabView(userId: loggedInUser.first['user_id'] as int)));
-                      }
-                      else
-                      {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeHavePlan()));
-                      }
-                      }
+                      } else {
+                        final user = await db.query('user_account',
+                            where: 'email=? AND password=?',
+                            whereArgs: [
+                              emailController.text,
+                              passwordController.text
+                            ]);
+                        if (user.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Incorrect email and password.'),
+                            ),
+                          );
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainTabView(
+                                      userId: user.first['user_id'] as int)));
+                        }
                       }
                     }),
                 SizedBox(
