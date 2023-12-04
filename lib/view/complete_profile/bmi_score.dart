@@ -2,7 +2,6 @@ import 'package:fitpang/view/complete_profile/current_body.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/homedashboard/day_todo.dart';
 
 class BMIScore extends StatefulWidget {
   const BMIScore({Key? key}) : super(key: key);
