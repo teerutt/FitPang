@@ -43,14 +43,15 @@ class _HeightViewState extends State<HeightView> {
               ),
             ),
             Positioned(
-              left: 240,
-              top: 350,
+              left: media.width * 0.6, // 30% from the left
+              top: media.height * 0.45, // 50% from the top
               child: Text(
                 "cm",
                 style: TextStyle(
-                    color: TColor.midGray,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700),
+                  color: TColor.midGray,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             Padding(
