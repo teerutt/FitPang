@@ -283,3 +283,9 @@ Future<String> getProgram(int userId,int programNo) async{
   }
   
 }
+
+Future<Uint8List> getImage(String ex_code) async{
+  final db = await opendb();
+  final result = (await db.query('exercise', columns: ['picture'], where: 'ex_code = ?', whereArgs: [ex_code]));
+  return result.first['picture'] as Uint8List;
+}

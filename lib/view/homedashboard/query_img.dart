@@ -13,33 +13,29 @@ class BlankView extends StatefulWidget {
 }
 
 class _BlankViewState extends State<BlankView> {
-  Uint8List? imageBytes; // Variable to store the image bytes
+  Map<String, Uint8List?> imageBytes = {
+    'ch': null,
+    'am': null,
+    'bk': null,
+    'bd': null,
+    'lg': null,
+  };
 
   @override
   void initState() {
     super.initState();
-    // Fetch image data from your database when the widget initializes
-    getImageFromDatabase();
+    loadImage('ch', 'CH05');
+    loadImage('am', 'AM01');
+    loadImage('bk', 'BK04');
+    loadImage('bd', 'BD01');
+    loadImage('lg', 'LG02');
   }
 
-  // Method to fetch image data from the database (replace this with your database logic)
-  void getImageFromDatabase() async {
-    final db = await opendb();
-
-    // Replace this with your actual database query
-    List<Map<String, dynamic>> result = await db.rawQuery('SELECT picture FROM exercise LIMIT 1');
-
-    if (result.isNotEmpty) {
-      // Extract the BLOB data from the query result
-      var imageData = result.first['picture'] as Uint8List?;
-
-      setState(() {
-        imageBytes = imageData;
-      });
-    }
-
-    // Close the database connection
-    await db.close();
+  Future<void> loadImage(String key,String ex_code) async {
+    final imageData = await getImage(ex_code);
+    setState(() {
+      imageBytes[key] = imageData;
+    });
   }
 
   @override
@@ -49,8 +45,8 @@ class _BlankViewState extends State<BlankView> {
       body: Center(
         child: imageBytes != null
             ? Image.memory(
-                imageBytes!,
-                width: 300, // Set width as needed
+                imageBytes['ch']!,
+                width: 50, // Set width as needed
                 height: null, // Set height as needed
                 fit: BoxFit.cover, // Adjust the fit based on your requirements
               )

@@ -30,9 +30,9 @@ class _SignUpViewState extends State<SignUpView> {
   Future<void> _selectDate() async {
     DateTime? _picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      initialDate: DateTime(2008),
+      firstDate: DateTime(1908),
+      lastDate: DateTime(2008),
     );
 
     if (_picked != null) {
@@ -180,7 +180,6 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: null,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
@@ -202,30 +201,6 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: null,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: TextField(
-                    controller: _dateController,
-                    decoration: const InputDecoration(
-                      labelText: 'DATE OF BIRTH',
-                      labelStyle: TextStyle(fontSize: 12.0),
-                      filled: true,
-                      prefixIcon: Icon(Icons.calendar_today),
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                    ),
-                    readOnly: true,
-                    onTap: () {
-                      _selectDate();
-                    },
-                  ),
-                ),
-                // SizedBox(
-                //   height: media.width * 0.04,
-                // ),
                 Row(
                   children: [
                     IconButton(
@@ -258,51 +233,57 @@ class _SignUpViewState extends State<SignUpView> {
                     title: "Register",
                     onPressed: () async {
                       final user = User(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          f_name: firstNameController.text,
-                          l_name: lastNameController.text,
-                          DOB: "2000-01-01"); //รอเพิ่ม
-                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                          
+                        email: emailController.text,
+                        password: passwordController.text,
+                        f_name: firstNameController.text,
+                        l_name: lastNameController.text,
+                        DOB: _dateController.text,
+                      );
+                      final emailRegex =
+                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
                       final db = await opendb();
-                      final existing_email = await db.query('user_account', where: 'email=?', whereArgs: [user.email]);
-                      if (emailController.text.isEmpty || passwordController.text.isEmpty || firstNameController.text.isEmpty || lastNameController.text.isEmpty)
-                      {
+                      final existing_email = await db.query('user_account',
+                          where: 'email=?', whereArgs: [user.email]);
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty ||
+                          firstNameController.text.isEmpty ||
+                          lastNameController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Please enter all the required information.'),
+                            content: Text(
+                                'Please enter all the required information.'),
                           ),
                         );
-                      }
-                      else if (existing_email.isNotEmpty)
-                      {
+                      } else if (existing_email.isNotEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('The following email is already exists.'),
+                            content:
+                                Text('The following email is already exists.'),
                           ),
                         );
-                      }else if(!emailRegex.hasMatch(user.email)){
+                      } else if (!emailRegex.hasMatch(user.email)) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Please enter a valid email.'),
                           ),
                         );
-                      }else if (passwordController.text != confirmpasswordController.text) {
+                      } else if (passwordController.text !=
+                          confirmpasswordController.text) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
                                 'Password and Confirm Password do not match.'),
                           ),
                         );
-                      }else if(!isCheck){
+                      } else if (!isCheck) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
                                 'You must accept our policy and term of use first.'),
                           ),
                         );
-                      }else {
+                      } else {
                         insertUser(user);
                         Navigator.push(
                             context,

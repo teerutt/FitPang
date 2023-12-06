@@ -19,7 +19,7 @@ class HomeHavePlan extends StatefulWidget {
 class _HomeHavePlanState extends State<HomeHavePlan> {
   late String firstName = '';
   late double bmi = 1.0;
-  late DateTime planDate = DateTime(2001,1,1);
+  late int days = 0;
   late String program1 = '';
   late String program2 = '';
 
@@ -28,7 +28,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
     super.initState();
     loadFirstName();
     loadBMI();
-    loadplanDate();
+    loadDay();
     loadProgram();
   }
 
@@ -42,14 +42,14 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
   Future<void> loadBMI() async {
     final BMI = await calculateBMI(widget.userId);
     setState(() {
-      this.bmi = BMI;
+      bmi = BMI;
     });
   }
 
-  Future<void> loadplanDate() async {
-    final dateCreated = await getPlanDate(widget.userId);
+  Future<void> loadDay() async {
+    final daySinceCreated = await getDay(widget.userId);
     setState(() {
-      this.planDate = dateCreated;
+      days = daySinceCreated;
     });
   }
 
@@ -64,7 +64,6 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
 
   @override
   Widget build(BuildContext context) {
-    int days = DateTime.now().difference(planDate).inDays + 1;
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
