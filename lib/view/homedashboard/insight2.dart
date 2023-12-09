@@ -211,7 +211,7 @@ class _Insight2State extends State<Insight2> {
                         // animationDuration: 10000,
                         radius: 100,
                         lineWidth: 20,
-                        percent: 0.75,
+                        percent: 0.5,
                         progressColor: TColor.primaryColor1,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.round,

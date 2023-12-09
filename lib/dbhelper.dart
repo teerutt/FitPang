@@ -321,3 +321,9 @@ Future<Map<String, Object?>> getNut(int userId) async{
   final result = await db.query('nutrition', where: 'week_id = ?', whereArgs: [week]);
   return result.last;
 }
+
+Future<List<Map<String, Object?>>> queryEvent() async{
+  final db = await opendb();
+  final List<Map<String, Object?>> result = await db.query('event');
+  return result;
+}
