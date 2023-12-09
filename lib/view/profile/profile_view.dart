@@ -1,5 +1,5 @@
-import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/homedashboard/calories_view.dart';
+import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
 import 'package:fitpang/view/profile/profile_edit_view.dart';
 import 'package:fitpang/view/profile/profile_setting_view.dart';

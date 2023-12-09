@@ -1,39 +1,56 @@
+import 'package:fitpang/view/complete_profile/goal_period.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitpang/view/complete_profile/desired_body.dart';
 
-class CurrentBody extends StatefulWidget {
-  const CurrentBody({super.key});
+class DesiredBody extends StatefulWidget {
+  const DesiredBody({super.key});
 
   @override
-  State<CurrentBody> createState() => _CurrentBodyState();
+  State<DesiredBody> createState() => _DesiredBodyState();
 }
 
-class _CurrentBodyState extends State<CurrentBody> {
-
+class _DesiredBodyState extends State<DesiredBody> {
   int _current = 0;
   CarouselController buttonCarouselController = CarouselController();
 
-  List currentBodyArr = [
+  List desiredBodyArr = [
     {
-      "image": "assets/img/current_body1.png",
-      "title": "26-30%",
-      "suggestion": "Your figure is almost perfect! Keep it up!",
+      "image": "assets/img/desired_body1.png",
+      "title": "3-4%",
+      "suggestion":
+          "Get ready to break a sweat! This target is not easy but we’re sure you are ready!",
       "tag": "0"
     },
     {
-      "image": "assets/img/current_body2.png",
-      "title": "31-35%",
+      "image": "assets/img/desired_body2.png",
+      "title": "6-7%",
+      "suggestion":
+          "Step by step! This goal is practical and friendly for beginners.",
       "tag": "1"
     },
     {
-      "image": "assets/img/current_body3.png",
-      "title": "36-40%",
-      "suggestion": "You may have a slow metabolism, and face some potential health problems.",
+      "image": "assets/img/desired_body3.png",
+      "title": "10-12%",
+      "suggestion":
+          "Step by step! This goal is practical and friendly for beginners.",
       "tag": "2"
+    },
+    {
+      "image": "assets/img/desired_body4.png",
+      "title": "13-15%",
+      "suggestion":
+          "This body fat level seems too high for you, which might cause some health issues...",
+      "tag": "3"
+    },
+    {
+      "image": "assets/img/desired_body5.png",
+      "title": "16-20%",
+      "suggestion":
+          "This body fat level seems too high for you, which might cause some health issues...",
+      "tag": "4"
     },
   ];
 
@@ -73,7 +90,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                     height: media.width * 0.1,
                   ),
                   Text(
-                    "What's your current\nbody shape",
+                    "What's your desired\nbody shape",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 20,
@@ -85,51 +102,49 @@ class _CurrentBodyState extends State<CurrentBody> {
                   ),
                   // !!! Carousel Slider !!!
                   Center(
-                    child: CarouselSlider(
-                      carouselController: buttonCarouselController,
-                      options: CarouselOptions(
-                        height: media.height * 0.25,
-                        autoPlay: false,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.7,
-                        aspectRatio: 0.74,
-                        initialPage: 0,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
+                      child: CarouselSlider(
+                    carouselController: buttonCarouselController,
+                    options: CarouselOptions(
+                      height: media.height * 0.4,
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.7,
+                      aspectRatio: 0.74,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                    items: desiredBodyArr.map((bObj) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              color: TColor.white,
+                              border: Border.all(
+                                color: TColor.gray,
+                                width: 3.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: FittedBox(
+                              child: Image.asset(
+                                bObj["image"].toString(),
+                                // width: media.width * 0.5,
+                                // height: media.width * 0.5,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
                         },
-                      ),
-                      items: currentBodyArr.map((bObj) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                color: TColor.white,
-                                border: Border.all(
-                                  color: TColor.gray,
-                                  width: 3.0,
-                                ),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              child: FittedBox(
-                                child: Image.asset(
-                                  bObj["image"].toString(),
-                                  // width: media.width * 0.5,
-                                  // height: media.width * 0.5,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    )
-                  ),
+                      );
+                    }).toList(),
+                  )),
                   SizedBox(
                     height: media.width * 0.03,
                   ),
@@ -137,21 +152,23 @@ class _CurrentBodyState extends State<CurrentBody> {
                   Positioned(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: currentBodyArr.asMap().entries.map((entry) {
+                      children: desiredBodyArr.asMap().entries.map((entry) {
                         return GestureDetector(
                           onTap: () =>
                               buttonCarouselController.animateToPage(entry.key),
                           child: Container(
-                            width: 24.0,
+                            width: 22.0,
                             height: 12.0,
-                            margin:
-                                EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 4.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness == Brightness.dark
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? Colors.white
                                       : Colors.black)
-                                  .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4),
                             ),
                           ),
                         );
@@ -160,7 +177,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                   ),
 
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: media.width * 0.03,
                   ),
 
                   // !!! Estimated Body Fat (grey box) !!!
@@ -187,7 +204,8 @@ class _CurrentBodyState extends State<CurrentBody> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 10.0, right: 10.0),
                     width: 330,
                     height: 120,
                     decoration: BoxDecoration(
@@ -200,28 +218,27 @@ class _CurrentBodyState extends State<CurrentBody> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            "${currentBodyArr[_current]["title"]}",
-                            style: TextStyle(
-                              color: "${currentBodyArr[_current]["tag"]}" == "2"
-                                  ? Colors.orange[600]
-                                  : Colors.green[400],
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        Text(
+                          "${desiredBodyArr[_current]["title"]} (${desiredBodyArr[_current]["level"]})",
+                          style: TextStyle(
+                            color: "${desiredBodyArr[_current]["tag"]}" == "0"
+                                ? Colors.orange[600]
+                                : "${desiredBodyArr[_current]["tag"]}" == "1" ||
+                                        "${desiredBodyArr[_current]["tag"]}" ==
+                                            "2"
+                                    ? Colors.green[400]
+                                    : Colors.red[600],
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            "${currentBodyArr[_current]["suggestion"]}",
-                            style: TextStyle(
-                              color: TColor.black,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        const SizedBox(height: 10.0),
+                        Text(
+                          "${desiredBodyArr[_current]["suggestion"]}",
+                          style: TextStyle(
+                            color: TColor.black,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
@@ -242,7 +259,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DesiredBody(),
+                          builder: (context) => const GoalPeriod(),
                         ),
                       );
                     },
