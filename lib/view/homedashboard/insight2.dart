@@ -7,8 +7,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class Insight2 extends StatefulWidget {
+  final int userId;
   final String title;
-  const Insight2({Key? key, required this.title}) : super(key: key);
+  const Insight2({Key? key, required this.title, required this.userId}) : super(key: key);
 
   @override
   _Insight2State createState() => _Insight2State();
@@ -138,29 +139,6 @@ class _Insight2State extends State<Insight2> {
     return Container(
       height: height * 0.30,
       width: width,
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //       colors: [
-      //         HexColor("488BC8").withOpacity(0.7),
-      //         HexColor("488BC8").withOpacity(0.5),
-      //         HexColor("488BC8").withOpacity(0.3)
-      //       ],
-      //       begin: const FractionalOffset(0.0, 0.0),
-      //       end: const FractionalOffset(0.0, 1.0),
-      //       stops: const [0.0, 0.5, 1.0],
-      //       tileMode: TileMode.clamp),
-      //   boxShadow: const [
-      //     BoxShadow(
-      //         blurRadius: 4,
-      //         color: Colors.black12,
-      //         offset: Offset(4, 4),
-      //         spreadRadius: 2)
-      //   ],
-      //   borderRadius: const BorderRadius.only(
-      //     bottomRight: Radius.circular(40),
-      //     bottomLeft: Radius.circular(40),
-      //   ),
-      // ),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -169,92 +147,6 @@ class _Insight2State extends State<Insight2> {
           ]),
     );
   }
-
-  // Widget floatingActionBtn() {
-  //   return Align(
-  //     alignment: Alignment.bottomRight,
-  //     child: FloatingActionButton(
-  //       child: Container(
-  //         width: 100,
-  //         height: 100,
-  //         child: const Icon(
-  //           Icons.add,
-  //           size: 30,
-  //         ),
-  //         decoration: BoxDecoration(
-  //             shape: BoxShape.circle,
-  //             gradient: LinearGradient(
-  //                 colors: [
-  //                   HexColor("ED6184"),
-  //                   HexColor("EF315B"),
-  //                   HexColor("E2042D")
-  //                 ],
-  //                 begin: const FractionalOffset(0.0, 0.0),
-  //                 end: const FractionalOffset(0.0, 1.0),
-  //                 stops: const [0.0, 0.5, 1.0],
-  //                 tileMode: TileMode.clamp)),
-  //       ),
-  //       onPressed: () {
-  //         controller.text = "";
-  //         showDialog(
-  //             context: context,
-  //             builder: (BuildContext context) {
-  //               return Dialog(
-  //                 backgroundColor: Colors.black87,
-  //                 shape: RoundedRectangleBorder(
-  //                     borderRadius: BorderRadius.circular(20)),
-  //                 child: Container(
-  //                   height: 200,
-  //                   width: 320,
-  //                   padding: EdgeInsets.all(12),
-  //                   child: Column(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: <Widget>[
-  //                       const SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       const Text(
-  //                         "Add Todo",
-  //                         style: TextStyle(
-  //                             color: Colors.white,
-  //                             fontSize: 16,
-  //                             fontWeight: FontWeight.bold),
-  //                       ),
-  //                       const SizedBox(
-  //                         height: 30,
-  //                       ),
-  //                       TextField(
-  //                         controller: controller,
-  //                         style: const TextStyle(color: Colors.white),
-  //                         autofocus: true,
-  //                         decoration: const InputDecoration(
-  //                             hintText: 'Add your new todo item',
-  //                             hintStyle: TextStyle(color: Colors.white60)),
-  //                       ),
-  //                       const SizedBox(
-  //                         height: 20,
-  //                       ),
-  //                       SizedBox(
-  //                         width: 320,
-  //                         child: ElevatedButton(
-  //                           onPressed: () {
-  //                             setState(() {
-  //                               todos.add(controller.text);
-  //                             });
-  //                             Navigator.of(context).pop();
-  //                           },
-  //                           child: const Text("Add Todo"),
-  //                         ),
-  //                       )
-  //                     ],
-  //                   ),
-  //                 ),
-  //               );
-  //             });
-  //       },
-  //     ),
-  //   );
-  // }
 
   Widget todoList() {
     return Container(
@@ -319,7 +211,7 @@ class _Insight2State extends State<Insight2> {
                         // animationDuration: 10000,
                         radius: 100,
                         lineWidth: 20,
-                        percent: 0.5,
+                        percent: 0.75,
                         progressColor: TColor.primaryColor1,
                         backgroundColor: Colors.grey,
                         circularStrokeCap: CircularStrokeCap.round,

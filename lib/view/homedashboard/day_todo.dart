@@ -37,7 +37,7 @@ class _DayTodoState extends State<DayTodo> {
   }
 
   Future<void> loadImage(String key, String ex_code) async {
-    final imageData = await getPVImage(ex_code);
+    final imageData = (await getExbycode(ex_code))['pv'] as Uint8List;
     setState(() {
       imageBytes[key] = imageData;
     });
@@ -183,7 +183,7 @@ class _DayTodoState extends State<DayTodo> {
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 25.0),
+                                              const EdgeInsets.only(left: 0.0),
                                           child: Image.memory(
                                             imageBytes['ch']!,
                                             width: 100, // Set width as needed
@@ -247,7 +247,7 @@ class _DayTodoState extends State<DayTodo> {
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 25.0),
+                                              const EdgeInsets.only(left: 0.0),
                                           child: Image.memory(
                                             imageBytes['am']!,
                                             width: null, // Set width as needed
@@ -311,7 +311,7 @@ class _DayTodoState extends State<DayTodo> {
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 5.0),
+                                              const EdgeInsets.only(left: 0.0),
                                           child: Image.memory(
                                             imageBytes['bd']!,
                                             width: 123, // Set width as needed
@@ -376,7 +376,7 @@ class _DayTodoState extends State<DayTodo> {
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 5.0),
+                                              const EdgeInsets.only(left: 0.0),
                                           child: Image.memory(
                                             imageBytes['bk']!,
                                             width: 123, // Set width as needed
@@ -434,7 +434,7 @@ class _DayTodoState extends State<DayTodo> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 50.0),
+                              padding: const EdgeInsets.only(left: 20.0),
                               child: imageBytes['lg'] != Uint8List(0)
                                   ? ClipRect(
                                       child: Align(

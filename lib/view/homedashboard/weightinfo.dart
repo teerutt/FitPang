@@ -22,7 +22,7 @@ class _WeightinfoState extends State<Weightinfo> {
   }
 
   Future<void> loadEx() async {
-    final ex = await getEx(widget.muscle);
+    final ex = await getExbymuscle(widget.muscle);
     setState(() {
       exercises = ex;
     });
@@ -45,14 +45,13 @@ class _WeightinfoState extends State<Weightinfo> {
     }
     var media = MediaQuery.of(context).size;
     List<Widget> exerciseWidgets = [];
-    String exerciseName;
+    String exerciseName,exerciseCode;
     Uint8List exerciseImg;
 
     for (int i = 0; i < exercises.length; i++) {
       Map<String, Object?> exercise = exercises[i];
       exerciseName = exercise['pose_name'] as String? ?? '';
       exerciseImg = exercise['pv'] as Uint8List;
-      //print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab ${exercise['pv']}');
 
       exerciseWidgets.add(
         GestureDetector(
@@ -60,7 +59,7 @@ class _WeightinfoState extends State<Weightinfo> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Weightdetail(),
+                builder: (context) => Weightdetail(code: exercises[i]['ex_code']as String,),
               ),
             );
           },
@@ -90,7 +89,7 @@ class _WeightinfoState extends State<Weightinfo> {
                                             child: Image.memory(
                                               exerciseImg,
                                               width:
-                                                  100, // Set width as needed
+                                                  97, // Set width as needed
                                               height:
                                                   null, // Set height as needed
                                               fit: BoxFit.cover,

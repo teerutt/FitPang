@@ -26,40 +26,35 @@ class _DesiredBodyState extends State<DesiredBody> {
   List desiredBodyArr = [
     {
       "image": "assets/img/desired_body1.png",
-      "title": "<6%",
-      "level": "Sweaty choice!",
+      "title": "3-4%",
       "suggestion":
           "Get ready to break a sweat! This target is not easy but we’re sure you are ready!",
       "tag": "0"
     },
     {
       "image": "assets/img/desired_body2.png",
-      "title": "6-9%",
-      "level": "Reasonable target!",
+      "title": "6-7%",
       "suggestion":
           "Step by step! This goal is practical and friendly for beginners.",
       "tag": "1"
     },
     {
       "image": "assets/img/desired_body3.png",
-      "title": "10-15%",
-      "level": "Reasonable target!",
+      "title": "10-12%",
       "suggestion":
           "Step by step! This goal is practical and friendly for beginners.",
       "tag": "2"
     },
     {
       "image": "assets/img/desired_body4.png",
-      "title": "16-25%",
-      "level": "Not a good idea",
+      "title": "13-15%",
       "suggestion":
           "This body fat level seems too high for you, which might cause some health issues...",
       "tag": "3"
     },
     {
       "image": "assets/img/desired_body5.png",
-      "title": "26-40%",
-      "level": "Not a good idea",
+      "title": "16-20%",
       "suggestion":
           "This body fat level seems too high for you, which might cause some health issues...",
       "tag": "4"
@@ -68,8 +63,6 @@ class _DesiredBodyState extends State<DesiredBody> {
 
   @override
   Widget build(BuildContext context) {
-    int selectedDesbody = 0;
-
     var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: TColor.white,
@@ -101,7 +94,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: 10.0,
                   ),
                   Text(
                     "What's your desired\nbody shape",
@@ -112,7 +105,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                         color: TColor.black),
                   ),
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: 10.0,
                   ),
                   // !!! Carousel Slider !!!
                   Center(
@@ -233,15 +226,9 @@ class _DesiredBodyState extends State<DesiredBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${desiredBodyArr[_current]["title"]} (${desiredBodyArr[_current]["level"]})",
+                          "${desiredBodyArr[_current]["title"]}",
                           style: TextStyle(
-                            color: "${desiredBodyArr[_current]["tag"]}" == "0"
-                                ? Colors.orange[600]
-                                : "${desiredBodyArr[_current]["tag"]}" == "1" ||
-                                        "${desiredBodyArr[_current]["tag"]}" ==
-                                            "2"
-                                    ? Colors.green[400]
-                                    : Colors.red[600],
+                            color: Colors.orange[600],
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
                           ),

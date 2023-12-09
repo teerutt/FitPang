@@ -105,7 +105,7 @@ class _ProfileViewState extends State<ProfileView> {
       return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
     } 
     else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const CaloriesView());
+      return MaterialPageRoute(builder: (context) => CaloriesView(userId: widget.userId,));
     } 
     else if (tag == "3") {
       return MaterialPageRoute(builder: (context) => const BlankView());

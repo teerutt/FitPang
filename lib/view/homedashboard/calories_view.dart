@@ -1,14 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class CaloriesView extends StatefulWidget {
-  const CaloriesView({super.key});
+  final int userId;
+  const CaloriesView({super.key, required this.userId});
 
   @override
   State<CaloriesView> createState() => _CaloriesViewState();
 }
 
 class _CaloriesViewState extends State<CaloriesView> {
+late int cal = 0, pro = 0, carb = 0, fats = 0, week = 0;
+late String goal = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadNut();
+    loadPlan();
+  }
+  Future<void> loadNut() async {
+    final week_ = await getWeek(widget.userId);
+    final nut = await getNut(widget.userId);
+    
+    setState(() {
+      cal = nut['calories'] as int;
+      pro = nut['protein'] as int;
+      carb = nut['carb'] as int;
+      fats = nut['fats'] as int;
+      week = week_['week'] as int;
+    });
+  }
+
+    Future<void> loadPlan() async {
+    final goal_ = (await getPlan(widget.userId))['program'] as String;
+    setState(() {
+      goal = goal_;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -71,7 +102,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                             ],
                           ),
                           child: Text(
-                            "Day 1",
+                            "Week $week",
                             style: TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.bold),
                           ),
@@ -83,7 +114,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Improve shape",
+                        goal,
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -121,7 +152,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "1,930",
+                              "${cal+500}",
                               style: TextStyle(
                                 fontSize: 32,
                                 color: TColor.black,
@@ -147,7 +178,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "These macronutrient values reflect your cutting\ncalories of 1,930 calories per day, which is a 500\ncalorie per day deficit from your maintenance of\n2,430 calories per day.",
+                          goal == 'Build Muscle' ? "These macronutrient values reflect your bulking\ncalories of ${cal+500} calories per day, which is a 500\ncalorie per day added to your maintenance of\n$cal calories per day." :
+                           "These macronutrient values reflect your cutting\ncalories of ${cal-500} calories per day, which is a 500\ncalorie per day deficit from your maintenance of\n$cal calories per day.",
                           style: TextStyle(fontSize: 13, color: TColor.black),
                           textAlign: TextAlign.start,
                         ),
@@ -201,7 +233,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("145 g",
+                                      Text("$pro g",
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -237,7 +269,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("169 g",
+                                      Text("$carb g",
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -273,7 +305,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("75 g",
+                                      Text("$fats g",
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,

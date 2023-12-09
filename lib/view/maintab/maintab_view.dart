@@ -75,7 +75,7 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 1,
                   onTap: () {
                     selectTab = 1;
-                    currentTab = Insight2(title: "YourTitleHere");
+                    currentTab = Insight2(title: "YourTitleHere",userId: widget.userId,);
                     if (mounted) {
                       setState(() {});
                     }

@@ -22,6 +22,8 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
   late int days = 0;
   late String program1 = '';
   late String program2 = '';
+  late int week = 0;
+  late int weekId = 0;
 
   @override
   void initState() {
@@ -30,6 +32,13 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
     loadBMI();
     loadDay();
     loadProgram();
+    loadWeek();
+  }
+  Future<void> loadWeek() async {
+    final week_ = (await getWeek(widget.userId))['week'] as int;
+    setState(() {
+      week = week_;
+    });
   }
 
   Future<void> loadFirstName() async {
@@ -273,7 +282,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CaloriesView()),
+                            builder: (context) => CaloriesView(userId: widget.userId,)),
                       );
                     },
                     child: Container(
@@ -300,21 +309,21 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    "Day 01 - Weight Training",
+                                    "Week $week - Nutritions",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text(
-                                    "| Week1",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.orange[300],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   "| Week1",
+                                  //   style: TextStyle(
+                                  //     fontSize: 12,
+                                  //     color: Colors.orange[300],
+                                  //     fontWeight: FontWeight.bold,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

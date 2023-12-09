@@ -259,10 +259,10 @@ Future<DateTime> getPlanDate(int userId) async{
   return DateTime.parse(planDate);
 }
 
-Future<int> getPlanId(int userId) async{
+Future<Map<String, Object?>> getPlan(int userId) async{
   final db = await opendb();
-  final plan = await db.query('plan', columns: ['plan_id'], where: 'user_id = ?', whereArgs: [userId]);
-  return plan.last['plan_id'] as int;
+  final plan = await db.query('plan', where: 'user_id = ?', whereArgs: [userId]);
+  return plan.last;
 }
 
 Future<int> getDay(int userId) async{
@@ -272,7 +272,7 @@ Future<int> getDay(int userId) async{
 
 Future<String> getProgram(int userId,int programNo) async{
   final db = await opendb();
-  int planId = await getPlanId(userId);
+  int planId = (await getPlan(userId))['plan_id'] as int;
   int day = await getDay(userId);
   final pattern = (await db.query('week', columns: ['pattern_id'], where: 'plan_id = ?', whereArgs: [planId])).last['pattern_id'] as String;
   final program = await db.query('pattern_detail', columns: ['program$programNo'], where: 'pattern_id = ? AND day = ?', whereArgs: [pattern,day%7]);
@@ -296,8 +296,28 @@ Future<Uint8List> getPVImage(String ex_code) async{
   return result.first['pv'] as Uint8List;
 }
 
-Future<List<Map<String, Object?>>> getEx(String muscle) async{
+Future<List<Map<String, Object?>>> getExbymuscle(String muscle) async{
   final db = await opendb();
   final List<Map<String, Object?>> result = await db.query('exercise', where: 'ex_code LIKE ?', whereArgs: ['$muscle%']);
   return result;
+}
+
+Future<Map<String, Object?>> getExbycode(String code) async{
+  final db = await opendb();
+  final List<Map<String, Object?>> result = await db.query('exercise', where: 'ex_code = ?', whereArgs: [code]);
+  return result.first;
+}
+
+Future<Map<String, Object?>> getWeek(int userId) async{
+  final db = await opendb();
+  final planId = (await getPlan(userId))['plan_id'] as int;
+  final result = await db.query('week', where: 'plan_id = ?', whereArgs: [planId]);
+  return result.last;
+}
+
+Future<Map<String, Object?>> getNut(int userId) async{
+  final db = await opendb();
+  final week = (await getWeek(userId))['week'];
+  final result = await db.query('nutrition', where: 'week_id = ?', whereArgs: [week]);
+  return result.last;
 }

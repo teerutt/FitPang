@@ -29,22 +29,19 @@ class _CurrentBodyState extends State<CurrentBody> {
   List currentBodyArr = [
     {
       "image": "assets/img/current_body1.png",
-      "title": "10-15%",
-      "level": "Ideal",
+      "title": "26-30%",
       "suggestion": "Your figure is almost perfect! Keep it up!",
       "tag": "0"
     },
     {
       "image": "assets/img/current_body2.png",
-      "title": "16-25%",
-      "level": "Good",
+      "title": "31-35%",
       "suggestion": "You are at normal body fit level! Try the personalized plan for you to get fitter and healthier.",
       "tag": "1"
     },
     {
       "image": "assets/img/current_body3.png",
-      "title": "26-35%",
-      "level": "A bit high",
+      "title": "36-40%",
       "suggestion": "You may have a slow metabolism, and face some potential health problems.",
       "tag": "2"
     },
@@ -96,14 +93,14 @@ class _CurrentBodyState extends State<CurrentBody> {
                         color: TColor.black),
                   ),
                   SizedBox(
-                    height: media.width * 0.1,
+                    height: media.width * 0.15,
                   ),
                   // !!! Carousel Slider !!!
                   Center(
                     child: CarouselSlider(
                       carouselController: buttonCarouselController,
                       options: CarouselOptions(
-                        height: media.height * 0.4,
+                        height: media.height * 0.25,
                         autoPlay: false,
                         enlargeCenterPage: true,
                         viewportFraction: 0.7,
@@ -132,12 +129,13 @@ class _CurrentBodyState extends State<CurrentBody> {
                                 ),
                                 borderRadius: BorderRadius.circular(25),
                               ),
+                              clipBehavior: Clip.antiAlias,
                               child: FittedBox(
                                 child: Image.asset(
                                   bObj["image"].toString(),
                                   // width: media.width * 0.5,
                                   // height: media.width * 0.5,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             );
@@ -176,7 +174,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                   ),
 
                   SizedBox(
-                    height: media.width * 0.05,
+                    height: media.width * 0.1,
                   ),
 
                   // !!! Estimated Body Fat (grey box) !!!
@@ -216,23 +214,26 @@ class _CurrentBodyState extends State<CurrentBody> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "${currentBodyArr[_current]["title"]} (${currentBodyArr[_current]["level"]})",
-                          style: TextStyle(
-                            color: "${currentBodyArr[_current]["tag"]}" == "2" 
-                            ?Colors.orange[600]
-                            : Colors.green[400],
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            "${currentBodyArr[_current]["title"]}",
+                            style: TextStyle(
+                              color: Colors.orange[600],
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 10.0),
-                        Text(
-                          "${currentBodyArr[_current]["suggestion"]}",
-                          style: TextStyle(
-                            color: TColor.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            "${currentBodyArr[_current]["suggestion"]}",
+                            style: TextStyle(
+                              color: TColor.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],

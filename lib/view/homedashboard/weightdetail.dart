@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:fitpang/dbhelper.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'dart:typed_data';
 
 class Weightdetail extends StatefulWidget {
-  const Weightdetail({super.key});
+  final String code;
+  const Weightdetail({super.key, required this.code});
 
   @override
   State<Weightdetail> createState() => _WeightdetailState();
 }
 
 class _WeightdetailState extends State<Weightdetail> {
+  late Map<String, Object?> exercise = Map();
+
+  @override
+  void initState() {
+    super.initState();
+    loadEx();
+  }
+
+  Future<void> loadEx() async {
+    final ex = await getExbycode(widget.code);
+    setState(() {
+      exercise = ex;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -53,8 +71,8 @@ class _WeightdetailState extends State<Weightdetail> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      width: 200,
-                      height: 60,
+                      width: 300,
+                      height: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         gradient: LinearGradient(
@@ -62,7 +80,7 @@ class _WeightdetailState extends State<Weightdetail> {
                         ),
                       ),
                       child: Text(
-                        "Push Up",
+                        exercise['pose_name'] as String,
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
@@ -81,22 +99,38 @@ class _WeightdetailState extends State<Weightdetail> {
                 ),
                 child: Column(
                   children: [
-                    Image.asset(
-                      "assets/img/pushup.png",
-                      width: media.width * 0.9,
-                      height: media.height * 0.2,
-                      fit: BoxFit.contain,
-                    ),
+                    SizedBox(height: 20.0),
+                    ((exercise['picture']) as Uint8List).isNotEmpty
+                                    ? ClipRect(
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 0.0),
+                                            child: Image.memory(
+                                              (exercise['picture']) as Uint8List,
+                                              width:
+                                                  media.width * 0.8, // Set width as needed
+                                              height:
+                                                  null, // Set height as needed
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : CircularProgressIndicator(),
+                    SizedBox(height: 10.0),                
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              "ท่าวิดพื้นเป็นท่าออกกำลังกายที่ได้รับความนิยมมากที่สุด บริหารกล้ามเนื้ออก หัวไหล่ และ triceps",
+                              '\n'+(exercise['instructions'] as String),
+                              textAlign: TextAlign.justify,
                               style: TextStyle(
-                                fontSize: 18,
-                                // fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontFamily: 'Poppins',
                                 color: TColor.black,
                               ),
                               softWrap: true,
