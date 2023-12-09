@@ -246,7 +246,10 @@ class _LoginViewState extends State<LoginView> {
                 // ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpView()));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

@@ -289,3 +289,15 @@ Future<Uint8List> getImage(String ex_code) async{
   final result = (await db.query('exercise', columns: ['picture'], where: 'ex_code = ?', whereArgs: [ex_code]));
   return result.first['picture'] as Uint8List;
 }
+
+Future<Uint8List> getPVImage(String ex_code) async{
+  final db = await opendb();
+  final result = (await db.query('exercise', columns: ['pv'], where: 'ex_code = ?', whereArgs: [ex_code]));
+  return result.first['pv'] as Uint8List;
+}
+
+Future<List<Map<String, Object?>>> getEx(String muscle) async{
+  final db = await opendb();
+  final List<Map<String, Object?>> result = await db.query('exercise', where: 'ex_code LIKE ?', whereArgs: ['$muscle%']);
+  return result;
+}

@@ -133,7 +133,7 @@ class _ProfileViewState extends State<ProfileView> {
         title: PreferredSize(
           preferredSize: const Size.fromHeight(400),
           child: Container(
-            margin: const EdgeInsets.only(top: 40),
+            margin: const EdgeInsets.only(top: 40,bottom: 40),
             child: Text(
               "Profile",
               style: TextStyle(
@@ -261,49 +261,6 @@ class _ProfileViewState extends State<ProfileView> {
                       },
                       itemBuilder: (context, index) {
                         var iObj = accountArr[index] as Map? ?? {};
-                        // void navigateToSettingPage() {
-                        //   switch (iObj["tag"]) {
-                        //     case "1":
-                        //       // Navigate to the Edit Profile page
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => BlankView(),
-                        //         ),
-                        //       );
-                        //       break;
-                        //     // case "2":
-                        //     //   // Navigate to the Personal Plan page
-                        //     //   Navigator.push(
-                        //     //     context,
-                        //     //     MaterialPageRoute(
-                        //     //       builder: (context) => PersonalPlanPage(),
-                        //     //     ),
-                        //     //   );
-                        //     //   break;
-                        //     // case "3":
-                        //     //   // Navigate to the Privacy Policy page
-                        //     //   Navigator.push(
-                        //     //     context,
-                        //     //     MaterialPageRoute(
-                        //     //       builder: (context) => PrivacyPolicyPage(),
-                        //     //     ),
-                        //     //   );
-                        //     //   break;
-                        //     // case "4":
-                        //     //   // Navigate to the Settings page
-                        //     //   Navigator.push(
-                        //     //     context,
-                        //     //     MaterialPageRoute(
-                        //     //       builder: (context) => SettingsPage(),
-                        //     //     ),
-                        //     //   );
-                        //     //   break;
-                        //     // default:
-                        //     //   // Handle other cases or do nothing
-                        //     //   break;
-                        //   }
-                        // }
                         return SettingRow(
                           icon: iObj["image"].toString(),
                           title: iObj["name"].toString(),
