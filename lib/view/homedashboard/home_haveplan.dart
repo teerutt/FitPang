@@ -17,6 +17,7 @@ class HomeHavePlan extends StatefulWidget {
 }
 
 class _HomeHavePlanState extends State<HomeHavePlan> {
+  late List<Map<String, Object?>> events = [];
   late String firstName = '';
   late double bmi = 1.0;
   late int days = 0;
@@ -34,6 +35,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
     loadProgram();
     loadWeek();
   }
+
   Future<void> loadWeek() async {
     final week_ = (await getWeek(widget.userId))['week'] as int;
     setState(() {
@@ -68,6 +70,13 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
     setState(() {
       this.program1 = program1;
       this.program2 = program2;
+    });
+  }
+
+  Future<void> loadEvents() async {
+    final event = await queryEvent();
+    setState(() {
+      events = event;
     });
   }
 
@@ -211,7 +220,10 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTodo(userId: widget.userId,)),
+                        MaterialPageRoute(
+                            builder: (context) => DayTodo(
+                                  userId: widget.userId,
+                                )),
                       );
                     },
                     child: Container(
@@ -238,7 +250,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    "Day ""$days"" - ""$program1",
+                                    "Day " "$days" " - " "$program1",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -282,7 +294,9 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CaloriesView(userId: widget.userId,)),
+                            builder: (context) => CaloriesView(
+                                  userId: widget.userId,
+                                )),
                       );
                     },
                     child: Container(
@@ -371,50 +385,59 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                   ),
                   // Add your container here
                   const SizedBox(height: 15),
-                  Container(
-                    width: 330,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/img/muscle.png",
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DayTodo(userId: widget.userId,)),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/img/muscle.png",
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Learn the Basic of Training",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Learn the Basic of Training",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "| 06 Workouts for Beginner",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.orange[300],
-                                    fontWeight: FontWeight.bold,
+                                  Text(
+                                    "| 06 Workouts for Beginner",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

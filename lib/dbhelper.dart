@@ -275,7 +275,7 @@ Future<String> getProgram(int userId,int programNo) async{
   int planId = (await getPlan(userId))['plan_id'] as int;
   int day = await getDay(userId);
   final pattern = (await db.query('week', columns: ['pattern_id'], where: 'plan_id = ?', whereArgs: [planId])).last['pattern_id'] as String;
-  final program = await db.query('pattern_detail', columns: ['program$programNo'], where: 'pattern_id = ? AND day = ?', whereArgs: [pattern,day%7]);
+  final program = await db.query('pattern_detail', columns: ['program$programNo'], where: 'pattern_id = ? AND day = ?', whereArgs: [pattern, (day%7)==0 ? 7 : day%7]);
   if(program.first['program$programNo'] != null){
     return program.first['program$programNo'] as String;
   }else{
