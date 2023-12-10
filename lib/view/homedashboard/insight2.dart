@@ -23,6 +23,7 @@ class _Insight2State extends State<Insight2> {
   List<String> todos = <String>[];
   TextEditingController controller = TextEditingController();
   bool click = true;
+  bool? _isChecked = false;
 
   @override
   void initState() {
@@ -345,51 +346,63 @@ class _Insight2State extends State<Insight2> {
                               ],
                             ),
                             SizedBox(height: 10.0),
-                            Container(
-                              alignment: Alignment.center,
-                              width: 325,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.grey[400],
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Text(
-                                      "Weight Training",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          click = !click;
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Icon(
-                                          (click == false)
-                                              ? Icons.add_task
-                                              : Icons.cancel,
-                                          size: 30,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            CheckboxListTile(
+                              title: Text("Mafuq ka"),
+                              value: _isChecked,
+                              onChanged: (bool? newValue) {
+                                setState(() {
+                                  _isChecked = newValue;
+                                });
+                              },
+                              activeColor: Colors.orangeAccent,
+                              checkColor: Colors.white,
+                              tileColor: Colors.black12,
                             )
+                            // Container(
+                            //   alignment: Alignment.center,
+                            //   width: 325,
+                            //   height: 80,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(20.0),
+                            //     color: Colors.grey[400],
+                            //   ),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       Padding(
+                            //         padding: const EdgeInsets.all(15.0),
+                            //         child: Text(
+                            //           "Weight Training",
+                            //           style: TextStyle(
+                            //             fontSize: 16,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: Colors.black,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Padding(
+                            //         padding: const EdgeInsets.all(10.0),
+                            //         child: ElevatedButton(
+                            //           onPressed: () {
+                            //             setState(() {
+                            //               click = !click;
+                            //             });
+                            //           },
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.all(10.0),
+                            //             child: Icon(
+                            //               (click == false)
+                            //                   ? Icons.add_task
+                            //                   : Icons.cancel,
+                            //               size: 30,
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       ),

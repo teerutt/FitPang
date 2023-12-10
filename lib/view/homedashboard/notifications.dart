@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'package:intl/intl.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -9,7 +10,16 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  List<int> items = List<int>.generate(100, (int index) => index);
+  List<Map<String, String>> itemsWithSubtitle = [
+    {
+      "title": "• Today's plan has arrived ",
+      "subtitle": "Check your Today workout plan."
+    },
+    {
+      "title": "• Today's plan has arrived",
+      "subtitle": "Check your Today calories plan."
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +40,46 @@ class _NotificationsState extends State<Notifications> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: items.length,
-                // padding: const EdgeInsets.symmetric(vertical: 10.0),
+                itemCount: itemsWithSubtitle.length,
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 itemBuilder: (BuildContext context, int index) {
+                  final item = itemsWithSubtitle[index];
                   return Dismissible(
+                    key: ValueKey<String>(item["title"]!),
                     background: Container(
                       color: Colors.red,
                       child: const Icon(Icons.delete),
                     ),
-                    key: ValueKey<int>(items[index]),
                     onDismissed: (DismissDirection direction) {
                       setState(() {
-                        items.removeAt(index);
+                        itemsWithSubtitle.removeAt(index);
                       });
                     },
                     child: ListTile(
-                      title: Text(
-                        'Item ${items[index]}',
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            item["title"]!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('h:mm a').format(DateTime.now()),
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
+                      subtitle: item["subtitle"]!.isNotEmpty
+                          ? Text(
+                              item["subtitle"]!,
+                              style: TextStyle(fontSize: 14),
+                            )
+                          : null,
                     ),
                   );
                 },
