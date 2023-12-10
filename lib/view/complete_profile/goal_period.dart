@@ -1,4 +1,5 @@
 import 'package:fitpang/view/complete_profile/complete_create.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -75,28 +76,32 @@ class _GoalPeriodState extends State<GoalPeriod> {
         'assets/img/desired_body' + '${widget.desired_body + 1}' + '.png';
 
     switch (widget.desired_body) {
-          case 0:
-            for (int i = 0; i < 4; i++) {
-              periodArr[i]['suggestion'] = 'Sorry, This level is impossible.\nTry choosing a longer period.';
-              periodArr[i]['tag'] = '-1';
-            }
-          case 1:
-            for (int i = 0; i < 3; i++) {
-              periodArr[i]['suggestion'] = 'Sorry, This level is impossible.\nTry choosing a longer period.';
-              periodArr[i]['tag'] = '-1';
-            }
-          case 2:
-            for (int i = 0; i < 2; i++) {
-              periodArr[i]['suggestion'] = 'Sorry, This level is impossible.\nTry choosing a longer period.';
-              periodArr[i]['tag'] = '-1';
-            }
-          case 3:
-            for (int i = 0; i < 1; i++) {
-              periodArr[i]['suggestion'] = 'Sorry, This level is impossible.\nTry choosing a longer period.';
-              periodArr[i]['tag'] = '-1';
-            }
-          case 4:
+      case 0:
+        for (int i = 0; i < 4; i++) {
+          periodArr[i]['suggestion'] =
+              'Sorry, This level is impossible.\nTry choosing a longer period.';
+          periodArr[i]['tag'] = '-1';
         }
+      case 1:
+        for (int i = 0; i < 3; i++) {
+          periodArr[i]['suggestion'] =
+              'Sorry, This level is impossible.\nTry choosing a longer period.';
+          periodArr[i]['tag'] = '-1';
+        }
+      case 2:
+        for (int i = 0; i < 2; i++) {
+          periodArr[i]['suggestion'] =
+              'Sorry, This level is impossible.\nTry choosing a longer period.';
+          periodArr[i]['tag'] = '-1';
+        }
+      case 3:
+        for (int i = 0; i < 1; i++) {
+          periodArr[i]['suggestion'] =
+              'Sorry, This level is impossible.\nTry choosing a longer period.';
+          periodArr[i]['tag'] = '-1';
+        }
+      case 4:
+    }
 
     var media = MediaQuery.of(context).size;
     return Scaffold(
@@ -119,6 +124,32 @@ class _GoalPeriodState extends State<GoalPeriod> {
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
                   },
                   color: Colors.white, // Icon color
                 ),
@@ -350,11 +381,21 @@ class _GoalPeriodState extends State<GoalPeriod> {
                       child: RoundButton(
                         title: "Next >",
                         onPressed: () {
-                          int period = (_current+1)*2;
+                          int period = (_current + 1) * 2;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CompleteCreate(userId: widget.userId, gender: widget.gender, weight: widget.weight, height: widget.height, age: widget.age, goal: widget.goal, current_body: widget.current_body, desired_body: widget.desired_body, period: period,),
+                              builder: (context) => CompleteCreate(
+                                userId: widget.userId,
+                                gender: widget.gender,
+                                weight: widget.weight,
+                                height: widget.height,
+                                age: widget.age,
+                                goal: widget.goal,
+                                current_body: widget.current_body,
+                                desired_body: widget.desired_body,
+                                period: period,
+                              ),
                             ),
                           );
                         },

@@ -1,4 +1,5 @@
 import 'package:fitpang/view/complete_profile/goal_period.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -13,7 +14,15 @@ class DesiredBody extends StatefulWidget {
   final int weight;
   final String goal;
   final int current_body;
-  const DesiredBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight, required this.goal, required this.current_body});
+  const DesiredBody(
+      {super.key,
+      required this.userId,
+      required this.gender,
+      required this.age,
+      required this.height,
+      required this.weight,
+      required this.goal,
+      required this.current_body});
 
   @override
   State<DesiredBody> createState() => _DesiredBodyState();
@@ -91,6 +100,32 @@ class _DesiredBodyState extends State<DesiredBody> {
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
                   },
                   color: Colors.white, // Icon color
                 ),
@@ -273,7 +308,16 @@ class _DesiredBodyState extends State<DesiredBody> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => GoalPeriod(userId: widget.userId, gender: widget.gender, weight: widget.weight, height: widget.height, age: widget.age, goal: widget.goal, current_body: widget.current_body, desired_body: _current,),
+                          builder: (context) => GoalPeriod(
+                            userId: widget.userId,
+                            gender: widget.gender,
+                            weight: widget.weight,
+                            height: widget.height,
+                            age: widget.age,
+                            goal: widget.goal,
+                            current_body: widget.current_body,
+                            desired_body: _current,
+                          ),
                         ),
                       );
                     },

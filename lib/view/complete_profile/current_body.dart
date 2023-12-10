@@ -1,6 +1,7 @@
 import 'package:fitpang/view/complete_profile/desired_body.dart';
 import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -15,14 +16,20 @@ class CurrentBody extends StatefulWidget {
   final int height;
   final int weight;
   final String goal;
-  const CurrentBody({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight, required this.goal});
+  const CurrentBody(
+      {super.key,
+      required this.userId,
+      required this.gender,
+      required this.age,
+      required this.height,
+      required this.weight,
+      required this.goal});
 
   @override
   State<CurrentBody> createState() => _CurrentBodyState();
 }
 
 class _CurrentBodyState extends State<CurrentBody> {
-
   int _current = 0;
   CarouselController buttonCarouselController = CarouselController();
 
@@ -38,14 +45,16 @@ class _CurrentBodyState extends State<CurrentBody> {
       "image": "assets/img/current_body2.png",
       "title": "16-25%",
       "level": "Good",
-      "suggestion": "You are at normal body fit level! Try the personalized plan for you to get fitter and healthier.",
+      "suggestion":
+          "You are at normal body fit level! Try the personalized plan for you to get fitter and healthier.",
       "tag": "1"
     },
     {
       "image": "assets/img/current_body3.png",
       "title": "26-35%",
       "level": "A bit high",
-      "suggestion": "You may have a slow metabolism, and face some potential health problems.",
+      "suggestion":
+          "You may have a slow metabolism, and face some potential health problems.",
       "tag": "2"
     },
   ];
@@ -81,6 +90,32 @@ class _CurrentBodyState extends State<CurrentBody> {
               ),
             ),
             Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -100,52 +135,51 @@ class _CurrentBodyState extends State<CurrentBody> {
                   ),
                   // !!! Carousel Slider !!!
                   Center(
-                    child: CarouselSlider(
-                      carouselController: buttonCarouselController,
-                      options: CarouselOptions(
-                        height: media.height * 0.4,
-                        autoPlay: false,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.7,
-                        aspectRatio: 0.74,
-                        initialPage: 0,
-                        onPageChanged: (index, reason) {
-                          // selectedCurrbody = index;
-                          // setState((){});
-                          setState(() {
-                            _current = index;
-                          });
+                      child: CarouselSlider(
+                    carouselController: buttonCarouselController,
+                    options: CarouselOptions(
+                      height: media.height * 0.4,
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.7,
+                      aspectRatio: 0.74,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        // selectedCurrbody = index;
+                        // setState((){});
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                    items: currentBodyArr.map((bObj) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            decoration: BoxDecoration(
+                              color: TColor.white,
+                              border: Border.all(
+                                color: TColor.gray,
+                                width: 3.0,
+                              ),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: FittedBox(
+                              child: Image.asset(
+                                bObj["image"].toString(),
+                                // width: media.width * 0.5,
+                                // height: media.width * 0.5,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
                         },
-                      ),
-                      items: currentBodyArr.map((bObj) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                color: TColor.white,
-                                border: Border.all(
-                                  color: TColor.gray,
-                                  width: 3.0,
-                                ),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: FittedBox(
-                                child: Image.asset(
-                                  bObj["image"].toString(),
-                                  // width: media.width * 0.5,
-                                  // height: media.width * 0.5,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    )
-                  ),
+                      );
+                    }).toList(),
+                  )),
                   SizedBox(
                     height: media.width * 0.03,
                   ),
@@ -160,14 +194,16 @@ class _CurrentBodyState extends State<CurrentBody> {
                           child: Container(
                             width: 24.0,
                             height: 12.0,
-                            margin:
-                                EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 4.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness == Brightness.dark
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? Colors.white
                                       : Colors.black)
-                                  .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4),
                             ),
                           ),
                         );
@@ -219,9 +255,9 @@ class _CurrentBodyState extends State<CurrentBody> {
                         Text(
                           "${currentBodyArr[_current]["title"]} (${currentBodyArr[_current]["level"]})",
                           style: TextStyle(
-                            color: "${currentBodyArr[_current]["tag"]}" == "2" 
-                            ?Colors.orange[600]
-                            : Colors.green[400],
+                            color: "${currentBodyArr[_current]["tag"]}" == "2"
+                                ? Colors.orange[600]
+                                : Colors.green[400],
                             fontSize: 18.0,
                             fontWeight: FontWeight.w700,
                           ),
@@ -250,11 +286,20 @@ class _CurrentBodyState extends State<CurrentBody> {
                   child: RoundButton(
                     title: "Next >",
                     onPressed: () {
-                      print("${widget.userId} ${widget.gender} ${widget.age} ${widget.weight} ${widget.height} $_current");
+                      print(
+                          "${widget.userId} ${widget.gender} ${widget.age} ${widget.weight} ${widget.height} $_current");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DesiredBody(userId: widget.userId, gender: widget.gender, weight: widget.weight, height: widget.height, age: widget.age, goal: widget.goal, current_body: _current,),
+                          builder: (context) => DesiredBody(
+                            userId: widget.userId,
+                            gender: widget.gender,
+                            weight: widget.weight,
+                            height: widget.height,
+                            age: widget.age,
+                            goal: widget.goal,
+                            current_body: _current,
+                          ),
                         ),
                       );
                     },

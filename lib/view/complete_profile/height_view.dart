@@ -1,5 +1,7 @@
 import 'package:fitpang/common_widget/height_scrollwheel.dart';
 import 'package:fitpang/view/complete_profile/weight_view.dart';
+import 'package:fitpang/view/homedashboard/home_noplan.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -9,7 +11,11 @@ class HeightView extends StatefulWidget {
   final int userId;
   final String gender;
   final int age;
-  const HeightView({super.key, required this.userId, required this.gender, required this.age});
+  const HeightView(
+      {super.key,
+      required this.userId,
+      required this.gender,
+      required this.age});
 
   @override
   State<HeightView> createState() => _HeightViewState();
@@ -35,11 +41,12 @@ class _HeightViewState extends State<HeightView> {
               padding: EdgeInsets.only(bottom: 12.0),
               child: Center(
                 child: HeightScrollwhell(
-                onHeightSelected: (height){
-                  setState(() {
-                    selectedHeight = height;
-                  });
-                },),
+                  onHeightSelected: (height) {
+                    setState(() {
+                      selectedHeight = height;
+                    });
+                  },
+                ),
               ),
             ),
             Positioned(
@@ -68,6 +75,32 @@ class _HeightViewState extends State<HeightView> {
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
                   },
                   color: Colors.white, // Icon color
                 ),
@@ -114,7 +147,12 @@ class _HeightViewState extends State<HeightView> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WeightView(userId: widget.userId, gender: widget.gender, age: widget.age, height: selectedHeight,)),
+                              builder: (context) => WeightView(
+                                    userId: widget.userId,
+                                    gender: widget.gender,
+                                    age: widget.age,
+                                    height: selectedHeight,
+                                  )),
                         );
                       }),
                 ],

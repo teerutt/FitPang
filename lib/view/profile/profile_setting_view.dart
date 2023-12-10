@@ -1,4 +1,5 @@
 import 'package:fitpang/view/homedashboard/blank_view.dart';
+import 'package:fitpang/view/profile/contactus.dart';
 import 'package:fitpang/view/profile/setting_notification_view.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,7 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
       "name": "Notifications",
       "tag": "1",
     },
-    {
-      "name": "Contact Us",
-      "tag": "2"
-    },
+    {"name": "Contact Us", "tag": "2"},
   ];
 
   void navigateToPage(String tag) {
@@ -47,14 +45,21 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
-    } 
-    else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
-    } 
-    else {
+      return MaterialPageRoute(
+          builder: (context) => SettingNotificationView(
+                userId: widget.userId,
+              ));
+    } else if (tag == "2") {
+      return MaterialPageRoute(
+          builder: (context) => ContactUs(
+                userId: widget.userId,
+              ));
+    } else {
       // Handle other cases or return a default route
-      return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId,));
+      return MaterialPageRoute(
+          builder: (context) => ProfileSettingView(
+                userId: widget.userId,
+              ));
     }
   }
 
@@ -65,11 +70,18 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leadingWidth: 0,
+        leadingWidth: 60, // Set the width to accommodate the back button
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: TColor.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: PreferredSize(
           preferredSize: const Size.fromHeight(400),
           child: Container(
-            margin: const EdgeInsets.only(top: 40),
+            margin: const EdgeInsets.only(top: 20),
             child: Text(
               "Settings",
               style: TextStyle(
@@ -84,12 +96,13 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 // decoration: BoxDecoration(
                 //   color: TColor.white,
                 // ),

@@ -11,20 +11,17 @@ class SettingNotificationView extends StatefulWidget {
   const SettingNotificationView({super.key, required this.userId});
 
   @override
-  State<SettingNotificationView> createState() => _SettingNotificationViewState();
+  State<SettingNotificationView> createState() =>
+      _SettingNotificationViewState();
 }
 
 class _SettingNotificationViewState extends State<SettingNotificationView> {
-  
   List settingArr = [
     {
       "name": "Plan Reminders",
       "tag": "1",
     },
-    {
-      "name": "Events Notifications",
-      "tag": "2"
-    },
+    {"name": "Events Notifications", "tag": "2"},
   ];
 
   void navigateToPage(String tag) {
@@ -49,14 +46,18 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
-    } 
-    else if (tag == "2") {
+      return MaterialPageRoute(
+          builder: (context) => ProfileEditView(
+                userId: widget.userId,
+              ));
+    } else if (tag == "2") {
       return MaterialPageRoute(builder: (context) => const BlankView());
-    } 
-    else {
+    } else {
       // Handle other cases or return a default route
-      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
+      return MaterialPageRoute(
+          builder: (context) => SettingNotificationView(
+                userId: widget.userId,
+              ));
     }
   }
 
@@ -79,11 +80,18 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leadingWidth: 0,
+        leadingWidth: 60, // Set the width to accommodate the back button
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: TColor.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: PreferredSize(
           preferredSize: const Size.fromHeight(400),
           child: Container(
-            margin: const EdgeInsets.only(top: 40),
+            margin: const EdgeInsets.only(top: 20),
             child: Text(
               "Notifications",
               style: TextStyle(
@@ -98,12 +106,13 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 // decoration: BoxDecoration(
                 //   color: TColor.white,
                 // ),
@@ -138,9 +147,7 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
-                    SizedBox(
-                      height: media.width
-                    ),
+                    SizedBox(height: media.width),
                     InkWell(
                       onTap: () {
                         _launchPhoneSettings();

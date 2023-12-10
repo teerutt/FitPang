@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
 import 'package:fitpang/view/complete_profile/current_body.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -12,7 +13,14 @@ class BMIScore extends StatefulWidget {
   final int age;
   final int height;
   final int weight;
-  const BMIScore({Key? key, required this.userId, required this.gender, required this.age, required this.height, required this.weight}) : super(key: key);
+  const BMIScore(
+      {Key? key,
+      required this.userId,
+      required this.gender,
+      required this.age,
+      required this.height,
+      required this.weight})
+      : super(key: key);
 
   @override
   State<BMIScore> createState() => _BMIScoreState();
@@ -23,9 +31,10 @@ class _BMIScoreState extends State<BMIScore> {
 
   @override
   Widget build(BuildContext context) {
-    double bmi_score = (widget.weight / ((widget.height/100)*(widget.height/100)));
+    double bmi_score =
+        (widget.weight / ((widget.height / 100) * (widget.height / 100)));
     bmi_score = double.parse(bmi_score.toStringAsFixed(2));
-    
+
     var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: TColor.white,
@@ -47,6 +56,32 @@ class _BMIScoreState extends State<BMIScore> {
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
                   },
                   color: Colors.white, // Icon color
                 ),
@@ -185,7 +220,12 @@ class _BMIScoreState extends State<BMIScore> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WhatYourGoalView(userId: widget.userId, gender: widget.gender, age: widget.age, height: widget.height, weight: widget.weight),
+                            builder: (context) => WhatYourGoalView(
+                                userId: widget.userId,
+                                gender: widget.gender,
+                                age: widget.age,
+                                height: widget.height,
+                                weight: widget.weight),
                           ),
                         );
                       },

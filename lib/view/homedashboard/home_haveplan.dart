@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fitpang/view/homedashboard/events.dart';
 import 'package:fitpang/dbhelper.dart';
+import 'package:quickalert/quickalert.dart';
 
 class HomeHavePlan extends StatefulWidget {
   final int userId;
@@ -22,6 +23,19 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
   late int days = 0;
   late String program1 = '';
   late String program2 = '';
+
+  void showAlert() {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.confirm,
+      title: 'Are you sure to delete your plan?',
+      confirmBtnText: 'Yes',
+      cancelBtnText: 'No',
+      confirmBtnColor: Colors.red,
+      titleColor: Colors.white,
+      headerBackgroundColor: Colors.grey,
+    );
+  }
 
   @override
   void initState() {
@@ -197,12 +211,81 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              showAlert();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors
+                                  .red, // Change the color to your desired color
+                            ),
+                            child: Text("Delete Plan")),
+                        // AnimatedButton(
+                        //   text: "Delete Plan",
+                        //   color: Colors.red,
+                        //   pressEvent: () {
+                        //     showDialog(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return AlertDialog(
+                        //           title: Text("Delete Plan"),
+                        //           content: Text(
+                        //               "Are you sure you want to delete this plan?"),
+                        //           actions: [
+                        //             TextButton(
+                        //               child: Text("Cancel"),
+                        //               onPressed: () {
+                        //                 Navigator.of(context).pop();
+                        //               },
+                        //             ),
+                        //             TextButton(
+                        //                 child: Text("Delete"),
+                        //                 onPressed: () {
+                        //                   // deletePlan(widget.userId); ลบออก
+                        //                 }),
+                        //           ],
+                        //         );
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                        // Text(
+                        //   "Delete Plan",
+                        //   style: TextStyle(
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.red,
+                        //   ),
+                        // ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width *
+                        //       0.07, // 8% of the screen width
+                        //   height: MediaQuery.of(context).size.width *
+                        //       0.1, // 8% of the screen height
+                        //   child: IconButton(
+                        //     icon: Icon(Icons.delete),
+                        //     onPressed: () {
+                        //       Navigator.of(context).pop();
+                        //     },
+                        //     color: Colors.red, // Icon color
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTodo(userId: widget.userId,)),
+                        MaterialPageRoute(
+                            builder: (context) => DayTodo(
+                                  userId: widget.userId,
+                                )),
                       );
                     },
                     child: Container(
@@ -229,7 +312,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    "Day ""$days"" - ""$program1",
+                                    "Day " "$days" " - " "$program1",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,

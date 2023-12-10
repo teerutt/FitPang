@@ -12,7 +12,7 @@ import 'package:fitpang/common_widget/gradient_circular.dart';
 
 class ProfileView extends StatefulWidget {
   final int userId;
-  const ProfileView({super.key,required this.userId});
+  const ProfileView({super.key, required this.userId});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -38,13 +38,13 @@ class _ProfileViewState extends State<ProfileView> {
     final loadedUser = await getUser(widget.userId);
     setState(() {
       this.user = User(
-  user_id: loadedUser['user_id'],
-  f_name: loadedUser['f_name'],
-  l_name: loadedUser['l_name'],
-  email: loadedUser['email'],
-  password: loadedUser['password'],
-  DOB: loadedUser['DOB'],
-);
+        user_id: loadedUser['user_id'],
+        f_name: loadedUser['f_name'],
+        l_name: loadedUser['l_name'],
+        email: loadedUser['email'],
+        password: loadedUser['password'],
+        DOB: loadedUser['DOB'],
+      );
     });
   }
 
@@ -54,27 +54,11 @@ class _ProfileViewState extends State<ProfileView> {
       "name": "Edit Profile",
       "tag": "1",
     },
-    {
-      "image": "assets/img/profile_achievement.png",
-      "name": "Personal Plan",
-      "tag": "2"
-    },
-    {
-      "image": "assets/img/profile_privacy.png",
-      "name": "Privacy Policy",
-      "tag": "3"
-    },
-    {"image": "assets/img/profile_setting.png", 
-    "name": "Settings", 
-    "tag": "4"
-    }
+    {"image": "assets/img/profile_setting.png", "name": "Settings", "tag": "2"}
   ];
 
   List signoutArr = [
-    {"image": "assets/img/profile_logout.png", 
-    "name": "Sign Out", 
-    "tag": "5"
-    }
+    {"image": "assets/img/profile_logout.png", "name": "Sign Out", "tag": "3"}
   ];
 
   void navigateToPage(String tag) {
@@ -84,9 +68,8 @@ class _ProfileViewState extends State<ProfileView> {
       var item;
       if (i < accountArr.length) {
         item = accountArr[i];
-      }
-      else {
-        item = signoutArr[i-accountArr.length];
+      } else {
+        item = signoutArr[i - accountArr.length];
       }
 
       if (item["tag"] == tag) {
@@ -102,23 +85,21 @@ class _ProfileViewState extends State<ProfileView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
-    } 
-    else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const CaloriesView());
-    } 
-    else if (tag == "3") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
-    } 
-    else if (tag == "4") {
-      return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId));
-    } 
-    else if (tag == "5") {
+      return MaterialPageRoute(
+          builder: (context) => ProfileEditView(
+                userId: widget.userId,
+              ));
+    } else if (tag == "2") {
+      return MaterialPageRoute(
+          builder: (context) => ProfileSettingView(userId: widget.userId));
+    } else if (tag == "3") {
       return MaterialPageRoute(builder: (context) => const LoginView());
-    } 
-    else {
+    } else {
       // Handle other cases or return a default route
-      return MaterialPageRoute(builder: (context) => ProfileView(userId: widget.userId,));
+      return MaterialPageRoute(
+          builder: (context) => ProfileView(
+                userId: widget.userId,
+              ));
     }
   }
 
@@ -133,7 +114,7 @@ class _ProfileViewState extends State<ProfileView> {
         title: PreferredSize(
           preferredSize: const Size.fromHeight(400),
           child: Container(
-            margin: const EdgeInsets.only(top: 40,bottom: 40),
+            margin: const EdgeInsets.only(top: 40, bottom: 40),
             child: Text(
               "Profile",
               style: TextStyle(

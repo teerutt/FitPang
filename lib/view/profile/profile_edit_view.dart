@@ -15,28 +15,19 @@ class ProfileEditView extends StatefulWidget {
 }
 
 class _ProfileEditViewState extends State<ProfileEditView> {
-
   @override
   void initState() {
     super.initState();
   }
-  
+
   List profileArr = [
     {
       "label": "Firstname",
       "name": "Teerut",
       "tag": "1",
     },
-    {
-      "label": "Lastname",
-      "name": "P",
-      "tag": "2"
-    },
-    {
-      "label": "Email",
-      "name": "fitpang@gmail.com",
-      "tag": "3"
-    },
+    {"label": "Lastname", "name": "P", "tag": "2"},
+    {"label": "Email", "name": "fitpang@gmail.com", "tag": "3"},
   ];
 
   @override
@@ -46,7 +37,14 @@ class _ProfileEditViewState extends State<ProfileEditView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leadingWidth: 0,
+        leadingWidth: 60, // Set the width to accommodate the back button
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: TColor.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: PreferredSize(
           preferredSize: const Size.fromHeight(400),
           child: Container(
@@ -88,9 +86,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                       Positioned(
                         left: 80,
                         top: 80,
-                        child: PhotoButton(
-                          onTap: () {}
-                        ),
+                        child: PhotoButton(onTap: () {}),
                       )
                     ],
                   ),
@@ -98,59 +94,54 @@ class _ProfileEditViewState extends State<ProfileEditView> {
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 50, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 decoration: BoxDecoration(
                   color: TColor.white,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // ListView.separated(
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   shrinkWrap: true,
+                    //   itemCount: profileArr.length,
+                    //   separatorBuilder: (context, index) {
+                    //     return Divider(
+                    //       color: TColor.black,
+                    //       thickness: 1.5,
+                    //     );
+                    //   },
+                    //   itemBuilder: (context, index) {
+                    //     var iObj = profileArr[index] as Map? ?? {};
+                    //     return SettingEditRow(
+                    //       label: iObj["label"].toString(),
+                    //       title: iObj["name"].toString(),
+                    //       onPressed: () {
+                    //         // navigateToPage(iObj["tag"]);
+                    //       },
+                    //     );
+                    //   },
+                    // ),
+                    BuildTextField("Name", "Bundit"),
+                    BuildTextField("Surname", "Than-iam"),
+                    BuildTextField("Email", "kuynahee@gmail.com"),
+                    // Divider(
+                    //   color: TColor.black,
+                    //   thickness: 1.5,
+                    // ),
                     const SizedBox(
-                      height: 8,
-                    ),
-                    Divider(
-                      color: TColor.black,
-                      thickness: 1.5,
-                    ),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: profileArr.length,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          color: TColor.black,
-                          thickness: 1.5,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        var iObj = profileArr[index] as Map? ?? {};
-                        return SettingEditRow(
-                          label: iObj["label"].toString(),
-                          title: iObj["name"].toString(),
-                          onPressed: () {
-                            // navigateToPage(iObj["tag"]);
-                          },
-                        );
-                      },
-                    ),
-                    Divider(
-                      color: TColor.black,
-                      thickness: 1.5,
-                    ),
-                    const SizedBox(
-                      height: 180,
+                      height: 100,
                     ),
                     RoundButton(
-                      title: "Save",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileView(userId: widget.userId,)
-                          )
-                        );
-                      }
-                    ),
+                        title: "Save",
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileView(
+                                        userId: widget.userId,
+                                      )));
+                        }),
                   ],
                 ),
               ),
@@ -158,6 +149,24 @@ class _ProfileEditViewState extends State<ProfileEditView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget BuildTextField(String labelText, String placeholder) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: TextField(
+          decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 3),
+        labelText: labelText,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        hintText: placeholder,
+        hintStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      )),
     );
   }
 }
