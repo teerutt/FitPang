@@ -6,7 +6,8 @@ import 'package:fitpang/common_widget/gender_button.dart';
 import 'package:fitpang/view/complete_profile/age_view.dart';
 
 class GenderView extends StatefulWidget {
-  const GenderView({super.key});
+  final int userId;
+  const GenderView({super.key, required this.userId});
 
   @override
   State<GenderView> createState() => _GenderViewState();
@@ -14,6 +15,11 @@ class GenderView extends StatefulWidget {
 
 class _GenderViewState extends State<GenderView> {
   int selectTab = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +66,17 @@ class _GenderViewState extends State<GenderView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -99,14 +105,21 @@ class _GenderViewState extends State<GenderView> {
                     height: media.width * 0.05,
                   ),
                   RoundButton(
-                      title: "Next >",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AgeView()),
-                        );
-                      }),
+                    title: "Next >",
+                    onPressed: () {
+                      String gender = "Male";
+                      if (selectTab == 1)
+                      {
+                        gender = "Female";
+                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AgeView(userId: widget.userId, gender: gender,)
+                        ),
+                      );
+                    }
+                  ),
                 ],
               ),
             ),

@@ -1,14 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class CaloriesView extends StatefulWidget {
-  const CaloriesView({super.key});
+  final int userId;
+  const CaloriesView({super.key, required this.userId});
 
   @override
   State<CaloriesView> createState() => _CaloriesViewState();
 }
 
 class _CaloriesViewState extends State<CaloriesView> {
+late int cal = 0, pro = 0, carb = 0, fats = 0, week = 0;
+late String goal = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadNut();
+    loadPlan();
+  }
+  Future<void> loadNut() async {
+    final week_ = await getWeek(widget.userId);
+    final nut = await getNut(widget.userId);
+    
+    setState(() {
+      cal = nut['calories'] as int;
+      pro = nut['protein'] as int;
+      carb = nut['carb'] as int;
+      fats = nut['fats'] as int;
+      week = week_['week'] as int;
+    });
+  }
+
+    Future<void> loadPlan() async {
+    final goal_ = (await getPlan(widget.userId))['program'] as String;
+    setState(() {
+      goal = goal_;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -17,7 +48,7 @@ class _CaloriesViewState extends State<CaloriesView> {
         body: SafeArea(
           child: Stack(children: [
             SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Row(
@@ -29,24 +60,23 @@ class _CaloriesViewState extends State<CaloriesView> {
                         child: Container(
                           width: 40,
                           height: 40,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color:
-                                Colors.grey, // Background color of the circle
+                                Colors.grey,
                           ),
                           padding: const EdgeInsets.all(0.25),
                           child: IconButton(
-                            icon: Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.white, // Icon color
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  // Row 1
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 0, bottom: 15, left: 30, right: 30),
@@ -63,16 +93,16 @@ class _CaloriesViewState extends State<CaloriesView> {
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black
-                                    .withOpacity(0.3), // Color of the shadow
-                                spreadRadius: 2, // Spread radius
-                                blurRadius: 5, // Blur radius
-                                offset: Offset(0, 2), // Offset from the top
+                                    .withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
                               ),
                             ],
                           ),
                           child: Text(
-                            "Day 1",
-                            style: TextStyle(
+                            "Week $week",
+                            style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -83,7 +113,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Improve shape",
+                        goal,
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -91,7 +121,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   Positioned.fill(
                     bottom: 200,
                     child: Align(
@@ -102,8 +132,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: TColor.white, // Color of the white border
-                            width: 7, // Adjust the width of the border
+                            color: TColor.white,
+                            width: 7,
                           ),
                           gradient: LinearGradient(
                             colors: TColor.primaryG,
@@ -113,7 +143,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                               color: Colors.black.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 5,
-                              offset: Offset(1, 3),
+                              offset: const Offset(1, 3),
                             ),
                           ],
                         ),
@@ -121,7 +151,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "1,930",
+                              "$cal",
                               style: TextStyle(
                                 fontSize: 32,
                                 color: TColor.black,
@@ -142,12 +172,13 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "These macronutrient values reflect your cutting\ncalories of 1,930 calories per day, which is a 500\ncalorie per day deficit from your maintenance of\n2,430 calories per day.",
+                          goal == 'Build Muscle' ? "These macronutrient values reflect your bulking\ncalories of $cal calories per day, which is a 500\ncalorie per day added to your maintenance of\n${cal-500} calories per day." :
+                           "These macronutrient values reflect your cutting\ncalories of $cal calories per day, which is a 500\ncalorie per day deficit from your maintenance of\n${cal+500} calories per day.",
                           style: TextStyle(fontSize: 13, color: TColor.black),
                           textAlign: TextAlign.start,
                         ),
@@ -155,7 +186,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -167,7 +198,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                             borderRadius: BorderRadius.circular(30.0),
                             gradient: LinearGradient(colors: TColor.primaryG),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Macronutrients",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
@@ -186,8 +217,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(15.0),
                                   child: Text(
                                     "Protein (30%)",
                                     style: TextStyle(
@@ -201,8 +232,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("145 g",
-                                          style: TextStyle(
+                                      Text("$pro g",
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black)),
@@ -211,7 +242,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 )
                               ]),
                         ),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
                         Container(
                           alignment: Alignment.center,
                           width: 300,
@@ -222,8 +253,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(15.0),
                                   child: Text(
                                     "Carbs (35%)",
                                     style: TextStyle(
@@ -237,8 +268,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("169 g",
-                                          style: TextStyle(
+                                      Text("$carb g",
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black)),
@@ -247,7 +278,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 )
                               ]),
                         ),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
                         Container(
                           alignment: Alignment.center,
                           width: 300,
@@ -258,8 +289,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(15.0),
                                   child: Text(
                                     "Fat (35%)",
                                     style: TextStyle(
@@ -273,8 +304,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("75 g",
-                                          style: TextStyle(
+                                      Text("$fats g",
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black)),

@@ -1,20 +1,26 @@
-import 'package:fitpang/view/complete_profile/height_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
-
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/age_scrollwheel.dart';
+import 'package:fitpang/view/complete_profile/height_view.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 
 class AgeView extends StatefulWidget {
-  const AgeView({super.key});
+  final int userId;
+  final String gender;
+  const AgeView({super.key,required this.userId,required this.gender});
 
   @override
   State<AgeView> createState() => _AgeViewState();
 }
 
 class _AgeViewState extends State<AgeView> {
-  int selectTab = 0;
+  int selectedAge = 0;
 
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -23,10 +29,15 @@ class _AgeViewState extends State<AgeView> {
       body: SafeArea(
         child: Stack(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 12.0),
               child: Center(
-                child: AgeScrollWheel(),
+                child: AgeScrollWheel(
+                onAgeSelected: (age){
+                  setState(() {
+                    selectedAge = age;
+                  });
+                },),
               ),
             ),
             Padding(
@@ -45,6 +56,32 @@ class _AgeViewState extends State<AgeView> {
                     Navigator.of(context).pop();
                   },
                   color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId),
+                      ),
+                    );
+                  },
+                  color: Colors.white, 
                 ),
               ),
             ),
@@ -85,10 +122,11 @@ class _AgeViewState extends State<AgeView> {
                   RoundButton(
                       title: "Next >",
                       onPressed: () {
+                        print('Selected Age: $selectedAge');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HeightView()),
+                              builder: (context) => HeightView(userId: widget.userId, gender: widget.gender, age: selectedAge,))
                         );
                       }),
                 ],

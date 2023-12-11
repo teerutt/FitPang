@@ -1,12 +1,24 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitpang/view/login/welcome_view.dart';
+import 'package:fitpang/view/complete_profile/current_body_view.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 
 class WhatYourGoalView extends StatefulWidget {
-  const WhatYourGoalView({super.key});
+  final int userId;
+  final String gender;
+  final int age;
+  final int height;
+  final int weight;
+  const WhatYourGoalView(
+      {super.key,
+      required this.userId,
+      required this.gender,
+      required this.age,
+      required this.height,
+      required this.weight});
 
   @override
   State<WhatYourGoalView> createState() => _WhatYourGoalViewState();
@@ -14,6 +26,12 @@ class WhatYourGoalView extends StatefulWidget {
 
 class _WhatYourGoalViewState extends State<WhatYourGoalView> {
   CarouselController buttonCarouselController = CarouselController();
+  int selectedgoal = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   List goalArr = [
     {
@@ -98,6 +116,10 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   viewportFraction: 0.7,
                   aspectRatio: 0.74,
                   initialPage: 0,
+                  onPageChanged: (index, reason) {
+                    selectedgoal = index;
+                    setState(() {});
+                  },
                 ),
               ),
             ),
@@ -106,22 +128,48 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: const Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId),
+                      ),
+                    );
+                  },
+                  color: Colors.white,
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
               width: media.width,
               child: Column(
                 children: [
@@ -145,12 +193,23 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                     height: media.width * 0.05,
                   ),
                   RoundButton(
-                      title: "Confirm",
+                      title: "Next >",
                       onPressed: () {
+                        String program = '';
+                        selectedgoal == 0
+                            ? program = 'Build Muscle'
+                            : program = 'Lose Fat';
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomeView()));
+                                builder: (context) => CurrentBody(
+                                      userId: widget.userId,
+                                      gender: widget.gender,
+                                      age: widget.age,
+                                      height: widget.height,
+                                      weight: widget.weight,
+                                      goal: program,
+                                    )));
                       }),
                 ],
               ),

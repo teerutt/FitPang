@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
 class WeightScrollWhell extends StatefulWidget {
-  const WeightScrollWhell({Key? key}) : super(key: key);
+  final Function(int) onWeightSelected;
+  const WeightScrollWhell({Key? key, required this.onWeightSelected}) : super(key: key);
 
   @override
   State<WeightScrollWhell> createState() => _WeightScrollWhellState();
@@ -15,13 +16,14 @@ class _WeightScrollWhellState extends State<WeightScrollWhell> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 59);
+    _controller = FixedExtentScrollController(initialItem: 19);
     _controller.addListener(_handleScrollChange);
   }
 
-  void _handleScrollChange() {
+  void _handleScrollChange() {// Trigger a rebuild when the selected item changes.
     setState(() {
-      // Trigger a rebuild when the selected item changes.
+      int selectedWeight = _controller.selectedItem+1;
+      widget.onWeightSelected(selectedWeight);
     });
   }
 

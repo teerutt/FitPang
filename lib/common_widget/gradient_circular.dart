@@ -58,7 +58,8 @@ class _GradientCircularProgressPainter extends CustomPainter {
       );
     }
 
-    final Rect rect = Rect.fromCircle(center: size.center(Offset.zero), radius: radius);
+    final Rect rect =
+        Rect.fromCircle(center: size.center(Offset.zero), radius: radius);
     final paint = Paint()
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round

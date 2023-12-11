@@ -1,4 +1,3 @@
-import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/profile/setting_notification_view.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +5,8 @@ import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/setting_setting_row.dart';
 
 class ProfileSettingView extends StatefulWidget {
-  const ProfileSettingView({super.key});
+  final int userId;
+  const ProfileSettingView({super.key, required this.userId});
 
   @override
   State<ProfileSettingView> createState() => _ProfileSettingViewState();
@@ -46,14 +46,13 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => const SettingNotificationView());
+      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     } 
     else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
+      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     } 
     else {
-      // Handle other cases or return a default route
-      return MaterialPageRoute(builder: (context) => const ProfileSettingView());
+      return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId,));
     }
   }
 
@@ -89,9 +88,6 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                // decoration: BoxDecoration(
-                //   color: TColor.white,
-                // ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -126,9 +122,6 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
                   ],
                 ),
               ),

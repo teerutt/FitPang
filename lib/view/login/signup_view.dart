@@ -1,10 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
-import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/view/login/login_view.dart';
+import 'package:fitpang/dbhelper.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -14,18 +16,23 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
   bool isCheck = false;
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
 
-  TextEditingController _dateController = TextEditingController();
-
   Future<void> _selectDate() async {
     DateTime? _picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      initialDate: DateTime(2008),
+      firstDate: DateTime(1908),
+      lastDate: DateTime(2008,12,31),
     );
 
     if (_picked != null) {
@@ -33,6 +40,16 @@ class _SignUpViewState extends State<SignUpView> {
         _dateController.text = _picked.toString().split(" ")[0];
       });
     }
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    _dateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,24 +84,27 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Firstname",
                   icon: "assets/img/user.png",
+                  controller: firstNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Lastname",
                   icon: "assets/img/user.png",
+                  controller: lastNameController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
+                RoundTextField(
                   hintText: "Email",
                   icon: "assets/img/email.png",
                   keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -119,6 +139,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 color: TColor.gray,
                               )),
                   ),
+                  controller: passwordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
@@ -153,13 +174,13 @@ class _SignUpViewState extends State<SignUpView> {
                                 color: TColor.gray,
                               )),
                   ),
+                  controller: confirmpasswordController,
                 ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: null,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
@@ -211,88 +232,66 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 RoundButton(
                     title: "Register",
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const GenderView()));
+                    onPressed: () async {
+                      final user = User(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        f_name: firstNameController.text,
+                        l_name: lastNameController.text,
+                        DOB: _dateController.text,
+                      );
+                      final emailRegex =
+                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+                      final db = await opendb();
+                      final existing_email = await db.query('user_account',
+                          where: 'email=?', whereArgs: [user.email]);
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty ||
+                          firstNameController.text.isEmpty ||
+                          lastNameController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Please enter all the required information.'),
+                          ),
+                        );
+                      } else if (existing_email.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('The following email is already exists.'),
+                          ),
+                        );
+                      } else if (!emailRegex.hasMatch(user.email)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter a valid email.'),
+                          ),
+                        );
+                      } else if (passwordController.text !=
+                          confirmpasswordController.text) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Password and Confirm Password do not match.'),
+                          ),
+                        );
+                      } else if (!isCheck) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'You must accept our policy and term of use first.'),
+                          ),
+                        );
+                      } else {
+                        insertUser(user);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginView()));
+                      }
                     }),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        color: TColor.gray.withOpacity(0.5),
-                      ),
-                    ),
-                    Text(
-                      "  or  ",
-                      style: TextStyle(color: TColor.black, fontSize: 12),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        color: TColor.gray.withOpacity(0.5),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/google.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: media.width * 0.04,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/facebook.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),

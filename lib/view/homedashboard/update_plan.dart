@@ -1,16 +1,110 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names
 import 'package:fitpang/common/color_extension.dart';
+import 'package:fitpang/view/homedashboard/update_weight.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:fitpang/view/homedashboard/events.dart';
+import 'package:fitpang/view/homedashboard/events_view.dart';
+import 'package:fitpang/dbhelper.dart';
+import 'package:fitpang/view/homedashboard/event_detail_view.dart';
+import 'package:quickalert/quickalert.dart';
 
-class UpdatePlan extends StatefulWidget {
-  const UpdatePlan({Key? key}) : super(key: key);
+class HomeUpdatePlan extends StatefulWidget {
+  final int userId;
+  const HomeUpdatePlan({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<UpdatePlan> createState() => _UpdatePlanState();
+  State<HomeUpdatePlan> createState() => _HomeUpdatePlanState();
 }
 
-class _UpdatePlanState extends State<UpdatePlan> {
+class _HomeUpdatePlanState extends State<HomeUpdatePlan> {
+  late List<Map<String, Object?>> events = [];
+  late String firstName = '';
+  late double bmi = 1.0;
+  late int days = 0;
+  late String program1 = '';
+  late String program2 = '';
+  late int week = 0;
+  late int weekId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadFirstName();
+    loadBMI();
+    loadDay();
+    loadProgram();
+    loadWeek();
+    loadEvents();
+  }
+
+  void showAlert() {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.confirm,
+      title: 'Are you sure to delete your plan?',
+      confirmBtnText: 'Yes',
+      cancelBtnText: 'No',
+      confirmBtnColor: Colors.red,
+      titleColor: Colors.white,
+      headerBackgroundColor: Colors.grey,
+      onConfirmBtnTap: () async {
+        await deletePlan(widget.userId);
+        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MainTabView(
+                                  userId: widget.userId,
+                                )),
+                      );
+      }
+    );
+  }
+
+  Future<void> loadWeek() async {
+    final week_ = (await getWeek(widget.userId))['week'] as int;
+    setState(() {
+      week = week_;
+    });
+  }
+
+  Future<void> loadFirstName() async {
+    final firstName = await getFirstName(widget.userId);
+    setState(() {
+      this.firstName = firstName;
+    });
+  }
+
+  Future<void> loadBMI() async {
+    final BMI = await calculateBMI(widget.userId);
+    setState(() {
+      bmi = BMI;
+    });
+  }
+
+  Future<void> loadDay() async {
+    final daySinceCreated = await getDay(widget.userId);
+    setState(() {
+      days = daySinceCreated;
+    });
+  }
+
+  Future<void> loadProgram() async {
+    final program1 = await getProgram(widget.userId, 1);
+    final program2 = await getProgram(widget.userId, 2);
+    setState(() {
+      this.program1 = program1;
+      this.program2 = program2;
+    });
+  }
+
+  Future<void> loadEvents() async {
+    final event_ = await queryEvent();
+    setState(() {
+      events = event_;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +121,7 @@ class _UpdatePlanState extends State<UpdatePlan> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Welcome Back, \nKlaeng",
+                      "Welcome Back, \n$firstName",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -60,7 +154,7 @@ class _UpdatePlanState extends State<UpdatePlan> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: const [
                               Text(
                                 "BMI (Body Mass Index)",
                                 style: TextStyle(
@@ -117,7 +211,7 @@ class _UpdatePlanState extends State<UpdatePlan> {
                                   ),
                                 ),
                                 Text(
-                                  "23.6",
+                                  "$bmi",
                                   style: TextStyle(
                                     fontSize: 28,
                                     color: Colors.black,
@@ -133,150 +227,177 @@ class _UpdatePlanState extends State<UpdatePlan> {
                   ),
                   SizedBox(height: 20),
                   const Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       children: [
                         Text(
-                          "Update your plan *",
+                          "Today Workout Plan",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              showAlert();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors
+                                  .red, // Change the color to your desired color
+                            ),
+                            child: Text("Delete Plan")),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UpdateWeight(
+                                  userId: widget.userId,
+                                )),
+                      );
+                    },
+                    child: Container(
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/img/workoutplan.png",
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Please update your weight \nto generate your next plan",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "| **********************************",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.orange[300],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Event",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EventsView(
+                                        events: events,
+                                      )),
+                            );
+                          },
+                          child: Text(
+                            "See All",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange[700],
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                    width: 330,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/img/workoutplan.png",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // Text(
-                                //   "Day 01 - Warm Up",
-                                //   style: TextStyle(
-                                //     fontSize: 16,
-                                //     color: Colors.white,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                Text(
-                                  "| Please update your weight to generate next plan",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.red[600],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Eventdetail(
+                            id: events.first['event_id'] as int,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      );
+                    },
                     child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Event",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      width: 330,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/img/funrun.png",
                           ),
-                          InkWell(
-                            onTap: () {
-                              // Navigate to the page you want when "See All" is tapped
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EventsView()), // Replace YourTargetPage with the actual page you want to navigate to
-                              );
-                            },
-                            child: Text(
-                              "See All",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange[700],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Stack(
+                        children: const [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "FUN RUN AND MUSIC",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                  ),
-                  // Add your container here
-                  const SizedBox(height: 15),
-                  Container(
-                    width: 330,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/img/muscle.png",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Learn the Basic of Training",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "| 06 Workouts for Beginner",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.orange[300],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],

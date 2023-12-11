@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:fitpang/dbhelper.dart';
 import 'package:fitpang/common/color_extension.dart';
+import 'dart:typed_data';
 
 class Weightdetail extends StatefulWidget {
-  const Weightdetail({super.key});
+  final String pattern;
+  final String code;
+  const Weightdetail({super.key, required this.code, required this.pattern});
 
   @override
   State<Weightdetail> createState() => _WeightdetailState();
 }
 
 class _WeightdetailState extends State<Weightdetail> {
+  late Map<String, Object?> exercise = Map();
+
+  @override
+  void initState() {
+    super.initState();
+    loadEx();
+  }
+
+  Future<void> loadEx() async {
+    final ex = await getExbycode(widget.code, null);
+    setState(() {
+      exercise = ex;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -17,7 +36,7 @@ class _WeightdetailState extends State<Weightdetail> {
       body: SafeArea(
         child: Stack(children: [
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -28,23 +47,22 @@ class _WeightdetailState extends State<Weightdetail> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // Background color of the circle
+                        color: Colors.grey,
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        color: Colors.white, // Icon color
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ],
               ),
-              // Row 1
               Padding(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 15, left: 30, right: 30),
@@ -53,8 +71,8 @@ class _WeightdetailState extends State<Weightdetail> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      width: 200,
-                      height: 60,
+                      width: 300,
+                      height: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         gradient: LinearGradient(
@@ -62,8 +80,8 @@ class _WeightdetailState extends State<Weightdetail> {
                         ),
                       ),
                       child: Text(
-                        "Push Up",
-                        style: TextStyle(
+                        exercise['pose_name'] as String,
+                        style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -81,22 +99,38 @@ class _WeightdetailState extends State<Weightdetail> {
                 ),
                 child: Column(
                   children: [
-                    Image.asset(
-                      "assets/img/pushup.png",
-                      width: media.width * 0.9,
-                      height: media.height * 0.2,
-                      fit: BoxFit.contain,
-                    ),
+                    const SizedBox(height: 20.0),
+                    ((exercise['picture']) as Uint8List).isNotEmpty
+                                    ? ClipRect(
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 0.0),
+                                            child: Image.memory(
+                                              (exercise['picture']) as Uint8List,
+                                              width:
+                                                  media.width * 0.8,
+                                              height:
+                                                  null,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : const CircularProgressIndicator(),
+                    const SizedBox(height: 10.0),                
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              "ท่าวิดพื้นเป็นท่าออกกำลังกายที่ได้รับความนิยมมากที่สุด บริหารกล้ามเนื้ออก หัวไหล่ และ triceps",
+                              '\n${exercise['instructions'] as String}',
+                              textAlign: TextAlign.justify,
                               style: TextStyle(
-                                fontSize: 18,
-                                // fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontFamily: 'Poppins',
                                 color: TColor.black,
                               ),
                               softWrap: true,

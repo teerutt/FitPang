@@ -1,39 +1,28 @@
+import 'package:fitpang/common_widget/round_textfield.dart';
+import 'package:fitpang/dbhelper.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/common_widget/setting_edit_row.dart';
-import 'package:fitpang/common_widget/photo_button.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/profile/profile_view.dart';
 
 class ProfileEditView extends StatefulWidget {
-  const ProfileEditView({super.key});
+  final int userId;
+  final String f_name;
+  final String l_name;
+  const ProfileEditView({super.key, required this.userId, required this.f_name, required this.l_name});
 
   @override
   State<ProfileEditView> createState() => _ProfileEditViewState();
 }
 
 class _ProfileEditViewState extends State<ProfileEditView> {
-  List profileArr = [
-    {
-      "label": "Firstname",
-      "name": "Teerut",
-      "tag": "1",
-    },
-    {
-      "label": "Lastname",
-      "name": "P",
-      "tag": "2"
-    },
-    {
-      "label": "Email",
-      "name": "fitpang@gmail.com",
-      "tag": "3"
-    },
-  ];
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.white,
@@ -78,13 +67,6 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Positioned(
-                        left: 80,
-                        top: 80,
-                        child: PhotoButton(
-                          onTap: () {}
-                        ),
-                      )
                     ],
                   ),
                 ],
@@ -105,27 +87,22 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: profileArr.length,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          color: TColor.black,
-                          thickness: 1.5,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        var iObj = profileArr[index] as Map? ?? {};
-                        return SettingEditRow(
-                          label: iObj["label"].toString(),
-                          title: iObj["name"].toString(),
-                          onPressed: () {
-                            // navigateToPage(iObj["tag"]);
-                          },
-                        );
-                      },
-                    ),
+                    RoundTextField(
+                  hintText: widget.f_name,
+                  icon: "assets/img/user.png",
+                  controller: firstNameController,
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
+                RoundTextField(
+                  hintText: widget.l_name,
+                  icon: "assets/img/user.png",
+                  controller: lastNameController,
+                ),
+                SizedBox(
+                  height: media.width * 0.04,
+                ),
                     Divider(
                       color: TColor.black,
                       thickness: 1.5,
@@ -135,11 +112,12 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     ),
                     RoundButton(
                       title: "Save",
-                      onPressed: () {
+                      onPressed: () async{
+                        updateProfile(widget.userId, firstNameController.text, lastNameController.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ProfileView()
+                            builder: (context) => MainTabView(userId: widget.userId,)
                           )
                         );
                       }
