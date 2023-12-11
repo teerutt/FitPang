@@ -1,7 +1,7 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:fitpang/view/homedashboard/events.dart';
+import 'package:fitpang/view/homedashboard/events_view.dart';
 
 class UpdatePlan extends StatefulWidget {
   const UpdatePlan({Key? key}) : super(key: key);

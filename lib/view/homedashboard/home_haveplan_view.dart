@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/view/homedashboard/calories_view.dart';
-import 'package:fitpang/view/homedashboard/day_todo.dart';
+import 'package:fitpang/view/homedashboard/day_todo_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:fitpang/view/homedashboard/events.dart';
+import 'package:fitpang/view/homedashboard/events_view.dart';
 import 'package:fitpang/dbhelper.dart';
-import 'package:fitpang/view/homedashboard/eventdetail.dart';
+import 'package:fitpang/view/homedashboard/event_detail_view.dart';
 import 'package:quickalert/quickalert.dart';
 
 class HomeHavePlan extends StatefulWidget {

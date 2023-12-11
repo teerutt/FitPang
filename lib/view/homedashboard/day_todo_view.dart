@@ -1,3 +1,4 @@
+import 'package:fitpang/view/homedashboard/jogging_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/dbhelper.dart';
@@ -39,14 +40,15 @@ class _DayTodoState extends State<DayTodo> {
   }
 
   Future<void> loadPattern() async {
-    final String pattern = (await getWeek(widget.userId))['pattern_id'] as String;
+    final String pattern =
+        (await getWeek(widget.userId))['pattern_id'] as String;
     setState(() {
-      this.patternId = pattern;
+      patternId = pattern;
     });
   }
 
   Future<void> loadImage(String key, String ex_code) async {
-    final imageData = (await getExbycode(ex_code,null))['pv'] as Uint8List;
+    final imageData = (await getExbycode(ex_code, null))['pv'] as Uint8List;
     setState(() {
       imageBytes[key] = imageData;
     });
@@ -74,7 +76,7 @@ class _DayTodoState extends State<DayTodo> {
       backgroundColor: TColor.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Row(
@@ -86,13 +88,13 @@ class _DayTodoState extends State<DayTodo> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey, // Background color of the circle
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -121,7 +123,7 @@ class _DayTodoState extends State<DayTodo> {
                       ),
                       child: Text(
                         "Day $days",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -145,9 +147,9 @@ class _DayTodoState extends State<DayTodo> {
                 visible: program1 == 'Weight Training',
                 child: Column(
                   children: [
-                    SizedBox(height: 10.0),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
+                    const SizedBox(height: 10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -166,8 +168,9 @@ class _DayTodoState extends State<DayTodo> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  Weightinfo(
-                                    pattern: patternId, muscle: 'CH',
+                              builder: (context) => Weightinfo(
+                                    pattern: patternId,
+                                    muscle: 'CH',
                                   )),
                         );
                       },
@@ -196,16 +199,17 @@ class _DayTodoState extends State<DayTodo> {
                                           child: Image.memory(
                                             imageBytes['ch']!,
                                             width: 100, // Set width as needed
-                                            height: null, // Set height as needed
+                                            height:
+                                                null, // Set height as needed
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     )
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -224,14 +228,15 @@ class _DayTodoState extends State<DayTodo> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Weightinfo(
-                                    pattern: patternId, muscle: 'AM',
+                                    pattern: patternId,
+                                    muscle: 'AM',
                                   )),
                         );
                       },
@@ -266,10 +271,10 @@ class _DayTodoState extends State<DayTodo> {
                                         ),
                                       ),
                                     )
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -288,14 +293,15 @@ class _DayTodoState extends State<DayTodo> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Weightinfo(
-                                    pattern: patternId, muscle: 'BD',
+                                    pattern: patternId,
+                                    muscle: 'BD',
                                   )),
                         );
                       },
@@ -331,10 +337,10 @@ class _DayTodoState extends State<DayTodo> {
                                         ),
                                       ),
                                     )
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -353,14 +359,15 @@ class _DayTodoState extends State<DayTodo> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Weightinfo(
-                                    pattern: patternId, muscle: 'BK',
+                                    pattern: patternId,
+                                    muscle: 'BK',
                                   )),
                         );
                       },
@@ -396,10 +403,10 @@ class _DayTodoState extends State<DayTodo> {
                                         ),
                                       ),
                                     )
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -418,14 +425,15 @@ class _DayTodoState extends State<DayTodo> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Weightinfo(
-                                    pattern: patternId, muscle: 'LG',
+                                    pattern: patternId,
+                                    muscle: 'LG',
                                   )),
                         );
                       },
@@ -460,10 +468,10 @@ class _DayTodoState extends State<DayTodo> {
                                         ),
                                       ),
                                     )
-                                  : CircularProgressIndicator(),
+                                  : const CircularProgressIndicator(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -487,11 +495,11 @@ class _DayTodoState extends State<DayTodo> {
               ),
 
               Visibility(
-                visible: program2 == 'Cardio',
+                visible: program1 == 'Cardio' || program2 == 'Cardio',
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
+                    const Padding(
+                      padding: EdgeInsets.all(30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -505,46 +513,207 @@ class _DayTodoState extends State<DayTodo> {
                         ],
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 300,
-                      height: 125,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        gradient: LinearGradient(
-                          colors: TColor.primaryG,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Jogginginfo()),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 300,
+                        height: 125,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          gradient: LinearGradient(
+                            colors: TColor.primaryG,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 30, right: 0),
+                              child: Image.asset(
+                                "assets/img/runmen.png", // Replace with the correct path to your image asset
+                                width: 80, // Adjust the width as needed
+                                height: 80, // Adjust the height as needed
+                                fit: BoxFit.contain, // Adjust the fit as needed
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 0, right: 30),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Jogging",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 0, bottom: 0, left: 30, right: 0),
-                            child: Image.asset(
-                              "assets/img/runmen.png", // Replace with the correct path to your image asset
-                              width: 80, // Adjust the width as needed
-                              height: 80, // Adjust the height as needed
-                              fit: BoxFit.contain, // Adjust the fit as needed
-                            ),
+                    ),
+                    const SizedBox(height: 15.0,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Jogginginfo()),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 300,
+                        height: 125,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          gradient: LinearGradient(
+                            colors: TColor.primaryG,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 0, bottom: 0, left: 0, right: 30),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Jogging",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                              ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 30, right: 0),
+                              child: Image.asset(
+                                "assets/img/swimmen.png", // Replace with the correct path to your image asset
+                                width: 80, // Adjust the width as needed
+                                height: 80, // Adjust the height as needed
+                                fit: BoxFit.contain, // Adjust the fit as needed
+                              ),
                             ),
-                          ),
-                        ],
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 0, right: 30),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Swimming",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 15.0,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Jogginginfo()),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 300,
+                        height: 125,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          gradient: LinearGradient(
+                            colors: TColor.primaryG,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 30, right: 0),
+                              child: Image.asset(
+                                "assets/img/ridemen.png", // Replace with the correct path to your image asset
+                                width: 80, // Adjust the width as needed
+                                height: 80, // Adjust the height as needed
+                                fit: BoxFit.contain, // Adjust the fit as needed
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 0, right: 30),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Cycling",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15.0,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Jogginginfo()),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 300,
+                        height: 125,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          gradient: LinearGradient(
+                            colors: TColor.primaryG,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 30, right: 0),
+                              child: Image.asset(
+                                "assets/img/aerobicmen.png", // Replace with the correct path to your image asset
+                                width: 80, // Adjust the width as needed
+                                height: 80, // Adjust the height as needed
+                                fit: BoxFit.contain, // Adjust the fit as needed
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, bottom: 0, left: 0, right: 30),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Aerobic",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15.0,),
+                    
                   ],
                 ),
               )

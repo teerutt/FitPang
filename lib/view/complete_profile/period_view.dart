@@ -1,4 +1,4 @@
-import 'package:fitpang/view/complete_profile/complete_create.dart';
+import 'package:fitpang/view/complete_profile/complete_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';

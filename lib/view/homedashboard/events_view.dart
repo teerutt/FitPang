@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:fitpang/view/homedashboard/blank_view.dart';
-import 'package:fitpang/view/homedashboard/eventdetail.dart';
+import 'package:fitpang/view/homedashboard/event_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 

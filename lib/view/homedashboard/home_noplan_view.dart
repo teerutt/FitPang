@@ -3,11 +3,11 @@ import 'dart:typed_data';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/dbhelper.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
-import 'package:fitpang/view/homedashboard/eventdetail.dart';
+import 'package:fitpang/view/homedashboard/event_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common_widget/round_button_create.dart';
 import 'package:intl/intl.dart';
-import 'package:fitpang/view/homedashboard/events.dart';
+import 'package:fitpang/view/homedashboard/events_view.dart';
 
 class HomeNoPlan extends StatefulWidget {
   final int userId;

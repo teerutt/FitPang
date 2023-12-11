@@ -1,4 +1,4 @@
-import 'package:fitpang/view/complete_profile/goal_period.dart';
+import 'package:fitpang/view/complete_profile/period_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';

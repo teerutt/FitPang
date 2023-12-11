@@ -1,13 +1,13 @@
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
-import 'package:fitpang/view/homedashboard/insight2.dart';
+import 'package:fitpang/view/homedashboard/insight_view.dart';
 import 'package:fitpang/view/homedashboard/update_plan.dart';
 import 'package:fitpang/view/homedashboard/update_weight.dart';
 import 'package:fitpang/view/profile/profile_view.dart';
 import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:fitpang/view/homedashboard/home_noplan.dart';
-import 'package:fitpang/view/homedashboard/home_haveplan.dart';
+import 'package:fitpang/view/homedashboard/home_noplan_view.dart';
+import 'package:fitpang/view/homedashboard/home_haveplan_view.dart';
 import 'package:fitpang/dbhelper.dart';
 
 class MainTabView extends StatefulWidget {

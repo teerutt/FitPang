@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitpang/view/complete_profile/current_body.dart';
+import 'package:fitpang/view/complete_profile/current_body_view.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';

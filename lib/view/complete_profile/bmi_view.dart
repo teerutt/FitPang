@@ -1,7 +1,5 @@
-import 'dart:ffi';
 
 import 'package:fitpang/view/complete_profile/what_your_goal_view.dart';
-import 'package:fitpang/view/complete_profile/current_body.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/round_button.dart';
@@ -39,13 +37,13 @@ class _BMIScoreState extends State<BMIScore> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey, // Background color of the circle
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -59,13 +57,13 @@ class _BMIScoreState extends State<BMIScore> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -108,7 +106,7 @@ class _BMIScoreState extends State<BMIScore> {
                         color: Colors.black.withOpacity(0.5),
                         spreadRadius: 3,
                         blurRadius: 5,
-                        offset: Offset(3, 3),
+                        offset: const Offset(3, 3),
                       ),
                     ],
                   ),
@@ -147,7 +145,7 @@ class _BMIScoreState extends State<BMIScore> {
                     children: [
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             "Current BMI",
                             style: TextStyle(
                               color: Colors.black,
@@ -176,10 +174,10 @@ class _BMIScoreState extends State<BMIScore> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10.0,
                           ),
-                          Expanded(
+                          const Expanded(
                             child: Text(
                               "You've got a great figure! Keep it up!",
                               style: TextStyle(
