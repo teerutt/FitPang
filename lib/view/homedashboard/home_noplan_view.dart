@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/dbhelper.dart';
 import 'package:fitpang/view/complete_profile/gender_view.dart';
@@ -88,42 +86,38 @@ class _HomeNoPlanState extends State<HomeNoPlan> {
                 const SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Event",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Event",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EventsView(
+                                      events: events,
+                                    )),
+                          );
+                        },
+                        child: Text(
+                          "See All",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.orange[700],
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            // Navigate to the page you want when "See All" is tapped
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EventsView(
-                                        events: events,
-                                      )), // Replace YourTargetPage with the actual page you want to navigate to
-                            );
-                          },
-                          child: Text(
-                            "See All",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.orange[700],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-                // Add your container here
                 const SizedBox(height: 15),
                 GestureDetector(
                   onTap: () {

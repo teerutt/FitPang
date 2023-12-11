@@ -75,17 +75,17 @@ class _DesiredBodyState extends State<DesiredBody> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -95,13 +95,13 @@ class _DesiredBodyState extends State<DesiredBody> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -119,7 +119,7 @@ class _DesiredBodyState extends State<DesiredBody> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   Text(
@@ -130,10 +130,9 @@ class _DesiredBodyState extends State<DesiredBody> {
                         fontWeight: FontWeight.w700,
                         color: TColor.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  // !!! Carousel Slider !!!
                   Center(
                       child: CarouselSlider(
                     carouselController: buttonCarouselController,
@@ -168,8 +167,6 @@ class _DesiredBodyState extends State<DesiredBody> {
                             child: FittedBox(
                               child: Image.asset(
                                 bObj["image"].toString(),
-                                // width: media.width * 0.5,
-                                // height: media.width * 0.5,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -181,7 +178,6 @@ class _DesiredBodyState extends State<DesiredBody> {
                   SizedBox(
                     height: media.width * 0.03,
                   ),
-                  // Carousel Indicators
                   Positioned(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -192,7 +188,7 @@ class _DesiredBodyState extends State<DesiredBody> {
                           child: Container(
                             width: 22.0,
                             height: 12.0,
-                            margin: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 4.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -212,8 +208,6 @@ class _DesiredBodyState extends State<DesiredBody> {
                   SizedBox(
                     height: media.width * 0.03,
                   ),
-
-                  // !!! Estimated Body Fat (grey box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -274,7 +268,6 @@ class _DesiredBodyState extends State<DesiredBody> {
                 ],
               ),
             ),
-            // !!! Confirm Button !!!
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

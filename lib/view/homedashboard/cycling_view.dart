@@ -17,7 +17,7 @@ class _CyclinginfoState extends State<Cyclinginfo> {
       body: SafeArea(
         child: Stack(children: [
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -28,17 +28,17 @@ class _CyclinginfoState extends State<Cyclinginfo> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // Background color of the circle
+                        color: Colors.grey,
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        color: Colors.white, // Icon color
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -61,7 +61,7 @@ class _CyclinginfoState extends State<Cyclinginfo> {
                           colors: TColor.primaryG,
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Cycling",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),

@@ -1,4 +1,5 @@
-import 'package:flutter/gestures.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common/color_utils.dart';
@@ -25,8 +26,7 @@ class _Insight2State extends State<Insight2> {
   TextEditingController controller = TextEditingController();
   bool click = true;
   bool? _isChecked = false;
-  bool? _isChecked2 = false;
-  int totalTodos = 2; // Assuming there are 4 checkboxes initially
+  int totalTodos = 1; 
   int completedTodos = 0; // Counter to track completed todos
 
   @override
@@ -53,7 +53,7 @@ class _Insight2State extends State<Insight2> {
   }
 
   Widget hrizontalCapsuleListView() {
-    return Container(
+    return SizedBox(
       width: width,
       height: 100,
       child: ListView.builder(
@@ -140,7 +140,7 @@ class _Insight2State extends State<Insight2> {
   }
 
   Widget topView() {
-    return Container(
+    return SizedBox(
       height: height * 0.3,
       width: width,
       child: Column(
@@ -162,7 +162,7 @@ class _Insight2State extends State<Insight2> {
           padding: EdgeInsets.zero,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 15),
               width: width - 20,
               height: 70,
               decoration: BoxDecoration(
@@ -202,10 +202,9 @@ class _Insight2State extends State<Insight2> {
     height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      // backgroundColor: TColor.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Center(
             child: Column(
               children: [
@@ -215,7 +214,7 @@ class _Insight2State extends State<Insight2> {
                     todoList(),
                     Positioned(
                       bottom: MediaQuery.of(context).size.height *
-                          0.15, // Set the bottom to 0 to move it to the bottom
+                          0.15,
                       left: 0,
                       right: 0,
                       child: Container(
@@ -225,7 +224,7 @@ class _Insight2State extends State<Insight2> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text("Finished Workout",
@@ -234,9 +233,9 @@ class _Insight2State extends State<Insight2> {
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               CheckboxListTile(
-                                title: Text("Mafuq ka"),
+                                title: const Text("Weight Training"),
                                 value: _isChecked,
                                 onChanged: (bool? newValue) {
                                   setState(() {
@@ -252,24 +251,7 @@ class _Insight2State extends State<Insight2> {
                                 checkColor: Colors.white,
                                 tileColor: Colors.black12,
                               ),
-                              SizedBox(height: 10.0),
-                              CheckboxListTile(
-                                title: Text("Mafuq ka"),
-                                value: _isChecked2,
-                                onChanged: (bool? newValue) {
-                                  setState(() {
-                                    _isChecked2 = newValue;
-                                    if (_isChecked2 == true) {
-                                      completedTodos++;
-                                    } else {
-                                      completedTodos--;
-                                    }
-                                  });
-                                },
-                                activeColor: Colors.orangeAccent,
-                                checkColor: Colors.white,
-                                tileColor: Colors.black12,
-                              ),
+                              const SizedBox(height: 10.0),
                             ],
                           ),
                         ),
@@ -290,7 +272,7 @@ class _Insight2State extends State<Insight2> {
                         circularStrokeCap: CircularStrokeCap.round,
                         center: Text(
                           "${(calculatePercentage() * 100).toStringAsFixed(0)}%",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30),
                         ),
                       ),

@@ -39,7 +39,7 @@ class _BMIScoreState extends State<BMIScore> {
                 height: 40,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
@@ -47,7 +47,7 @@ class _BMIScoreState extends State<BMIScore> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -81,7 +81,7 @@ class _BMIScoreState extends State<BMIScore> {
               top: 30,
               left: 140,
               child: Text(
-                "Your BMI", // Replace with your desired text
+                "Your BMI",
                 style: TextStyle(
                   color: TColor.black,
                   fontSize: 26,

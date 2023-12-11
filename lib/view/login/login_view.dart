@@ -1,11 +1,9 @@
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/view/homedashboard/home_haveplan_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/view/login/signup_view.dart';
 import 'package:fitpang/common_widget/round_button.dart';
 import 'package:fitpang/common_widget/round_textfield.dart';
-import 'package:fitpang/view/complete_profile/gender_view.dart';
 import 'package:fitpang/dbhelper.dart';
 
 class LoginView extends StatefulWidget {

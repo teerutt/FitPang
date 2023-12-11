@@ -1,6 +1,4 @@
 import 'dart:typed_data';
-
-import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/homedashboard/event_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
@@ -53,7 +51,7 @@ class _EventsViewState extends State<EventsView> {
                               children: [
                                 Text(
                                   event['name'] as String,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -76,13 +74,13 @@ class _EventsViewState extends State<EventsView> {
                   ),
         ),
       );
-      eventWidgets.add(SizedBox(height: 15.0,));
+      eventWidgets.add(const SizedBox(height: 15.0,));
     }
     return Scaffold(
       backgroundColor: TColor.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(25.0),
@@ -93,20 +91,20 @@ class _EventsViewState extends State<EventsView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.grey, // Background color of the circle
+                          color: Colors.grey,
                         ),
                         padding: const EdgeInsets.all(1.0),
                         child: IconButton(
-                          icon: Icon(Icons.arrow_back),
+                          icon: const Icon(Icons.arrow_back),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          color: Colors.white, // Icon color
+                          color: Colors.white,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "   Events",
                         style: TextStyle(
                           fontSize: 22,
@@ -115,12 +113,12 @@ class _EventsViewState extends State<EventsView> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                    color: Colors.black, // Color of the SizedBox
-                    height: 3, // Adjust the height as needed
+                    color: Colors.black,
+                    height: 3,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Column(
                     children: eventWidgets,
                   ),

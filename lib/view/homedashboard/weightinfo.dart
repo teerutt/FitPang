@@ -23,7 +23,7 @@ class _WeightinfoState extends State<Weightinfo> {
   }
 
   Future<void> loadEx() async {
-    final ex = await getExbymuscle(widget.muscle,widget.pattern);
+    final ex = await getExbymuscle(widget.muscle, widget.pattern);
     setState(() {
       exercises = ex;
     });
@@ -46,7 +46,7 @@ class _WeightinfoState extends State<Weightinfo> {
     }
     var media = MediaQuery.of(context).size;
     List<Widget> exerciseWidgets = [];
-    String exerciseName,exerciseCode;
+    String exerciseName;
     Uint8List exerciseImg;
 
     for (int i = 0; i < exercises.length; i++) {
@@ -60,7 +60,10 @@ class _WeightinfoState extends State<Weightinfo> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Weightdetail(code: exercises[i]['ex_code'] as String, pattern: widget.pattern,),
+                builder: (context) => Weightdetail(
+                  code: exercises[i]['ex_code'] as String,
+                  pattern: widget.pattern,
+                ),
               ),
             );
           },
@@ -81,24 +84,21 @@ class _WeightinfoState extends State<Weightinfo> {
                   padding: const EdgeInsets.only(
                       top: 0, bottom: 0, left: 10, right: 0),
                   child: exerciseImg.isNotEmpty
-                                    ? ClipRect(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 0.0),
-                                            child: Image.memory(
-                                              exerciseImg,
-                                              width:
-                                                  97, // Set width as needed
-                                              height:
-                                                  null, // Set height as needed
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : CircularProgressIndicator(),
+                      ? ClipRect(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 0.0),
+                              child: Image.memory(
+                                exerciseImg,
+                                width: 97, // Set width as needed
+                                height: null, // Set height as needed
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const CircularProgressIndicator(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -109,7 +109,7 @@ class _WeightinfoState extends State<Weightinfo> {
                       Text(
                         exerciseName,
                         textAlign: TextAlign.right,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
@@ -122,7 +122,9 @@ class _WeightinfoState extends State<Weightinfo> {
           ),
         ),
       );
-      exerciseWidgets.add(SizedBox(height: 15.0,));
+      exerciseWidgets.add(const SizedBox(
+        height: 15.0,
+      ));
     }
     return Scaffold(
       backgroundColor: TColor.white,
@@ -130,7 +132,7 @@ class _WeightinfoState extends State<Weightinfo> {
         child: Stack(
           children: [
             SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Row(
@@ -142,18 +144,18 @@ class _WeightinfoState extends State<Weightinfo> {
                         child: Container(
                           width: 40,
                           height: 40,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color:
-                                Colors.grey, // Background color of the circle
+                                Colors.grey,
                           ),
                           padding: const EdgeInsets.all(0.25),
                           child: IconButton(
-                            icon: Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.white, // Icon color
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -177,17 +179,26 @@ class _WeightinfoState extends State<Weightinfo> {
                           ),
                           child: Text(
                             topic,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const Text(
+                    "10 reps x 2 sets for each pose",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  const SizedBox(height: 15.0),
                   Column(
                     children: exerciseWidgets,
                   ),
-                  SizedBox(height: 15.0),
+                  const SizedBox(height: 15.0),
                 ],
               ),
             ),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fitpang/common/color_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -18,14 +20,12 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController =
-      TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   bool isCheck = false;
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
-
-  TextEditingController _dateController = TextEditingController();
 
   Future<void> _selectDate() async {
     DateTime? _picked = await showDatePicker(

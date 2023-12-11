@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, use_build_context_synchronously, non_constant_identifier_names
 import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/view/homedashboard/calories_view.dart';
 import 'package:fitpang/view/homedashboard/day_todo_view.dart';
@@ -228,7 +228,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                   ),
                   SizedBox(height: 20),
                   const Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       children: [
                         Text(
@@ -251,7 +251,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                               showAlert();
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors
+                              backgroundColor: Colors
                                   .red, // Change the color to your desired color
                             ),
                             child: Text("Delete Plan")),
@@ -317,7 +317,7 @@ class _HomeHavePlanState extends State<HomeHavePlan> {
                   ),
                   SizedBox(height: 20),
                   const Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       children: [
                         Text(

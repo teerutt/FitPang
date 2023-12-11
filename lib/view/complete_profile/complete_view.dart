@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fitpang/dbhelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
@@ -79,7 +81,6 @@ class _CompleteCreateState extends State<CompleteCreate> {
                     final plan = Plan(user_id: widget.userId, program: widget.goal, height: widget.height, sex: widget.gender, age: widget.age, plan_period: widget.period, date_created: DateTime.now(),);
                     final db = await opendb();
                     await db.insert('plan', plan.toMap(),conflictAlgorithm: ConflictAlgorithm.replace,);
-                    print('${widget.userId}\n${widget.goal}\n${widget.height}\n${widget.gender}\n${widget.age}\n${widget.current_body}\n${widget.desired_body}\n${widget.period}');
                     final plan_id = await db.query('plan', columns: ['plan_id'], where: 'user_id = ?', whereArgs: [widget.userId]);
 
                     double bmi = (widget.weight / ((widget.height/100)*(widget.height/100)));
@@ -138,7 +139,6 @@ class _CompleteCreateState extends State<CompleteCreate> {
                     }
                     
                     pattern+='$level';
-                    print('pattern=$pattern');
 
                     final week = Week(plan_id: plan_id.last['plan_id'] as int, week: 1, weight: widget.weight, pattern_id: pattern);
                     await db.insert('week', week.toMap(),conflictAlgorithm: ConflictAlgorithm.replace,);

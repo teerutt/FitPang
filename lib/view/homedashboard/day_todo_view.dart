@@ -91,7 +91,7 @@ class _DayTodoState extends State<DayTodo> {
                       height: 40,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // Background color of the circle
+                        color: Colors.grey,
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
@@ -99,13 +99,12 @@ class _DayTodoState extends State<DayTodo> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        color: Colors.white, // Icon color
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ],
               ),
-              // Row 1
               Padding(
                 padding: const EdgeInsets.only(
                     top: 30, bottom: 15, left: 30, right: 30),
@@ -164,6 +163,15 @@ class _DayTodoState extends State<DayTodo> {
                         ],
                       ),
                     ),
+                    const Text(
+                            "Choose up to 2 pose for each muscle\n",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                ),
+                          ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

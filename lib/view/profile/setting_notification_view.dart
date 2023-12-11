@@ -1,4 +1,4 @@
-import 'package:fitpang/view/homedashboard/blank_view.dart';
+// ignore_for_file: deprecated_member_use
 import 'package:fitpang/view/profile/profile_edit_view.dart';
 import 'package:flutter/material.dart';
 
@@ -50,12 +50,8 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
       return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,f_name: '',l_name: '',));
-    } 
-    else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
-    } 
+    }
     else {
-      // Handle other cases or return a default route
       return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     }
   }
@@ -64,9 +60,6 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
     const url = 'app-settings:';
     if (await canLaunch(url)) {
       await launch(url);
-    } else {
-      // Could not launch the URL
-      print('Could not launch $url');
     }
   }
 
@@ -104,9 +97,6 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                // decoration: BoxDecoration(
-                //   color: TColor.white,
-                // ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

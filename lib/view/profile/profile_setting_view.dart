@@ -1,4 +1,3 @@
-import 'package:fitpang/view/homedashboard/blank_view.dart';
 import 'package:fitpang/view/profile/setting_notification_view.dart';
 import 'package:flutter/material.dart';
 
@@ -50,10 +49,9 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
       return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     } 
     else if (tag == "2") {
-      return MaterialPageRoute(builder: (context) => const BlankView());
+      return MaterialPageRoute(builder: (context) => SettingNotificationView(userId: widget.userId,));
     } 
     else {
-      // Handle other cases or return a default route
       return MaterialPageRoute(builder: (context) => ProfileSettingView(userId: widget.userId,));
     }
   }
@@ -90,9 +88,6 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                // decoration: BoxDecoration(
-                //   color: TColor.white,
-                // ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -127,9 +122,6 @@ class _ProfileSettingViewState extends State<ProfileSettingView> {
                       color: TColor.black,
                       thickness: 1.5,
                     ),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
                   ],
                 ),
               ),

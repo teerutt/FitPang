@@ -95,7 +95,6 @@ class _ProfileViewState extends State<ProfileView> {
     } else if (tag == "3") {
       return MaterialPageRoute(builder: (context) => const LoginView());
     } else {
-      // Handle other cases or return a default route
       return MaterialPageRoute(
           builder: (context) => ProfileView(
                 userId: widget.userId,

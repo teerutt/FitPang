@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitpang/view/complete_profile/current_body_view.dart';
-import 'package:fitpang/view/login/welcome_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 
@@ -129,17 +128,17 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -149,28 +148,28 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => MainTabView(
                             userId: widget
-                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                                .userId),
                       ),
                     );
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
               width: media.width,
               child: Column(
                 children: [
@@ -196,7 +195,6 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   RoundButton(
                       title: "Next >",
                       onPressed: () {
-                        print(selectedgoal);
                         String program = '';
                         selectedgoal == 0
                             ? program = 'Build Muscle'

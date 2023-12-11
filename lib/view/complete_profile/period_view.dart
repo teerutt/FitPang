@@ -69,9 +69,9 @@ class _GoalPeriodState extends State<GoalPeriod> {
   @override
   Widget build(BuildContext context) {
     String current_body_path =
-        'assets/img/current_body' + '${widget.current_body + 1}' + '.png';
+        'assets/img/current_body${widget.current_body + 1}.png';
     String desired_body_path =
-        'assets/img/desired_body' + '${widget.desired_body + 1}' + '.png';
+        'assets/img/desired_body${widget.desired_body + 1}.png';
 
     switch (widget.desired_body) {
           case 0:
@@ -109,17 +109,17 @@ class _GoalPeriodState extends State<GoalPeriod> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -129,13 +129,13 @@ class _GoalPeriodState extends State<GoalPeriod> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -192,7 +192,6 @@ class _GoalPeriodState extends State<GoalPeriod> {
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.asset(
                               current_body_path,
-                              // fit: BoxFit.cover,
                             ),
                           )
                         ],
@@ -220,52 +219,15 @@ class _GoalPeriodState extends State<GoalPeriod> {
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.asset(
                               desired_body_path,
-                              // fit: BoxFit.cover,
                             ),
                           ),
                         ],
                       ),
-                      // RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       TextSpan(
-                      //         text: "Target\n",
-                      //         style: TextStyle(
-                      //           color: TColor.primaryColor1,
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.w700,
-                      //         ),
-                      //       ),
-                      //       TextSpan(
-                      //         text: "body",
-                      //         style: TextStyle(
-                      //           color: TColor.black,
-                      //           fontSize: 28,
-                      //           fontWeight: FontWeight.w700,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // Column(
-                      //   children: [
-                      //     Text(
-                      //       "Target\nbody",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.w700
-                      //       ),
-                      //       textAlign: TextAlign.center,
-                      //     ),
-                      //     // Additional content for "Target body" if needed
-                      //   ],
-                      // ),
                     ],
                   ),
                   SizedBox(
                     height: media.width * 0.1,
                   ),
-                  // !!! Carousel Slider !!!
                   Center(
                       child: CarouselSlider(
                     carouselController: buttonCarouselController,
@@ -314,12 +276,6 @@ class _GoalPeriodState extends State<GoalPeriod> {
                                     )
                                   ]),
                             ],
-                            // child: Image.asset(
-                            //   bObj["image"].toString(),
-                            //   // width: media.width * 0.5,
-                            //   // height: media.width * 0.5,
-                            //   fit: BoxFit.fill,
-                            // ),
                           );
                         },
                       );
@@ -328,7 +284,6 @@ class _GoalPeriodState extends State<GoalPeriod> {
                   SizedBox(
                     height: media.width * 0.15,
                   ),
-                  // Carousel Indicators
                   Positioned(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -362,7 +317,6 @@ class _GoalPeriodState extends State<GoalPeriod> {
                 ],
               ),
             ),
-            // !!! Confirm Button !!!
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

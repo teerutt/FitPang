@@ -17,7 +17,7 @@ class _SwimminginfoState extends State<Swimminginfo> {
       body: SafeArea(
         child: Stack(children: [
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -28,13 +28,13 @@ class _SwimminginfoState extends State<Swimminginfo> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey, // Background color of the circle
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -61,7 +61,7 @@ class _SwimminginfoState extends State<Swimminginfo> {
                           colors: TColor.primaryG,
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Swimming",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),

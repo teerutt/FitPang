@@ -36,7 +36,7 @@ class _WeightdetailState extends State<Weightdetail> {
       body: SafeArea(
         child: Stack(children: [
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -47,23 +47,22 @@ class _WeightdetailState extends State<Weightdetail> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // Background color of the circle
+                        color: Colors.grey,
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        color: Colors.white, // Icon color
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ],
               ),
-              // Row 1
               Padding(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 15, left: 30, right: 30),
@@ -82,7 +81,7 @@ class _WeightdetailState extends State<Weightdetail> {
                       ),
                       child: Text(
                         exercise['pose_name'] as String,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -100,7 +99,7 @@ class _WeightdetailState extends State<Weightdetail> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     ((exercise['picture']) as Uint8List).isNotEmpty
                                     ? ClipRect(
                                         child: Align(
@@ -111,23 +110,23 @@ class _WeightdetailState extends State<Weightdetail> {
                                             child: Image.memory(
                                               (exercise['picture']) as Uint8List,
                                               width:
-                                                  media.width * 0.8, // Set width as needed
+                                                  media.width * 0.8,
                                               height:
-                                                  null, // Set height as needed
+                                                  null,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
-                    SizedBox(height: 10.0),                
+                                    : const CircularProgressIndicator(),
+                    const SizedBox(height: 10.0),                
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              '\n'+(exercise['instructions'] as String),
+                              '\n${exercise['instructions'] as String}',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 16,

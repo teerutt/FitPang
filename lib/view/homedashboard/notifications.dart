@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 import 'package:intl/intl.dart';
@@ -28,11 +30,11 @@ class _NotificationsState extends State<Notifications> {
       body: SafeArea(
         child: Column(
           mainAxisAlignment:
-              MainAxisAlignment.center, // Center the content vertically
+              MainAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 25.0, horizontal: 25.0),
+                  EdgeInsets.symmetric(vertical: 25.0, horizontal: 25.0),
               child: Text(
                 "Notifications",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -61,7 +63,7 @@ class _NotificationsState extends State<Notifications> {
                         children: [
                           Text(
                             item["title"]!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -77,7 +79,7 @@ class _NotificationsState extends State<Notifications> {
                       subtitle: item["subtitle"]!.isNotEmpty
                           ? Text(
                               item["subtitle"]!,
-                              style: TextStyle(fontSize: 14),
+                              style: const TextStyle(fontSize: 14),
                             )
                           : null,
                     ),

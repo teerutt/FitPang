@@ -4,10 +4,7 @@ import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
-import 'package:fitpang/common_widget/setting_edit_row.dart';
-import 'package:fitpang/common_widget/photo_button.dart';
 import 'package:fitpang/common_widget/round_button.dart';
-import 'package:fitpang/view/profile/profile_view.dart';
 
 class ProfileEditView extends StatefulWidget {
   final int userId;

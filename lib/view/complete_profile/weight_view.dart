@@ -3,7 +3,6 @@ import 'package:fitpang/view/complete_profile/bmi_view.dart';
 import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
-
 import 'package:fitpang/common_widget/round_button.dart';
 
 class WeightView extends StatefulWidget {
@@ -55,17 +54,17 @@ class _WeightViewState extends State<WeightView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -75,23 +74,23 @@ class _WeightViewState extends State<WeightView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => MainTabView(
                             userId: widget
-                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                                .userId),
                       ),
                     );
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -100,7 +99,7 @@ class _WeightViewState extends State<WeightView> {
               height: media.width * 0.05,
             ),
             Positioned(
-              left: media.width * 0.6, // 30% from the left
+              left: media.width * 0.6,
               top: media.height * 0.45,
               child: Text(
                 "kg",
@@ -144,8 +143,6 @@ class _WeightViewState extends State<WeightView> {
                   RoundButton(
                     title: "Next >",
                     onPressed: () {
-                      print(
-                          'userId: ${widget.userId}\n${widget.gender}\n${widget.age}\n${widget.height}\nSelected weight: $selectedWeight');
                       Navigator.push(
                         context,
                         MaterialPageRoute(

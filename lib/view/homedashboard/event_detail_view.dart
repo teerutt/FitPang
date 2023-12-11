@@ -35,7 +35,7 @@ class _EventdetailState extends State<Eventdetail> {
       body: SafeArea(
         child: Stack(children: [
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -46,17 +46,17 @@ class _EventdetailState extends State<Eventdetail> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey, // Background color of the circle
+                        color: Colors.grey,
                       ),
                       padding: const EdgeInsets.all(0.25),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        color: Colors.white, // Icon color
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -81,7 +81,7 @@ class _EventdetailState extends State<Eventdetail> {
                       ),
                       child: Text(
                         event['name'] as String,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
@@ -100,7 +100,7 @@ class _EventdetailState extends State<Eventdetail> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     ((event['pic2']) as Uint8List).isNotEmpty
                                     ? ClipRect(
                                         child: Align(
@@ -111,23 +111,23 @@ class _EventdetailState extends State<Eventdetail> {
                                             child: Image.memory(
                                               (event['pic2']) as Uint8List,
                                               width:
-                                                  media.width * 0.8, // Set width as needed
+                                                  media.width * 0.8,
                                               height:
-                                                  null, // Set height as needed
+                                                  null,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
                                       )
-                                    : CircularProgressIndicator(),
-                    SizedBox(height: 10.0),                
+                                    : const CircularProgressIndicator(),
+                    const SizedBox(height: 10.0),                
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              '\n'+(event['description'] as String),
+                              '\n${event['description'] as String}',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,

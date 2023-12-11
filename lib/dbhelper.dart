@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names
+// ignore_for_file:non_constant_identifier_names
 
 import 'dart:io';
 
@@ -349,20 +349,20 @@ Future<Map<String, Object?>> getNut(int userId) async {
   return result.last;
 }
 
+Future<Map<String, Object?>> getEvent(int userId) async {
+  final db = await opendb();
+  final result = await db.query('event',
+      columns: ['name', 'description', 'pic2'],
+      where: 'event_id = ?',
+      whereArgs: [userId]);
+  return result.first;
+}
+
 Future<List<Map<String, Object?>>> queryEvent() async {
   final db = await opendb();
   final result = await db
       .query('event', columns: ['event_id', 'name', 'description', 'pic1']);
   return result;
-}
-
-Future<Map<String, Object?>> getEvent(int id) async {
-  final db = await opendb();
-  final result = await db.query('event',
-      columns: ['name', 'description', 'pic2'],
-      where: 'event_id = ?',
-      whereArgs: [id]);
-  return result.first;
 }
 
 Future<void> deletePlan(int id) async {

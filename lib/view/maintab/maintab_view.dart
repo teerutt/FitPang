@@ -2,7 +2,6 @@ import 'package:fitpang/common/color_extension.dart';
 import 'package:fitpang/common_widget/tab_button.dart';
 import 'package:fitpang/view/homedashboard/insight_view.dart';
 import 'package:fitpang/view/homedashboard/update_plan.dart';
-import 'package:fitpang/view/homedashboard/update_weight.dart';
 import 'package:fitpang/view/profile/profile_view.dart';
 import 'package:fitpang/view/homedashboard/notifications.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +30,32 @@ class _MainTabViewState extends State<MainTabView> {
 
   Future<void> initTab() async {
     final hasPlan = await checkPlan(widget.userId);
+    final isPlanUpdated = await checkWeek(widget.userId);
     setState(() {
-      currentTab = hasPlan
-          ? HomeHavePlan(userId: widget.userId)
-          : HomeNoPlan(userId: widget.userId);
+      if (hasPlan) {
+        isPlanUpdated
+            ? currentTab = HomeHavePlan(userId: widget.userId)
+            : currentTab = HomeUpdatePlan(userId: widget.userId);
+      } else {
+        currentTab = HomeNoPlan(userId: widget.userId);
+      }
     });
+  }
+
+  Future<bool> checkWeek(int userId) async {
+    final day = await getDay(userId);
+    final latestWeek = (await getWeek(userId))['week'] as int;
+    if ((day / 7).ceil() == latestWeek) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<bool> checkPlan(int userId) async {
     final db = await opendb();
-    final plan = await db.query('plan', where: 'user_id=?', whereArgs: [userId]);
+    final plan =
+        await db.query('plan', where: 'user_id=?', whereArgs: [userId]);
     return plan.isNotEmpty;
   }
 
@@ -66,7 +81,9 @@ class _MainTabViewState extends State<MainTabView> {
                   onTap: () async {
                     selectTab = 0;
                     await checkPlan(widget.userId)
-                        ? currentTab = HomeHavePlan(userId: widget.userId)
+                        ? await checkWeek(widget.userId)
+                            ? currentTab = HomeHavePlan(userId: widget.userId)
+                            : currentTab = HomeUpdatePlan(userId: widget.userId)
                         : currentTab = HomeNoPlan(userId: widget.userId);
                     if (mounted) {
                       setState(() {});
@@ -77,7 +94,7 @@ class _MainTabViewState extends State<MainTabView> {
                   selectedIcon: "assets/img/insight_tab_selected.png",
                   isActive: selectTab == 1,
                   onTap: () async {
-                    if (await checkPlan(widget.userId)) {
+                    if (await checkPlan(widget.userId) && await checkWeek(widget.userId)) {
                       selectTab = 1;
                       currentTab = Insight2(
                           title: "YourTitleHere", userId: widget.userId);

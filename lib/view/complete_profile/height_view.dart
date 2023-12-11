@@ -33,7 +33,7 @@ class _HeightViewState extends State<HeightView> {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: Center(
                 child: HeightScrollwhell(
                 onHeightSelected: (height){
@@ -44,8 +44,8 @@ class _HeightViewState extends State<HeightView> {
               ),
             ),
             Positioned(
-              left: media.width * 0.6, // 30% from the left
-              top: media.height * 0.45, // 50% from the top
+              left: media.width * 0.6,
+              top: media.height * 0.45,
               child: Text(
                 "cm",
                 style: TextStyle(
@@ -60,17 +60,17 @@ class _HeightViewState extends State<HeightView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -80,13 +80,13 @@ class _HeightViewState extends State<HeightView> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -137,7 +137,6 @@ class _HeightViewState extends State<HeightView> {
                   RoundButton(
                       title: "Next >",
                       onPressed: () {
-                        print('Selected Height: $selectedHeight');
                         Navigator.push(
                           context,
                           MaterialPageRoute(

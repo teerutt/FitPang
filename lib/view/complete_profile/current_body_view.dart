@@ -58,17 +58,17 @@ class _CurrentBodyState extends State<CurrentBody> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey, // Background color of the circle
+                  color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.white, // Icon color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -78,13 +78,13 @@ class _CurrentBodyState extends State<CurrentBody> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey,
                 ),
                 padding: const EdgeInsets.all(0.25),
                 child: IconButton(
-                  icon: Icon(Icons.home_outlined),
+                  icon: const Icon(Icons.home_outlined),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -116,7 +116,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                   SizedBox(
                     height: media.width * 0.15,
                   ),
-                  // !!! Carousel Slider !!!
                   Center(
                     child: CarouselSlider(
                       carouselController: buttonCarouselController,
@@ -128,8 +127,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                         aspectRatio: 0.74,
                         initialPage: 0,
                         onPageChanged: (index, reason) {
-                          // selectedCurrbody = index;
-                          // setState((){});
                           setState(() {
                             _current = index;
                           });
@@ -154,8 +151,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                               child: FittedBox(
                                 child: Image.asset(
                                   bObj["image"].toString(),
-                                  // width: media.width * 0.5,
-                                  // height: media.width * 0.5,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -168,7 +163,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                   SizedBox(
                     height: media.width * 0.03,
                   ),
-                  // Carousel Indicators
                   Positioned(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -180,7 +174,7 @@ class _CurrentBodyState extends State<CurrentBody> {
                             width: 24.0,
                             height: 12.0,
                             margin:
-                                EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (Theme.of(context).brightness == Brightness.dark
@@ -197,8 +191,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                   SizedBox(
                     height: media.width * 0.1,
                   ),
-
-                  // !!! Estimated Body Fat (grey box) !!!
                   Container(
                     padding: const EdgeInsets.all(10.0),
                     width: 330,
@@ -263,7 +255,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                 ],
               ),
             ),
-            // !!! Confirm Button !!!
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -272,7 +263,6 @@ class _CurrentBodyState extends State<CurrentBody> {
                   child: RoundButton(
                     title: "Next >",
                     onPressed: () {
-                      print("${widget.userId} ${widget.gender} ${widget.age} ${widget.weight} ${widget.height} $_current");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
