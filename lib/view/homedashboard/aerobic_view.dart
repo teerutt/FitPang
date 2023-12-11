@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
-class Jogginginfo extends StatefulWidget {
-  const Jogginginfo({super.key});
+class Aerobicinfo extends StatefulWidget {
+  const Aerobicinfo({super.key});
 
   @override
-  State<Jogginginfo> createState() => _JogginginfoState();
+  State<Aerobicinfo> createState() => _AerobicinfoState();
 }
 
-class _JogginginfoState extends State<Jogginginfo> {
+class _AerobicinfoState extends State<Aerobicinfo> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -62,7 +62,7 @@ class _JogginginfoState extends State<Jogginginfo> {
                         ),
                       ),
                       child: Text(
-                        "Jogging",
+                        "Aerobic",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
@@ -93,7 +93,7 @@ class _JogginginfoState extends State<Jogginginfo> {
                         children: [
                           Expanded(
                             child: Text(
-                              "การเดิน",
+                              "การเต้นแอโรบิค (Aerobic)\nการเต้นแอโรบิคมีการเคลื่อนไหวที่หลากหลาย รวมทั้งการงอ-เหยียด, การหมุนตัว, และการกระตุ้นต่าง ๆ ซึ่งต้องการความยืดหยุ่นและความคล่องตัว",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

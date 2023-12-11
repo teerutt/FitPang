@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
-class Jogginginfo extends StatefulWidget {
-  const Jogginginfo({super.key});
+class Swimminginfo extends StatefulWidget {
+  const Swimminginfo({super.key});
 
   @override
-  State<Jogginginfo> createState() => _JogginginfoState();
+  State<Swimminginfo> createState() => _SwimminginfoState();
 }
 
-class _JogginginfoState extends State<Jogginginfo> {
+class _SwimminginfoState extends State<Swimminginfo> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -62,7 +62,7 @@ class _JogginginfoState extends State<Jogginginfo> {
                         ),
                       ),
                       child: Text(
-                        "Jogging",
+                        "Swimming",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),

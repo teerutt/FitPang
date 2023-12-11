@@ -1,3 +1,4 @@
+import 'package:fitpang/view/homedashboard/aerobic_view.dart';
 import 'package:fitpang/view/homedashboard/jogging_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
@@ -668,7 +669,7 @@ class _DayTodoState extends State<DayTodo> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Jogginginfo()),
+                              builder: (context) => const Aerobicinfo()),
                         );
                       },
                       child: Container(
