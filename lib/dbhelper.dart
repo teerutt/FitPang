@@ -79,8 +79,6 @@ class Plan {
   int height;
   String sex;
   int age;
-  int body_now;
-  int body_goal;
   int plan_period;
   DateTime date_created;
 
@@ -91,8 +89,6 @@ class Plan {
     required this.height,
     required this.sex,
     required this.age,
-    required this.body_now,
-    required this.body_goal,
     required this.plan_period,
     required this.date_created,
   });
@@ -105,8 +101,6 @@ class Plan {
       'height': height,
       'sex': sex,
       'age': age,
-      'body_now': body_now,
-      'body_goal': body_goal,
       'plan_period': plan_period,
       'date_created': date_created.toIso8601String(),
     };
@@ -215,7 +209,8 @@ Future<void> insertUser(User user) async {
 
 Future<String> getFirstName(int userId) async {
   final db = await opendb();
-  final result = await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
+  final result =
+      await db.query('user_account', where: 'user_id = ?', whereArgs: [userId]);
   //await db.close();
 
   return result.first['f_name']
@@ -241,89 +236,147 @@ Future<Map<String, dynamic>> getUser(int userId) async {
   return result.first; // Replace '' with a default value if f_name is nullable
 }
 
-Future<double> calculateBMI(int userId) async{
+Future<double> calculateBMI(int userId) async {
   final db = await opendb();
-  final plan = await db.query('plan', columns: ['plan_id','height'], where: 'user_id = ?', whereArgs: [userId]);
+  final plan = await db.query('plan',
+      columns: ['plan_id', 'height'],
+      where: 'user_id = ?',
+      whereArgs: [userId]);
   final int planId = plan.last['plan_id'] as int;
   final int height = plan.last['height'] as int;
-  final int weight = (await db.query('week', columns: ['weight'], where: 'plan_id = ?', whereArgs: [planId])).last['weight'] as int;
+  final int weight = (await db.query('week',
+          columns: ['weight'], where: 'plan_id = ?', whereArgs: [planId]))
+      .last['weight'] as int;
 
-  double bmi = (weight / ((height/100)*(height/100)));
+  double bmi = (weight / ((height / 100) * (height / 100)));
   bmi = double.parse(bmi.toStringAsFixed(2));
   return bmi;
 }
 
-Future<DateTime> getPlanDate(int userId) async{
+Future<DateTime> getPlanDate(int userId) async {
   final db = await opendb();
-  final planDate = (await db.query('plan', columns: ['date_created'], where: 'user_id = ?', whereArgs: [userId])).first['date_created'] as String;
+  final planDate = (await db.query('plan',
+          columns: ['date_created'], where: 'user_id = ?', whereArgs: [userId]))
+      .first['date_created'] as String;
   return DateTime.parse(planDate);
 }
 
-Future<Map<String, Object?>> getPlan(int userId) async{
+Future<Map<String, Object?>> getPlan(int userId) async {
   final db = await opendb();
-  final plan = await db.query('plan', where: 'user_id = ?', whereArgs: [userId]);
+  final plan =
+      await db.query('plan', where: 'user_id = ?', whereArgs: [userId]);
   return plan.last;
 }
 
-Future<int> getDay(int userId) async{
+Future<int> getDay(int userId) async {
   final planDate = await getPlanDate(userId);
-  return DateTime.now().difference(planDate).inDays+1;
+  return DateTime.now().difference(planDate).inDays + 1;
 }
 
-Future<String> getProgram(int userId,int programNo) async{
+Future<String> getProgram(int userId, int programNo) async {
   final db = await opendb();
   int planId = (await getPlan(userId))['plan_id'] as int;
   int day = await getDay(userId);
-  final pattern = (await db.query('week', columns: ['pattern_id'], where: 'plan_id = ?', whereArgs: [planId])).last['pattern_id'] as String;
-  final program = await db.query('pattern_detail', columns: ['program$programNo'], where: 'pattern_id = ? AND day = ?', whereArgs: [pattern, (day%7)==0 ? 7 : day%7]);
-  if(program.first['program$programNo'] != null){
+  final pattern = (await db.query('week',
+          columns: ['pattern_id'], where: 'plan_id = ?', whereArgs: [planId]))
+      .last['pattern_id'] as String;
+  final program = await db.query('pattern_detail',
+      columns: ['program$programNo'],
+      where: 'pattern_id = ? AND day = ?',
+      whereArgs: [pattern, (day % 7) == 0 ? 7 : day % 7]);
+  if (program.first['program$programNo'] != null) {
     return program.first['program$programNo'] as String;
-  }else{
+  } else {
     return '';
   }
-  
 }
 
-Future<Uint8List> getImage(String ex_code) async{
+Future<Uint8List> getImage(String ex_code) async {
   final db = await opendb();
-  final result = (await db.query('exercise', columns: ['picture'], where: 'ex_code = ?', whereArgs: [ex_code]));
+  final result = (await db.query('exercise',
+      columns: ['picture'], where: 'ex_code = ?', whereArgs: [ex_code]));
   return result.first['picture'] as Uint8List;
 }
 
-Future<Uint8List> getPVImage(String ex_code) async{
+Future<Uint8List> getPVImage(String ex_code) async {
   final db = await opendb();
-  final result = (await db.query('exercise', columns: ['pv'], where: 'ex_code = ?', whereArgs: [ex_code]));
+  final result = (await db.query('exercise',
+      columns: ['pv'], where: 'ex_code = ?', whereArgs: [ex_code]));
   return result.first['pv'] as Uint8List;
 }
 
-Future<List<Map<String, Object?>>> getExbymuscle(String muscle) async{
+Future<List<Map<String, Object?>>> getExbymuscle(
+    String muscle, String? pattern) async {
   final db = await opendb();
-  final List<Map<String, Object?>> result = await db.query('exercise', where: 'ex_code LIKE ?', whereArgs: ['$muscle%']);
+  List<Map<String, Object?>> result;
+  if (pattern != null && '145'.contains(pattern[2])) {
+    result = await db.query('exercise',
+        where: 'ex_code LIKE ? AND type = ?',
+        whereArgs: ['$muscle%', 'bodyweight']);
+  } else {
+    result = await db
+        .query('exercise', where: 'ex_code LIKE ?', whereArgs: ['$muscle%']);
+  }
   return result;
 }
 
-Future<Map<String, Object?>> getExbycode(String code) async{
+Future<Map<String, Object?>> getExbycode(String code, String? pattern) async {
   final db = await opendb();
-  final List<Map<String, Object?>> result = await db.query('exercise', where: 'ex_code = ?', whereArgs: [code]);
+  List<Map<String, Object?>> result;
+  if (pattern != null && '145'.contains(pattern[2])) {
+    result = await db.query('exercise',
+        where: 'ex_code = ? AND type = ?', whereArgs: [code, 'bodyweight']);
+  } else {
+    result =
+        await db.query('exercise', where: 'ex_code = ?', whereArgs: [code]);
+  }
   return result.first;
 }
 
-Future<Map<String, Object?>> getWeek(int userId) async{
+Future<Map<String, Object?>> getWeek(int userId) async {
   final db = await opendb();
   final planId = (await getPlan(userId))['plan_id'] as int;
-  final result = await db.query('week', where: 'plan_id = ?', whereArgs: [planId]);
+  final result =
+      await db.query('week', where: 'plan_id = ?', whereArgs: [planId]);
   return result.last;
 }
 
-Future<Map<String, Object?>> getNut(int userId) async{
+Future<Map<String, Object?>> getNut(int userId) async {
   final db = await opendb();
   final week = (await getWeek(userId))['week'];
-  final result = await db.query('nutrition', where: 'week_id = ?', whereArgs: [week]);
+  final result =
+      await db.query('nutrition', where: 'week_id = ?', whereArgs: [week]);
   return result.last;
 }
 
-Future<List<Map<String, Object?>>> queryEvent() async{
+Future<List<Map<String, Object?>>> queryEvent() async {
   final db = await opendb();
-  final List<Map<String, Object?>> result = await db.query('event');
+  final result = await db
+      .query('event', columns: ['event_id', 'name', 'description', 'pic1']);
   return result;
+}
+
+Future<Map<String, Object?>> getEvent(int id) async {
+  final db = await opendb();
+  final result = await db.query('event',
+      columns: ['name', 'description', 'pic2'],
+      where: 'event_id = ?',
+      whereArgs: [id]);
+  return result.first;
+}
+
+Future<void> deletePlan(int id) async {
+  final db = await opendb();
+  final planId = (await getPlan(id))['plan_id'];
+  final weekId = (await getWeek(id))['week_id'];
+  await db.delete('plan', where: 'plan_id = ?', whereArgs: [planId]);
+  await db.delete('week', where: 'plan_id = ?', whereArgs: [planId]);
+  await db.delete('nutrition', where: 'week_id = ?', whereArgs: [weekId]);
+}
+
+Future<void> updateProfile(int id, String f_name, String l_name) async {
+  final db = await opendb();
+  await db.rawUpdate(
+      'UPDATE user_account SET f_name = ?, l_name = ? WHERE user_id = ?',
+      [f_name, l_name, '$id']);
 }

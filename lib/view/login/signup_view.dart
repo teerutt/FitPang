@@ -32,7 +32,7 @@ class _SignUpViewState extends State<SignUpView> {
       context: context,
       initialDate: DateTime(2008),
       firstDate: DateTime(1908),
-      lastDate: DateTime(2008),
+      lastDate: DateTime(2008,12,31),
     );
 
     if (_picked != null) {
@@ -48,6 +48,7 @@ class _SignUpViewState extends State<SignUpView> {
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    _dateController.dispose();
     super.dispose();
   }
 
@@ -291,82 +292,6 @@ class _SignUpViewState extends State<SignUpView> {
                                 builder: (context) => const LoginView()));
                       }
                     }),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        color: TColor.gray.withOpacity(0.5),
-                      ),
-                    ),
-                    Text(
-                      "  or  ",
-                      style: TextStyle(color: TColor.black, fontSize: 12),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 1,
-                        color: TColor.gray.withOpacity(0.5),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/google.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: media.width * 0.04,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: TColor.white,
-                          border: Border.all(
-                            width: 1,
-                            color: TColor.gray.withOpacity(0.4),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.asset(
-                          "assets/img/facebook.png",
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),

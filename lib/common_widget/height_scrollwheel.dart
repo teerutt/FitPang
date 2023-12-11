@@ -16,7 +16,7 @@ class _HeightScrollwhellState extends State<HeightScrollwhell> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 119);
+    _controller = FixedExtentScrollController(initialItem: 99);
     _controller.addListener(_handleScrollChange);
   }
 

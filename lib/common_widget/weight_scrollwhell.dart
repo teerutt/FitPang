@@ -16,7 +16,7 @@ class _WeightScrollWhellState extends State<WeightScrollWhell> {
   void initState() {
     super.initState();
 
-    _controller = FixedExtentScrollController(initialItem: 59);
+    _controller = FixedExtentScrollController(initialItem: 19);
     _controller.addListener(_handleScrollChange);
   }
 

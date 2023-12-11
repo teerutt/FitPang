@@ -215,7 +215,7 @@ class _UpdatePlanState extends State<UpdatePlan> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        EventsView()), // Replace YourTargetPage with the actual page you want to navigate to
+                                        EventsView(events: [],)), // Replace YourTargetPage with the actual page you want to navigate to
                               );
                             },
                             child: Text(

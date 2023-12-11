@@ -1,5 +1,6 @@
 import 'package:fitpang/common_widget/height_scrollwheel.dart';
 import 'package:fitpang/view/complete_profile/weight_view.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitpang/common/color_extension.dart';
 
@@ -70,6 +71,32 @@ class _HeightViewState extends State<HeightView> {
                     Navigator.of(context).pop();
                   },
                   color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId),
+                      ),
+                    );
+                  },
+                  color: Colors.white, 
                 ),
               ),
             ),

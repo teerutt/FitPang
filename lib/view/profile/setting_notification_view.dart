@@ -49,7 +49,7 @@ class _SettingNotificationViewState extends State<SettingNotificationView> {
 
   MaterialPageRoute<dynamic> generatePageRoute(String tag) {
     if (tag == "1") {
-      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,));
+      return MaterialPageRoute(builder: (context) => ProfileEditView(userId: widget.userId,f_name: '',l_name: '',));
     } 
     else if (tag == "2") {
       return MaterialPageRoute(builder: (context) => const BlankView());

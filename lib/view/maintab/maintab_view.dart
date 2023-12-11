@@ -12,7 +12,7 @@ import 'package:fitpang/dbhelper.dart';
 
 class MainTabView extends StatefulWidget {
   final int userId;
-  const MainTabView({Key? key,required this.userId}) : super(key: key);
+  const MainTabView({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<MainTabView> createState() => _MainTabViewState();
@@ -30,21 +30,22 @@ class _MainTabViewState extends State<MainTabView> {
   }
 
   Future<void> initTab() async {
-  final hasPlan = await checkPlan(widget.userId);
-  setState(() {
-    currentTab = hasPlan ? HomeHavePlan(userId: widget.userId) : HomeNoPlan(userId: widget.userId);
-  });
+    final hasPlan = await checkPlan(widget.userId);
+    setState(() {
+      currentTab = hasPlan
+          ? HomeHavePlan(userId: widget.userId)
+          : HomeNoPlan(userId: widget.userId);
+    });
   }
 
-  Future <bool> checkPlan (int userId) async {
+  Future<bool> checkPlan(int userId) async {
     final db = await opendb();
-    final plan = await db.query('plan', where: 'user_id=?',whereArgs: [userId]);
+    final plan = await db.query('plan', where: 'user_id=?', whereArgs: [userId]);
     return plan.isNotEmpty;
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: TColor.white,
       body: PageStorage(bucket: pageBucket, child: currentTab),
@@ -64,7 +65,9 @@ class _MainTabViewState extends State<MainTabView> {
                   isActive: selectTab == 0,
                   onTap: () async {
                     selectTab = 0;
-                    await checkPlan(widget.userId) ? currentTab = HomeHavePlan(userId: widget.userId) : currentTab = HomeNoPlan(userId: widget.userId) ;
+                    await checkPlan(widget.userId)
+                        ? currentTab = HomeHavePlan(userId: widget.userId)
+                        : currentTab = HomeNoPlan(userId: widget.userId);
                     if (mounted) {
                       setState(() {});
                     }
@@ -73,11 +76,14 @@ class _MainTabViewState extends State<MainTabView> {
                   icon: "assets/img/insight_tab.png",
                   selectedIcon: "assets/img/insight_tab_selected.png",
                   isActive: selectTab == 1,
-                  onTap: () {
-                    selectTab = 1;
-                    currentTab = Insight2(title: "YourTitleHere",userId: widget.userId,);
-                    if (mounted) {
-                      setState(() {});
+                  onTap: () async {
+                    if (await checkPlan(widget.userId)) {
+                      selectTab = 1;
+                      currentTab = Insight2(
+                          title: "YourTitleHere", userId: widget.userId);
+                      if (mounted) {
+                        setState(() {});
+                      }
                     }
                   }),
               TabButton(

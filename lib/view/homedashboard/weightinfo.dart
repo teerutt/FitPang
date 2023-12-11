@@ -5,8 +5,9 @@ import 'package:fitpang/common/color_extension.dart';
 import 'dart:typed_data';
 
 class Weightinfo extends StatefulWidget {
+  final String pattern;
   final String muscle;
-  const Weightinfo({super.key, required this.muscle});
+  const Weightinfo({super.key, required this.muscle, required this.pattern});
 
   @override
   State<Weightinfo> createState() => _WeightinfoState();
@@ -22,7 +23,7 @@ class _WeightinfoState extends State<Weightinfo> {
   }
 
   Future<void> loadEx() async {
-    final ex = await getExbymuscle(widget.muscle);
+    final ex = await getExbymuscle(widget.muscle,widget.pattern);
     setState(() {
       exercises = ex;
     });
@@ -59,7 +60,7 @@ class _WeightinfoState extends State<Weightinfo> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Weightdetail(code: exercises[i]['ex_code']as String,),
+                builder: (context) => Weightdetail(code: exercises[i]['ex_code'] as String, pattern: widget.pattern,),
               ),
             );
           },

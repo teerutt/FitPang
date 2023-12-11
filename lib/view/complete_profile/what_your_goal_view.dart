@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitpang/view/complete_profile/current_body.dart';
 import 'package:fitpang/view/login/welcome_view.dart';
+import 'package:fitpang/view/maintab/maintab_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitpang/common/color_extension.dart';
@@ -12,7 +13,13 @@ class WhatYourGoalView extends StatefulWidget {
   final int age;
   final int height;
   final int weight;
-  const WhatYourGoalView({super.key, required this.userId, required this.gender, required this.age, required this.height, required this.weight});
+  const WhatYourGoalView(
+      {super.key,
+      required this.userId,
+      required this.gender,
+      required this.age,
+      required this.height,
+      required this.weight});
 
   @override
   State<WhatYourGoalView> createState() => _WhatYourGoalViewState();
@@ -112,7 +119,7 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   initialPage: 0,
                   onPageChanged: (index, reason) {
                     selectedgoal = index;
-                    setState((){});
+                    setState(() {});
                   },
                 ),
               ),
@@ -131,6 +138,32 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
+                  },
+                  color: Colors.white, // Icon color
+                ),
+              ),
+            ),
+            Positioned(
+              right: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey, // Background color of the circle
+                ),
+                padding: const EdgeInsets.all(0.25),
+                child: IconButton(
+                  icon: Icon(Icons.home_outlined),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => MainTabView(
+                            userId: widget
+                                .userId), // Replace 'YourHomePage()' with the actual class for your main home page
+                      ),
+                    );
                   },
                   color: Colors.white, // Icon color
                 ),
@@ -161,17 +194,24 @@ class _WhatYourGoalViewState extends State<WhatYourGoalView> {
                     height: media.width * 0.05,
                   ),
                   RoundButton(
-                      title: "Confirm",
+                      title: "Next >",
                       onPressed: () {
                         print(selectedgoal);
                         String program = '';
-                        selectedgoal == 0 ? program = 'Build Muscle': program = 'Lose Fat';
+                        selectedgoal == 0
+                            ? program = 'Build Muscle'
+                            : program = 'Lose Fat';
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CurrentBody(userId: widget.userId, gender: widget.gender, age: widget.age, height: widget.height, weight: widget.weight, goal: program,)
-                                )
-                              );
+                                builder: (context) => CurrentBody(
+                                      userId: widget.userId,
+                                      gender: widget.gender,
+                                      age: widget.age,
+                                      height: widget.height,
+                                      weight: widget.weight,
+                                      goal: program,
+                                    )));
                       }),
                 ],
               ),

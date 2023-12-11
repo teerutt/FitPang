@@ -4,8 +4,9 @@ import 'package:fitpang/common/color_extension.dart';
 import 'dart:typed_data';
 
 class Weightdetail extends StatefulWidget {
+  final String pattern;
   final String code;
-  const Weightdetail({super.key, required this.code});
+  const Weightdetail({super.key, required this.code, required this.pattern});
 
   @override
   State<Weightdetail> createState() => _WeightdetailState();
@@ -21,7 +22,7 @@ class _WeightdetailState extends State<Weightdetail> {
   }
 
   Future<void> loadEx() async {
-    final ex = await getExbycode(widget.code);
+    final ex = await getExbycode(widget.code, null);
     setState(() {
       exercise = ex;
     });
